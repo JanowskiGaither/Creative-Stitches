@@ -1,0 +1,21 @@
+services:
+  frontend:
+    image: taxapp-frontend
+    build:
+      context: ./frontend
+    ports:
+      - "8000:80"
+
+  backend:
+    image: taxapp-backend
+    build: 
+      context: ./backend
+
+  mongo:
+    image: mongo
+    volumes:
+      - orderdata:/data/db
+    restart: always
+
+volumes:
+  orderdata:
