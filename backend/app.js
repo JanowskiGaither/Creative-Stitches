@@ -19,7 +19,7 @@ mongoose.connect('mongodb://mongo:27017/test', { useNewUrlParser: true, useUnifi
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.post('/order', function (req, res) {
+app.post('/orderSubmit', function (req, res) {
   var order = new Order(req.body);
   order.save()
     .then(order => {
