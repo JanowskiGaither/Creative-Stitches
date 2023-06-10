@@ -4,6 +4,9 @@ const designSchema = new mongoose.Schema({
     designID: {
         type: String,
     },
+    orderID: {
+        type: String,
+    },
     garmentID: {
         type: String,
     },

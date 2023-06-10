@@ -26,55 +26,74 @@ app.post('/orderSubmit', function (req, res) {
   var design = new Design(req.body);
   var customer = new Customer(req.body);
 
+  
+
   //Search if this order exists in the database
-  var result = Order.find({orderID: order.orderID});
+  Order.findOne({orderID: order.orderID }, function(err, result){
+    if (!result){
+      console.log("++++++++++++++++++++++++++++++++++++++++++No Match")
 
-  if (!result.length){
-    console.log("++++++++++++++++++++++++++++++++++++++++++No Match")
-  }
-  else
-  {
-    console.log("------------------------------------------Match!")
-  }
+      //Save new Order
+      order.save()  
+      .then(order => {
+        console.log(order)
+      })
+      .catch(e => {
+          console.log(e)
+      })
 
-  //Check results
-  //if (!result.length){
-    //Save as a new order
-    order.save()
-    .then(order => {
-      console.log(order)
-    })
-    .catch(e => {
-        console.log(e)
-    })
+      //Save new Design
+      design.save()
+      .then(order => {
+        console.log(design)
+      })
+      .catch(e => {
+          console.log(e)
+      })
 
-    design.save()
-    .then(order => {
-      console.log(design)
-    })
-    .catch(e => {
-        console.log(e)
-    })
+      //Not checking for existing Customer yet so just create duplicates
+      customer.save()
+      .then(order => {
+        console.log(customer)
+      })
+      .catch(e => {
+          console.log(e)
+      })
+    }
+    else
+    {
+      console.log("------------------------------------------Match!")
+/*
+      //Update Order
+      order.update({ "_id":result._id }, order)
+      .then(order => {
+        console.log(order)
+      })
+      .catch(e => {
+          console.log(e)
+      })
 
-    customer.save()
-    .then(order => {
-      console.log(customer)
-    })
-    .catch(e => {
-        console.log(e)
-    })
+      //Update Design
+      order.update({ "_id":result._id }, order)
+      .then(order => {
+        console.log(order)
+      })
+      .catch(e => {
+          console.log(e)
+      })
 
-  res.redirect('/');
-  //}
-  //else {
-  //  mongoose.db.orders.update({ "_id":result._id }, order)
-  //    .then(order => {
-  //      console.log(order)
-  //    })
-  //    .catch(e => {
-  //        console.log(e)
-  //    })
-  //}
+      //Update Customer
+      order.update({ "_id":result._id }, order)
+      .then(order => {
+        console.log(order)
+      })
+      .catch(e => {
+          console.log(e)
+      })
+      */
+    }
+  });
+
 });
 
 app.post('/designSubmit', function (req, res) {
