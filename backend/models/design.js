@@ -3,32 +3,23 @@ const mongoose = require('mongoose');
 const designSchema = new mongoose.Schema({ 
     designID: {
         type: String,
-        required: true
     },
-    orderID: {
-        type: String,
-        required: true
-    },
-    itemDescription: {
-        type: String,
-        required: true
-    },
-    itemType: {
-        type: String,
-        required: true
-    },
-    garmentDetails: [{garmentID: String,size: String, gender: String, amount: String, costPerItem: String}],
-    styleNumber: {
+    garmentID: {
         type: String,
     },
-    customizationType: {
-        type: String,
-        required: true
-    },
-    designImages: {
+    size: {
         type: String,
     },
-    designNotes: {
+    gender: {
+        type: String,
+    },
+    amount: {
+        type: String,
+    },
+    costPerItem: {
+        type: String,
+    },
+    totalCost: {
         type: String,
     },
   });

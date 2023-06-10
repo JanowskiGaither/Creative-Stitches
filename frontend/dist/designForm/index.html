@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Creative Stitches</title>
+    
+    <script type="module" crossorigin src="/assets/bootstrap.esm-40bbabb8.js"></script>
+    <link rel="stylesheet" href="/assets/index-93a5c79b.css">
+  </head>
+  <body>
+    <form action="/designSubmit" method="post">
+      <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
+        <h1 class="display-4">Design Form</h1>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+          <hr class="border border-primary border-3 opacity-75">
+          <label class="form-label" for="garmentDetailsID">Number of Designs</label>
+          <input class="form-control border border-dark" type="text" name="garmentDetailsID" id="garmentDetailsID" placeholder="example: 2">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+          <hr class="border border-primary border-3 opacity-75">
+          <label class="form-label" for="itemDescription">Item Description</label>
+          <input class="form-control border border-dark" type="text" name="itemDescription" id="itemDescription" placeholder="example: CHS Sports Team 2023">
+        </div>
+  
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+          <label class="form-label" for="itemType">Item Type</label>
+          <input class="form-control border border-dark" type="text" name="itemType" id="itemType" placeholder="example: Claxton High School">
+        </div>
+
+        <h4 class="display-4">Garment Details</h1>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11">
+          <div class="row">
+            <div class="col-md-6 col-12 mb-3">
+              <label class="form-label" for="garmentDetailsSize">Garment Size</label>
+              <input class="form-control border border-dark" type="text" name="garmentDetailsSize" id="garmentDetailsSize">
+            </div>
+            <div class="col-md-6 col-12 mb-3">
+              <label class="form-label" for="garmentDetailsGender">Garment Gender</label>
+              <input class="form-control border border-dark" type="text" name="garmentDetailsGender" id="garmentDetailsGender">
+            </div>
+            <div class="col-md-6 col-12 mb-3">
+              <label class="form-label" for="garmentDetailsAmount">Garment Amount</label>
+              <input class="form-control border border-dark" type="text" name="garmentDetailsAmount" id="garmentDetailsAmount">
+            </div>
+            <div class="col-md-6 col-12 mb-3">
+              <label class="form-label" for="garmentDetailsCostPerItem">Cost Per Item</label>
+              <input class="form-control border border-dark" type="text" name="garmentDetailsCostPerItem" id="garmentDetailsCostPerItem">
+            </div>
+          </div>
+      </div>
+        
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+          <label class="form-label" for="styleNumber">Style Number</label>
+          <input class="form-control border border-dark" type="text" name="styleNumber" id="styleNumber" placeholder="(987)654-3210">
+        </div>
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+          <label class="form-label" for="customizationType">Customization Type</label>
+          <input class="form-control border border-dark" type="text" name="customizationType" id="customizationType" placeholder="(987)654-3210">
+        </div>
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+          <label class="form-label" for="designImages">Design Images</label>
+          <input class="form-control border border-dark" type="text" name="designImages" id="designImages" placeholder="Upload Image">
+        </div>
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+          <label class="form-label" for="designNotes">Design Notes</label>
+          <input class="form-control border border-dark" type="text" name="designNotes" id="designNotes" placeholder="(987)654-3210">
+        </div>
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
+          <div class="d-flex flex-row-reverse">
+            <div class="col-md-3 col-6 ps-2">
+              <input class="form-control btn btn-primary" type="submit" value="Submit">
+            </div>
+            <div class="col-md-3 col-6 pe-2">
+              <button class="form-control btn btn-outline-secondary" type="reset">Reset</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </body>
+</html>

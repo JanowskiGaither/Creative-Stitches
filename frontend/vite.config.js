@@ -9,7 +9,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'src/index.html'),
         page2: resolve(__dirname, 'src/page2/index.html'),
-        orderForm: resolve(__dirname, 'src/orderForm/index.html')
+        orderForm: resolve(__dirname, 'src/orderForm/index.html'),
+        design: resolve(__dirname, 'src/designForm/index.html')
       },
     },
     outDir: '../dist'
