@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Creative Stitches</title>
     <script type="module" src="./js/design.js"></script>
-    <script type="text/javascript" src="./js/main.js"></script>
   </head>
   <body>
     <form action="/designSubmit" method="post">
@@ -20,14 +19,14 @@
 
         <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
           <label class="form-label" for="itemType">Type</label>
-          <select class="form-control border border-dark" name="itemType">
+          <select class="form-control border border-dark" id="selectItemType" name="itemType">
             <option value="Garment" selected>Garment</option>
             <option value="Other">Other</option>
           </select>
         </div>
     
-        <div id="hideDiv" class="form-group" >
-          <label class="" for="Name">Name</label>
+        <div id="hideDiv">
+          <label for="Name">Name</label>
           <input type="text"/>
         </div>
 
@@ -57,7 +56,7 @@
               <input class="form-control btn btn-primary" type="submit" value="Submit">
             </div>
             <div class="col-md-3 col-6 pe-2">
-              <button class="form-control btn btn-outline-secondary" type="reset">Reset</button>
+              <button class="form-control btn btn-outline-secondary" id="resetButton" type="reset">Reset</button>
             </div>
           </div>
         </div>

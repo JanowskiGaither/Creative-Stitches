@@ -5,14 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Creative Stitches</title>
     
-    <script language="javascript">
-      mounted() {
-      let externalScript = document.createElement('script');
-      externalScript.setAttribute('src', './js/main.js')
-      document.head.appendChild(externalScript)
-      }
-    </script>
-    <script type="module" crossorigin src="/assets/bootstrap.esm-40bbabb8.js"></script>
+    <script type="module" crossorigin src="/assets/design-78e954d1.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/bootstrap.esm-40bbabb8.js">
     <link rel="stylesheet" href="/assets/index-93a5c79b.css">
   </head>
   <body>
@@ -65,7 +59,7 @@
               <input class="form-control btn btn-primary" type="submit" value="Submit">
             </div>
             <div class="col-md-3 col-6 pe-2">
-              <button class="form-control btn btn-outline-secondary" type="reset">Reset</button>
+              <button class="form-control btn btn-outline-secondary" id="resetButton" type="reset">Reset</button>
             </div>
           </div>
         </div>
