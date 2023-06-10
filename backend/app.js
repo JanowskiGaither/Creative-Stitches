@@ -44,7 +44,7 @@ app.post('/orderSubmit', function (req, res) {
 
       //Save new Design
       design.save()
-      .then(order => {
+      .then(design => {
         console.log(design)
       })
       .catch(e => {
@@ -53,7 +53,7 @@ app.post('/orderSubmit', function (req, res) {
 
       //Not checking for existing Customer yet so just create duplicates
       customer.save()
-      .then(order => {
+      .then(customer => {
         console.log(customer)
       })
       .catch(e => {
@@ -63,27 +63,25 @@ app.post('/orderSubmit', function (req, res) {
     else
     {
       console.log("------------------------------------------Match!")
-/*
-      //Update Order
-      order.update({ "_id":result._id }, order)
-      .then(order => {
-        console.log(order)
-      })
-      .catch(e => {
-          console.log(e)
-      })
 
-      //Update Design
-      order.update({ "_id":result._id }, order)
-      .then(order => {
-        console.log(order)
-      })
-      .catch(e => {
-          console.log(e)
-      })
+      
+
+      let updateOrder = Order.findOneAndUpdate ({orderID: order.orderID }, order, );
+      let updateCustomer = Customer.findOneAndUpdate ({orderID: order.orderID }, customer, );
+
+/*
+
+    //Update Order
+          order.updateOne({ "_id":result._id }, order)
+          .then(order => {
+            console.log(order)
+          })
+          .catch(e => {
+              console.log(e)
+          })
 
       //Update Customer
-      order.update({ "_id":result._id }, order)
+      order.updateOne({ "_id":result._id }, order)
       .then(order => {
         console.log(order)
       })
@@ -91,8 +89,11 @@ app.post('/orderSubmit', function (req, res) {
           console.log(e)
       })
       */
+      
     }
   });
+
+  res.redirect('/');
 
 });
 
