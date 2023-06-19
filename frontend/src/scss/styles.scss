@@ -1,6 +1,15 @@
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
 
+.redbox {
+    background-color: red;
+}
+
+.bluebox {
+    background-color: blue;
+}
+
 .sidebar {
-    height: 100vh
+    max-width: 250px;
+    border-right: 5px solid blue;
 }
