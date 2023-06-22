@@ -8,14 +8,16 @@ services:
 
   backend:
     image: taxapp-backend
-    build: 
+    build:
       context: ./backend
 
   mongo:
     image: mongo
     volumes:
       - orderdata:/data/db
+      - configdb:/data/configdb
     restart: always
 
 volumes:
   orderdata:
+  configdb:

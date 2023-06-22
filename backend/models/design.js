@@ -1,31 +1,28 @@
 const mongoose = require('mongoose');
 
-const designSchema = new mongoose.Schema({ 
+const designSchema = new mongoose.Schema({
     designID: {
         type: String,
     },
     orderID: {
         type: String,
     },
-    garmentID: {
+    designType: {
         type: String,
     },
-    size: {
+    designDescription: {
         type: String,
     },
-    gender: {
+    designNotes: {
         type: String,
     },
-    amount: {
+    designImages: {
         type: String,
     },
-    costPerItem: {
+    designTotalCost: {
         type: String,
     },
-    totalCost: {
-        type: String,
-    },
-  });
+});
 
 const Design = mongoose.model('Design', designSchema);
 module.exports = Design;
