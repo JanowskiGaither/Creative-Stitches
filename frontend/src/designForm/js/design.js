@@ -7,6 +7,8 @@ import * as bootstrap from 'bootstrap'
 
 let message = "hello from design.js!";
 let resetbutton = document.getElementById("resetButton");
+let previousGarmentbutton = document.getElementById("previousGarment");
+let nextGarmentbutton = document.getElementById("nextGarment");
 let selectItemType = document.getElementById("item_type");
 
 function initialHide() {
@@ -27,7 +29,6 @@ function hideDiv() {
     }
 }
 
-
 function sayHello(message) {
     console.log(message);
 }
@@ -41,10 +42,14 @@ selectItemType.addEventListener("change", function () {
     hideDiv();
 });
 
-selectItemType.addEventListener("change", function () {
-    showGenre();
-});
-
 resetbutton.addEventListener('click', function () {
     sayHello(message);
+});
+
+previousGarmentbutton.addEventListener('click', function () {
+
+});
+
+nextGarmentbutton.addEventListener('click', function () {
+
 });

@@ -132,94 +132,87 @@
             <h5 class="card-title text-center">Garment 1</h5>
           </div>
           <div class="card-body">
-            <div class="row justify-content-between">
-              <div class="col-xl-1 col-lg-1 col-md-1 col-1">
-                <p class="vertical-text-left">PREVIOUS</p>
-              </div>
-              <div class="col-xl-10 col-lg-6 col-md-8 col-10 mb-1">
-                <!-- Select Gender for Garment -->
-                <div class="col-xl-12 col-lg-6 col-md-8 col-11 mb-1 ">
-                  <div class="row justify-content-between">
-                    <label class="form-label col-sm-8" for="garmentGender">Gender: </label>
-                    <div class="col-sm-2">
-                      <select class="form-inline border border-dark" id="garmentGender" name="garmentGender">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="Boy">Boy</option>
-                        <option value="Girl">Girl</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- Select Size for Garment -->
-                <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-                  <div class="row justify-content-between">
-                    <label class="form-label col-sm-7" for="size">Size: </label>
-                    <div class="col-sm-2">
-                      <select class="form-inline border border-dark" id="size" name="size">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="XXS">XS</option>
-                        <option value="XS">XS</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
-                        <option value="2XL">XL</option>
-                        <option value="3XL">XL</option>
-                        <option value="4XL">XL</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- Enter Garment Style Number  -->
-                <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-                  <div class="row justify-content-between">
-                    <label class="form-label col-sm-10" for="garmentStyleNumber">Style Number: </label>
-                    <div class="col-sm-2">
-                      <input class="form-inline border border-dark" type="text" name="garmentStyleNumber"
-                        id="garmentStyleNumber" placeholder="Example:PC78">
-                    </div>
-                  </div>
-                </div>
-                <!-- Enter Amount of Garments -->
-                <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-                  <div class="row justify-content-between">
-                    <label class="form-label col-sm-9" for="garmentAmount">Amount: </label>
-                    <div class="col-sm-3">
-                      <input class="form-inline border border-dark" type="number" name="garmentAmount"
-                        id="garmentAmount" placeholder="Example: 2">
-                    </div>
-                  </div>
-                </div>
-                <!-- Enter Cost Per Item -->
-                <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-                  <div class="row justify-content-between">
-                    <label class="form-label col-sm-9" for="garmentCostPerItem">Cost: </label>
-                    <div class="col-sm-3">
-                      <input class="form-inline border border-dark" type="number" name="garmentCostPerItem"
-                        id="garmentCostPerItem" placeholder="Example: 5.50">
-                    </div>
-                  </div>
-                </div>
-                <!-- Show Total Cost -->
-                <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-                  <div class="row justify-content-between">
-                    <label class="form-label col-sm-9" for="garmentTotalCost">Total Cost: </label>
-                    <div class="col-sm-3">
-                      <output class="form-inline border border-dark" name="garmentTotalCost" for="garmentTotalCost"
-                        id="garmentTotalCost">Test</output>
-                    </div>
-                  </div>
+            <!-- Select Gender for Garment -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11 mb-1 ">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-10" for="garmentGender">Gender: </label>
+                <div class="col-sm-1">
+                  <select class="form-inline border border-dark" id="garmentGender" name="garmentGender">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="Boy">Boy</option>
+                    <option value="Girl">Girl</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
                 </div>
               </div>
-              <div class="col-xl-1 col-lg-1 col-md-1 col-1">
-                <p class="vertical-text-right">NEXT</p>
+            </div>
+            <!-- Select Size for Garment -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-7" for="size">Size: </label>
+                <div class="col-sm-1">
+                  <select class="form-inline border border-dark" id="size" name="size">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="XXS">XS</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="2XL">XL</option>
+                    <option value="3XL">XL</option>
+                    <option value="4XL">XL</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- Enter Garment Style Number  -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-9" for="garmentStyleNumber">Style Number: </label>
+                <div class="col-sm-3">
+                  <input class="form-inline border border-dark" type="text" name="garmentStyleNumber"
+                    id="garmentStyleNumber" placeholder="Example:PC78">
+                </div>
+              </div>
+            </div>
+            <!-- Enter Amount of Garments -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-9" for="garmentAmount">Amount: </label>
+                <div class="col-sm-3">
+                  <input class="form-inline border border-dark" type="number" name="garmentAmount" id="garmentAmount"
+                    placeholder="Example: 2">
+                </div>
+              </div>
+            </div>
+            <!-- Enter Cost Per Item -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-9" for="garmentCostPerItem">Cost: </label>
+                <div class="col-sm-3">
+                  <input class="form-inline border border-dark" type="number" name="garmentCostPerItem"
+                    id="garmentCostPerItem" placeholder="Example: 5.50" min="0.01" step="0.01">
+                </div>
+              </div>
+            </div>
+            <!-- Show Total Cost -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-7" for="garmentTotalCost">Total Cost: </label>
+                <div class="col-sm-3">
+                  <output class="form-inline border border-dark" name="garmentTotalCost" for="garmentTotalCost"
+                    id="garmentTotalCost">Test</output>
+                </div>
               </div>
             </div>
           </div>
           <div class="card-footer">
-            <h5 class="card-title text-center">Garment 1</h5>
+            <div class="row">
+              <button class="form-control btn btn-primary" id="previousGarment" type="button">Previous</button>
+              <button class="form-control btn btn-primary" id="nextGarment" type="button">Next</button>
+            </div>
           </div>
         </div>
       </div>
