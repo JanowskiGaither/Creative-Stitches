@@ -7,37 +7,44 @@ import * as bootstrap from 'bootstrap'
 
 let message = "hello from design.js!";
 let resetbutton = document.getElementById("resetButton");
-let selectItemType = document.getElementById("selectItemType");
+let selectItemType = document.getElementById("item_type");
 
-
-function initialHide(){
-    let hiddenItemType = document.getElementById("hideDiv");
-    hiddenItemType.style.display= "none";
+function initialHide() {
+    let hiddenItemType = document.getElementById("show_other");
+    hiddenItemType.style.display = "none";
 }
 
 function hideDiv() {
     var typeSelected = selectItemType.options[selectItemType.selectedIndex].text;
 
-    if(typeSelected == "Garment")
-    document.getElementById('hideDiv').style.display = "none";
-    else
-    document.getElementById('hideDiv').style.display = 'block';
+    if (typeSelected == "Garment") {
+        document.getElementById('show_garment').style.display = "block";
+        document.getElementById('show_other').style.display = "none";
+    }
+    else {
+        document.getElementById('show_garment').style.display = 'none';
+        document.getElementById('show_other').style.display = "block";
+    }
 }
 
 
-function sayHello(message){
+function sayHello(message) {
     console.log(message);
 }
 
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
     initialHide();
 });
 
-selectItemType.addEventListener("change", function(){
+selectItemType.addEventListener("change", function () {
     hideDiv();
 });
 
-resetbutton.addEventListener('click', function(){
+selectItemType.addEventListener("change", function () {
+    showGenre();
+});
+
+resetbutton.addEventListener('click', function () {
     sayHello(message);
 });

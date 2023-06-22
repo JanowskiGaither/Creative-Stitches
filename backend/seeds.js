@@ -20,7 +20,7 @@ const order = new Order({
     requestedDeliveryDate: '2023-03-08',
     scheduledDeliveryDate: '2023-03-14',
     taxExemption: 'CHS',
-    designIds: ['1','2'],
+    designIds: ['1', '2'],
     totalItems: '26',
     totalCost: '217.22',
     totalTaxes: '21.72',
@@ -42,8 +42,8 @@ const design1 = new Design({
     orderID: 'BobbyJohnson',
     itemDescription: 'sweatshirt',
     itemType: 'garment',
-    garmentDetails: [{garmentID: "BobbyJohnson1",size: "L", gender: "Male", amount: "3", costPerItem: "22.50"}, 
-        {garmentID: "BobbyJohnson2",size: "M", gender: "Male", amount: "4", costPerItem: "22.50"}],
+    garmentDetails: [{ garmentID: "BobbyJohnson1", size: "L", gender: "Male", amount: "3", costPerItem: "22.50" },
+    { garmentID: "BobbyJohnson2", size: "M", gender: "Male", amount: "4", costPerItem: "22.50" }],
     styleNumber: 'PC78',
     customizationType: 'N/A',
 });
@@ -79,7 +79,7 @@ design1.save()
     .catch(e => {
         console.log(e)
     })
-    
+
 design2.save()
     .then(design2 => {
         console.log(design2)

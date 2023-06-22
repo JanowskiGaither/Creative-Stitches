@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const orderSchema = new mongoose.Schema({ 
+const orderSchema = new mongoose.Schema({
     orderID: {
         type: String,
     },
@@ -23,20 +23,22 @@ const orderSchema = new mongoose.Schema({
         type: String,
         default: 'N/A'
     },
-    designIds: [String],
     totalItems: {
         type: String,
     },
-    totalCost: {
+    totalMaterialCost: {
         type: String,
     },
     totalTaxes: {
         type: String,
     },
+    totalProfit: {
+        type: String,
+    },
     totalSale: {
         type: String,
     },
-  });
+});
 
 const Order = mongoose.model('Order', orderSchema);
 module.exports = Order;

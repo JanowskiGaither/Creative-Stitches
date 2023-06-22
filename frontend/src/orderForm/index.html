@@ -1,80 +1,80 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Creative Stitches</title>
-    <script type="module" src="./js/order.js"></script>
-  </head>
-  <body>
-    <form action="/orderSubmit" method="post">
-      <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
-        <h1 class="display-4">Order Form</h1>
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <hr class="border border-primary border-3 opacity-75">
-          <label class="form-label" for="orderDescription">Order ID</label>
-          <input class="form-control border border-dark" type="text" name="orderID" id="orderID" placeholder="example: CHS Sports Team 2023">
-        </div>
-  
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11">
-            <div class="row">
-              <div class="col-md-6 col-12 mb-3">
-                <label class="form-label" for="firstName">First Name</label>
-                <input class="form-control border border-dark" type="text" name="firstName" id="firstName">
-              </div>
-              <div class="col-md-6 col-12 mb-3">
-                <label class="form-label" for="lastName">Last Name</label>
-                <input class="form-control border border-dark" type="text" name="lastName" id="lastName">
-              </div>
-            </div>
-        </div>
-  
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <label class="form-label" for="organization">Organization</label>
-          <input class="form-control border border-dark" type="text" name="organization" id="organization" placeholder="example: Claxton High School">
-        </div>
-  
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <label class="form-label" for="email">Email</label>
-          <input class="form-control border border-dark" type="email" name="email" id="email" placeholder="coach.sport@chs.com">
-        </div>
-  
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <label class="form-label" for="phone">Phone</label>
-          <input class="form-control border border-dark" type="tel" name="phone" id="phone" placeholder="(987)654-3210">
-        </div>
-  
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11">
-          <div class="row">
-            <div class="col-md-5 col-12 mb-3">
-              <label class="form-label" for="dueDate">Due Date</label>
-              <input class="form-control border border-dark" type="date" name="dueDate" id="dueDate">
-            </div>
-            <div class="col-md-7 col-12 mb-3">
-              <label class="form-label" for="taxExemption">Tax-Exemption</label>
-              <input class="form-control border border-dark" type="text" name="taxExemption" id="taxExemption">
-            </div>
-          </div>
-        </div>
 
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <hr class="border border-primary border-3 opacity-75">
-          <label class="form-label" for="garmentDetailsID">Number of Designs</label>
-          <input class="form-control border border-dark" type="text" name="garmentDetailsID" id="garmentDetailsID" placeholder="example: 2">
-        </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creative Stitches</title>
+  <script type="module" src="./js/order.js"></script>
+</head>
 
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
-          <div class="d-flex flex-row-reverse">
-            <div class="col-md-3 col-6 ps-2">
-              <input class="form-control btn btn-primary" type="submit" value="Submit">
-            </div>
-            <div class="col-md-3 col-6 pe-2">
-              <button class="form-control btn btn-outline-secondary" type="reset">Reset</button>
-            </div>
-          </div>
-        </div>
-
+<body>
+  <form action="/orderSubmit" method="post">
+    <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
+      <h1 class="display-4">Order Form</h1>
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <hr class="border border-primary border-3 opacity-75">
+        <label class="form-label" for="orderID">Order ID</label>
+        <input class="form-control border border-dark" type="text" name="orderID" id="orderID"
+          placeholder="example: CHS Sports Team 2023">
       </div>
-    </form>
-  </body>
+
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11">
+        <div class="row">
+          <div class="col-md-6 col-12 mb-3">
+            <label class="form-label" for="firstName">First Name</label>
+            <input class="form-control border border-dark" type="text" name="firstName" id="firstName">
+          </div>
+          <div class="col-md-6 col-12 mb-3">
+            <label class="form-label" for="lastName">Last Name</label>
+            <input class="form-control border border-dark" type="text" name="lastName" id="lastName">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <label class="form-label" for="organization">Organization</label>
+        <input class="form-control border border-dark" type="text" name="organization" id="organization"
+          placeholder="example: Claxton High School">
+      </div>
+
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control border border-dark" type="email" name="email" id="email"
+          placeholder="coach.sport@chs.com">
+      </div>
+
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <label class="form-label" for="phone">Phone</label>
+        <input class="form-control border border-dark" type="tel" name="phone" id="phone" placeholder="(987)654-3210">
+      </div>
+
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11">
+        <div class="row">
+          <div class="col-md-5 col-12 mb-3">
+            <label class="form-label" for="requestedDeliveryDate">Due Date</label>
+            <input class="form-control border border-dark" type="date" name="requestedDeliveryDate"
+              id="requestedDeliveryDate">
+          </div>
+          <div class="col-md-7 col-12 mb-3">
+            <label class="form-label" for="taxExemption">Tax-Exemption</label>
+            <input class="form-control border border-dark" type="text" name="taxExemption" id="taxExemption">
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
+        <div class="d-flex flex-row-reverse">
+          <div class="col-md-3 col-6 ps-2">
+            <input class="form-control btn btn-primary" type="submit" value="Submit">
+          </div>
+          <div class="col-md-3 col-6 pe-2">
+            <button class="form-control btn btn-outline-secondary" type="reset">Reset</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</body>
+
 </html>

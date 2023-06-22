@@ -1,46 +1,28 @@
 const mongoose = require('mongoose');
 
-const garmentSchema = new mongoose.Schema({ 
+const garment_schema = new mongoose.Schema({
     designID: {
         type: String,
     },
     garmentID: {
         type: String,
     },
-    itemDescription: {
+    garmentGender: {
         type: String,
     },
-    itemType: {
+    garmentStyleNumber: {
         type: String,
     },
-    garmentDetailsID: {
+    garmentAmount: {
         type: String,
     },
-    garmentDetailsSize: {
+    garmentCostPerItem: {
         type: String,
     },
-    garmentDetailsGender: {
+    garmentTotalCost: {
         type: String,
     },
-    garmentDetailsAmount: {
-        type: String,
-    },
-    garmentDetailsCostPerItem: {
-        type: String,
-    },
-    styleNumber: {
-        type: String,
-    },
-    customizationType: {
-        type: String,
-    },
-    designImages: {
-        type: String,
-    },
-    designNotes: {
-        type: String,
-    },
-  });
+});
 
-const Garment = mongoose.model('Garment', garmentSchema);
+const Garment = mongoose.model('Garment', garment_schema);
 module.exports = Garment;

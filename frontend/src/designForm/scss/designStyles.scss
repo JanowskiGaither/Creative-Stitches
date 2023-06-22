@@ -1,5 +1,13 @@
 @import "bootstrap/scss/bootstrap";
 
-.dropdown-menu li {
-    position: relative;
+.vertical-text-right {
+    transform: rotate(90deg);
+    transform-origin: left top 0;
+    float: left;
+}
+
+.vertical-text-left {
+    transform: rotate(270deg);
+    transform-origin: left top 0;
+    float: left;
 }
