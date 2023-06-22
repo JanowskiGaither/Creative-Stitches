@@ -1,76 +1,78 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Creative Stitches</title>
-    
-    <script language="javascript">
-      mounted() {
-      let externalScript = document.createElement('script');
-      externalScript.setAttribute('src', './js/main.js')
-      document.head.appendChild(externalScript)
-      }
-    </script>
-    <script type="module" crossorigin src="/assets/bootstrap.esm-40bbabb8.js"></script>
-    <link rel="stylesheet" href="/assets/index-93a5c79b.css">
-  </head>
-  <body>
-    <form action="/designSubmit" method="post">
-      <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
-        <h1 class="display-4">Design Form</h1>
-        
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <hr class="border border-primary border-3 opacity-75">
-          <label class="form-label" for="itemDescription">Description</label>
-          <input class="form-control border border-dark" type="text" name="itemDescription" id="itemDescription" placeholder="Optional: Varsity Shirts">
-        </div>
 
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <label class="form-label" for="itemType">Type</label>
-          <select class="form-control border border-dark" name="itemType">
-            <option value="Garment" selected>Garment</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-    
-        <div id="hideDiv" class="form-group" >
-          <label class="" for="Name">Name</label>
-          <input type="text"/>
-        </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creative Stitches</title>
+  
+  
+  <script type="module" crossorigin src="/assets/bootstrap.esm-40bbabb8.js"></script>
+  <link rel="stylesheet" href="/assets/index-93a5c79b.css">
+</head>
 
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <label class="form-label" for="styleNumber">Style Number</label>
-          <input class="form-control border border-dark" type="text" name="styleNumber" id="styleNumber" placeholder="(987)654-3210">
-        </div>
+<body>
+  <form action="/designSubmit" method="post">
+    <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
+      <h1 class="display-4">Design Form</h1>
 
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <label class="form-label" for="customizationType">Customization Type</label>
-          <input class="form-control border border-dark" type="text" name="customizationType" id="customizationType" placeholder="(987)654-3210">
-        </div>
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <hr class="border border-primary border-3 opacity-75">
+        <label class="form-label" for="itemDescription">Description</label>
+        <input class="form-control border border-dark" type="text" name="itemDescription" id="itemDescription"
+          placeholder="Optional: Varsity Shirts">
+      </div>
 
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <label class="form-label" for="designImages">Design Images</label>
-          <input class="form-control border border-dark" type="text" name="designImages" id="designImages" placeholder="Upload Image">
-        </div>
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <label class="form-label" for="itemType">Type</label>
+        <select class="form-control border border-dark" name="itemType">
+          <option value="Garment" selected>Garment</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
 
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-          <label class="form-label" for="designNotes">Design Notes</label>
-          <input class="form-control border border-dark" type="text" name="designNotes" id="designNotes" placeholder="(987)654-3210">
-        </div>
+      <div id="hideDiv" class="form-group">
+        <label class="" for="Name">Name</label>
+        <input type="text" />
+      </div>
 
-        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
-          <div class="d-flex flex-row-reverse">
-            <div class="col-md-3 col-6 ps-2">
-              <input class="form-control btn btn-primary" type="submit" value="Submit">
-            </div>
-            <div class="col-md-3 col-6 pe-2">
-              <button class="form-control btn btn-outline-secondary" type="reset">Reset</button>
-            </div>
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <label class="form-label" for="styleNumber">Style Number</label>
+        <input class="form-control border border-dark" type="text" name="styleNumber" id="styleNumber"
+          placeholder="(987)654-3210">
+      </div>
+
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <label class="form-label" for="customizationType">Customization Type</label>
+        <input class="form-control border border-dark" type="text" name="customizationType" id="customizationType"
+          placeholder="(987)654-3210">
+      </div>
+
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <label class="form-label" for="designImages">Design Images</label>
+        <input class="form-control border border-dark" type="text" name="designImages" id="designImages"
+          placeholder="Upload Image">
+      </div>
+
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <label class="form-label" for="designNotes">Design Notes</label>
+        <input class="form-control border border-dark" type="text" name="designNotes" id="designNotes"
+          placeholder="(987)654-3210">
+      </div>
+
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
+        <div class="d-flex flex-row-reverse">
+          <div class="col-md-3 col-6 ps-2">
+            <input class="form-control btn btn-primary" type="submit" value="Submit">
+          </div>
+          <div class="col-md-3 col-6 pe-2">
+            <button class="form-control btn btn-outline-secondary" type="reset">Reset</button>
           </div>
         </div>
-
       </div>
-    </form>
-  </body>
+
+    </div>
+  </form>
+</body>
+
 </html>
