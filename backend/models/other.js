@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const other_schema = new mongoose.Schema({
+const otherSchema = new mongoose.Schema({
     designID: {
         type: String,
     },
@@ -21,5 +21,5 @@ const other_schema = new mongoose.Schema({
     },
 });
 
-const Other = mongoose.model('Other', other_schema);
+const Other = mongoose.model('Other', otherSchema);
 module.exports = Other;

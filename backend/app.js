@@ -5,6 +5,9 @@ const Customer = require('./models/customer');
 const Design = require('./models/design');
 const Garment = require('./models/garment');
 const Other = require('./models/other');
+const Embroidery = require('./models/embroidery');
+const Style = require('./models/style');
+const Vinylize = require('./models/vinylize');
 const app = express();
 const port = 3000;
 
