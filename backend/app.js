@@ -143,7 +143,7 @@ app.post('/designSubmit', function (req, res) {
       //Update the Garment
       Garment.updateOne({ designID: garment.designID }, {
         "$set": {
-          garmentGender: garment.garmentGender, garmentStyleNumber: garment.garmentStyleNumber,
+          garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
           garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
         }
       })
