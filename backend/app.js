@@ -82,93 +82,92 @@ app.post('/designSubmit', function (req, res) {
   var garment = new Garment(req.body);
   var other = new Other(req.body);
 
-  //Search if this order exists in the database
-  var result = Design.find({ designID: design.designID });
+  //Search if this design exists in the database
+  // Use designID for testing, but orderID for functionality
+  Design.findOne({ designID: design.designID }, function (err, result) {
+    if (!result) {
+      console.log("++++++++++++++++++++++++++++++++++++++++++No Match")
 
-  if (!result.length) {
-    console.log("++++++++++++++++++++++++++++++++++++++++++No Match")
-
-    //Saved as a new design
-    design.save()
-      .then(design => {
-        console.log(design)
-      })
-      .catch(e => {
-        console.log(e)
-      })
-
-    //Determine if its a Garment or Other and save appropriately
-    var designTypeResult = Design.find({ designID: design.designID, designType: 'Garment' });
-
-    if (!designTypeResult.length) {
-      //Saved as a new Garment
-      garment.save()
-        .then(garment => {
-          console.log(garment)
+      //Saved as a new design
+      design.save()
+        .then(design => {
+          console.log(design)
         })
         .catch(e => {
           console.log(e)
         })
+
+      Design.findOne({ designID: design.designID, designType: 'Garment' }, function (err, result) {
+        if (!result) {
+          //Saved as a new Other
+          other.save()
+            .then(other => {
+              console.log(other)
+            })
+            .catch(e => {
+              console.log(e)
+            })
+        }
+        else {
+          //Saved as a new Garment
+          garment.save()
+            .then(garment => {
+              console.log(garment)
+            })
+            .catch(e => {
+              console.log(e)
+            })
+        }
+      });
     }
     else {
-      //Saved as a new Other
-      other.save()
-        .then(other => {
-          console.log(other)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    }
-
-  }
-  else {
-    console.log("------------------------------------------Match!")
-    //Update the design
-    // Manually set the fields to update for now
-    Design.updateOne({ designID: design.designID }, {
-      "$set": {
-        designType: design.designType, designDescription: design.designDescription,
-        designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
-      }
-    })
-      .then(design => {
-        console.log(design)
-      })
-
-    //Determine if its a Garment or Other and save appropriately
-    var designTypeResult = Design.find({ designID: design.designID, designType: 'Garment' });
-
-    if (!designTypeResult.length) {
-      //Update the Garment
-      Garment.updateOne({ designID: garment.designID }, {
+      console.log("------------------------------------------Match!")
+      //Update the design
+      // Manually set the fields to update for now
+      Design.updateOne({ designID: design.designID }, {
         "$set": {
-          garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
-          garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
+          designType: design.designType, designDescription: design.designDescription,
+          designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
         }
       })
-        .then(garment => {
-          console.log(garment)
+        .then(design => {
+          console.log(design)
         })
-    }
-    else {
-      //Saved as a new Other
-      Other.updateOne({ designID: garment.designID }, {
-        "$set": {
-          otherJobDescription: other.otherJobDescription, otherAmount: other.otherAmount,
-          otherCostPerItem: other.otherCostPerItem, otherTotalCost: other.otherTotalCost
+
+      //Determine if its a Garment or Other and save appropriately
+      Design.findOne({ designID: design.designID, designType: 'Garment' }, function (err, result) {
+        if (!result) {
+          //Update the Other
+          Other.updateOne({ designID: other.designID }, {
+            "$set": {
+              otherJobDescription: other.otherJobDescription, otherAmount: other.otherAmount,
+              otherCostPerItem: other.otherCostPerItem, otherTotalCost: other.otherTotalCost
+            }
+          })
+            .then(other => {
+              console.log(other)
+            })
         }
-      })
-        .then(garment => {
-          console.log(garment)
-        })
+        else {
+          //Update the Garment
+          Garment.updateOne({ designID: garment.designID }, {
+            "$set": {
+              garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
+              garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
+            }
+          })
+            .then(garment => {
+              console.log(garment)
+            })
+        }
+      });
     }
-  }
+    //Go back to Home
+    res.redirect('/');
 
-  //Go back to Home
-  res.redirect('/');
-
+  });
 });
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
