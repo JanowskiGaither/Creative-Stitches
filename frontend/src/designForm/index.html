@@ -48,7 +48,6 @@
       </div>
 
       <div id="showOther">
-
         <div class="card" style="width:30rem;">
           <div class="card-header">
             <h5 class="card-title text-center">Design Details</h5>
@@ -70,7 +69,7 @@
                 <label class="form-label col-sm-5" for="otherAmount">Amount: </label>
                 <div class="col-sm-5">
                   <input class="form-inline border border-dark" type="number" name="otherAmount" id="otherAmount"
-                    placeholder="Example: 2">
+                    placeholder="Example: 2" value="0">
                 </div>
               </div>
             </div>
@@ -80,7 +79,7 @@
                 <label class="form-label col-sm-3" for="otherCostPerItem">Cost: </label>
                 <div class="col-sm-5">
                   <input class="form-inline border border-dark" type="number" name="otherCostPerItem"
-                    id="otherCostPerItem" placeholder="Example: 5.50">
+                    id="otherCostPerItem" placeholder="Example: 5.50" min="0.01" step="0.01" value="0.00">
                 </div>
               </div>
             </div>
@@ -99,11 +98,13 @@
         </div>
       </div>
 
-
       <div id="showGarment">
         <div class="card">
-          <div class="card-header">
-            <h5 class="card-title text-center">Garment 1</h5>
+          <div class="card-header d-flex">
+            <h5 class="form-inline float-left padding: 5px 0">Garment </h5>
+            <output class="form-inline float-right padding: 5px 0" name="garmentID" for="garmentID"
+              id="garmentID">Initial</output>
+
           </div>
           <div class="card-body">
             <!-- Select Gender for Garment -->
@@ -157,7 +158,7 @@
                 <label class="form-label col-sm-9" for="garmentAmount">Amount: </label>
                 <div class="col-sm-3">
                   <input class="form-inline border border-dark" type="number" name="garmentAmount" id="garmentAmount"
-                    placeholder="Example: 2">
+                    placeholder="Example: 2" value="0">
                 </div>
               </div>
             </div>
@@ -167,7 +168,7 @@
                 <label class="form-label col-sm-9" for="garmentCostPerItem">Cost: </label>
                 <div class="col-sm-3">
                   <input class="form-inline border border-dark" type="number" name="garmentCostPerItem"
-                    id="garmentCostPerItem" placeholder="Example: 5.50" min="0.01" step="0.01">
+                    id="garmentCostPerItem" placeholder="Example: 5.50" min="0.01" step="0.01" value="0.00">
                 </div>
               </div>
             </div>
