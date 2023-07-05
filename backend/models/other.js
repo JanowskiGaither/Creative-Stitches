@@ -4,6 +4,9 @@ const otherSchema = new mongoose.Schema({
     designID: {
         type: String,
     },
+    orderID: {
+        type: String,
+    },
     otherID: {
         type: String,
     },

@@ -74,12 +74,13 @@
               </div>
             </div>
             <!-- Enter Cost Per Item -->
-            <div class="col-xl-12 col-lg-6 col-md-8 col-11 mb-3 ">
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
               <div class="row justify-content-between">
-                <label class="form-label col-sm-3" for="otherCostPerItem">Cost: </label>
-                <div class="col-sm-5">
+                <label class="form-label col-sm-9" for="otherCostPerItem">Cost: </label>
+                <div class="col-sm-3">
                   <input class="form-inline border border-dark" type="number" name="otherCostPerItem"
-                    id="otherCostPerItem" placeholder="Example: 5.50" min="0.01" step="0.01" value="0.00">
+                    id="otherCostPerItem" placeholder="Example: 5.50" min="0.00" step="0.01" value="0.00"
+                    required="false">
                 </div>
               </div>
             </div>
@@ -89,7 +90,7 @@
                 <label class="form-label col-sm-6" for="otherTotalCost">Total Cost: </label>
                 <div class="col-sm-5">
                   <output class="form-inline border border-dark" name="otherTotalCost" for="otherTotalCost"
-                    id="otherTotalCost">
+                    id="otherTotalCost" required="false">
                     Test</output>
                 </div>
               </div>
@@ -168,7 +169,8 @@
                 <label class="form-label col-sm-9" for="garmentCostPerItem">Cost: </label>
                 <div class="col-sm-3">
                   <input class="form-inline border border-dark" type="number" name="garmentCostPerItem"
-                    id="garmentCostPerItem" placeholder="Example: 5.50" min="0.01" step="0.01" value="0.00">
+                    id="garmentCostPerItem" placeholder="Example: 5.50" min="0.00" step="0.01" value="0.00"
+                    required="false">
                 </div>
               </div>
             </div>
@@ -178,7 +180,7 @@
                 <label class="form-label col-sm-7" for="garmentTotalCost">Total Cost: </label>
                 <div class="col-sm-3">
                   <output class="form-inline border border-dark" name="garmentTotalCost" for="garmentTotalCost"
-                    id="garmentTotalCost">Test</output>
+                    id="garmentTotalCost" required="false">Test</output>
                 </div>
               </div>
             </div>

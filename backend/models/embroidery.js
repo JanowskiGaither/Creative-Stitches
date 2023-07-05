@@ -25,4 +25,4 @@ const embroiderySchema = new mongoose.Schema({
 });
 
 const Embroidery = mongoose.model('Embroidery', embroiderySchema);
-module.exports = Other;
+module.exports = Embroidery;

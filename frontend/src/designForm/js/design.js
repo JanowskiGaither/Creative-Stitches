@@ -3,8 +3,6 @@ import '../scss/designStyles.scss'
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
-
-
 let message = "hello from design.js!";
 let resetbutton = document.getElementById("resetButton");
 let previousGarmentbutton = document.getElementById("previousGarment");
@@ -14,6 +12,8 @@ let garmentCostPerItem = document.getElementById("garmentCostPerItem");
 let otherAmount = document.getElementById("otherAmount");
 let otherCostPerItem = document.getElementById("otherCostPerItem");
 let selectItemType = document.getElementById("designType");
+let otherTotalCost = document.getElementById("otherTotalCost");
+let garmentTotalCost = document.getElementById("garmentTotalCost");
 
 function initialSetup() {
     // Hide Other initially
@@ -21,11 +21,11 @@ function initialSetup() {
     hiddenItemType.style.display = "none";
 
     // Calculate total costs at start
-    var otherTotal = document.getElementById('otherAmount').value * document.getElementById('otherCostPerItem').value;
-    document.getElementById('otherTotalCost').value = otherTotal;
+    var otherTotal = otherAmount.value * otherCostPerItem.value;
+    otherTotalCost.value = otherTotal;
 
-    var garmentTotal = document.getElementById('garmentAmount').value * document.getElementById('garmentCostPerItem').value;
-    document.getElementById('garmentTotalCost').value = garmentTotal;
+    var garmentTotal = garmentAmount.value * garmentCostPerItem.value;
+    garmentTotalCost.value = garmentTotal;
 
     //Assign initial GarmentID and OtherID to 1
     document.getElementById('garmentID').value = 1;
@@ -51,14 +51,18 @@ function sayHello(message) {
 
 function calculateOtherTotal() {
     var otherTotal = document.getElementById('otherAmount').value * document.getElementById('otherCostPerItem').value;
-    document.getElementById('otherTotalCost').value = otherTotal;
+    otherTotalCost.value = otherTotal;
 }
 
 function calculateGarmentTotal() {
     var garmentTotal = document.getElementById('garmentAmount').value * document.getElementById('garmentCostPerItem').value;
-    document.getElementById('garmentTotalCost').value = garmentTotal;
+    garmentTotalCost.value = garmentTotal;
 }
 
+function getNextGarment() {
+    var garmentTotal = document.getElementById('garmentAmount').value * document.getElementById('garmentCostPerItem').value;
+    garmentTotalCost.value = garmentTotal;
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     initialSetup();

@@ -75,7 +75,9 @@ app.post('/orderSubmit', function (req, res) {
   });
 
   // Go back to Home
-  res.redirect('/');
+  res.redirect('/', (req, resp) => {
+    resp.send('Welcome to mongodb API')
+  });
 
 });
 
@@ -121,6 +123,8 @@ app.post('/designSubmit', function (req, res) {
               console.log(e)
             })
         }
+
+        return res.end(JSON.stringify(garment));
       });
     }
     else {
@@ -163,10 +167,12 @@ app.post('/designSubmit', function (req, res) {
               console.log(garment)
             })
         }
+
+        return res.end(JSON.stringify(garment));
       });
     }
     //Go back to Home
-    res.redirect('/');
+    //res.redirect('/');
 
   });
 });
