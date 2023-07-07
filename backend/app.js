@@ -24,60 +24,32 @@ mongoose.connect('mongodb://mongo:27017/test', { useNewUrlParser: true, useUnifi
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.post('/orderSubmit', function (req, res) {
+//save order
+async function saveOrder(order, design, customer) {
 
+  const query = await Order.findOne({ orderID: order.orderID });
+  if (!query) {
+    console.log("++++++++++++++++++++++++++++++++++++++++++No Match");
+    customer = await customer.save();
+    order = await order.save();
+    design = await design.save();
+  } else {
+    console.log("------------------------------------------Match!")
+    await Order.updateOne({ orderID: order.orderID }, { taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate });
+  }
+}
+
+app.post('/orderSubmit', async function (req, res) {
   var order = new Order(req.body);
   var design = new Design(req.body);
   var customer = new Customer(req.body);
 
-  //Search if this order exists in the database
-  Order.findOne({ orderID: order.orderID }, function (err, result) {
-    if (!result) {
-      console.log("++++++++++++++++++++++++++++++++++++++++++No Match")
-
-      //Save new Customer
-      customer.save()
-        .then(customer => {
-          console.log(customer)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-
-      //Save new Order
-      order.save()
-        .then(order => {
-          console.log(order)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-
-      //Save new Design
-      design.save()
-        .then(design => {
-          console.log(design)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    }
-    else {
-      console.log("------------------------------------------Match!")
-
-      // Manually set the fields to update for now
-      Order.updateOne({ order_id: order.order_id }, { "$set": { taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate } })
-        .then(order => {
-          console.log(order)
-        })
-
-    }
-  });
-
-  // Go back to Home
-  res.redirect('/', (req, resp) => {
-    resp.send('Welcome to mongodb API')
-  });
+  try {
+    saveOrder(order, design, customer);
+    res.json(order.orderID)
+  } catch (error) {
+    console.log(error)
+  }
 
 });
 
