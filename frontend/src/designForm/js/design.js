@@ -82,19 +82,38 @@ function calculateGarmentTotal() {
 }
 
 // Save the current garment and retrieve the next garment's values to display
-function nextGarment() {
+async function nextGarment() {
     //Retreive current garment values from HTML
     var currentGarment = new Garment(true);
 
-    //Debug 
-    console.log(currentGarment.garmentTotalCost);
+    //Setup new garment query
+    var newGarment = new Garment();
+    newGarment.garmentID = currentGarment.garmentID;// + 1;
+    newGarment.orderID = currentGarment.orderID;
+    newGarment.designID = currentGarment.designID;
 
-    // fetch('/designSubmit', {
-    //     method: 'POST',
-    //     body: JSON.currentGarment
-    // })
-    //     .then(response => response.json())
-    //     .then(response => console.log(JSON.response))
+    //debug
+    console.log(currentGarment)
+
+    fetch('/garmentSubmit', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(currentGarment)
+    })
+
+    fetch('/garmentRetrieve', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newGarment)
+    })
+        //.then(response => response.json(JSON.parse(response)))
+        .then(response => console.log(response))
 }
 
 // Create event listeners to handle user inputs

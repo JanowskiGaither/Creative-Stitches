@@ -24,56 +24,81 @@ mongoose.connect('mongodb://mongo:27017/test', { useNewUrlParser: true, useUnifi
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-//save order
+//Save order
 async function saveOrder(order, design, customer) {
 
-  const query = await Order.findOne({ orderID: order.orderID });
-  if (!query) {
-    console.log("++++++++++++++++++++++++++++++++++++++++++No Match");
-    customer = await customer.save();
-    order = await order.save();
-    design = await design.save();
-  } else {
-    console.log("------------------------------------------Match!")
-    await Order.updateOne({ orderID: order.orderID }, { taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate });
+  // Save received Order and Customer information
+  await Order.updateOne({ customerID: order.customerID, orderID: order.orderID }, { taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate }, { upsert: true });
+  await Customer.updateOne({ customerID: customer.customerID }, {
+    firstName: customer.firstName, lastName: customer.lastName, organization: customer.organization, phone: customer.phone, email: customer.email
+  }, { upsert: true });
+}
+
+//Save garment
+async function saveGarment(garment) {
+  // Save received Garment information
+  await Garment.updateOne({ designID: garment.designID, garmentID: garment.garmentID, orderID: garment.orderID }, {
+    garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
+    garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
+  }, { upsert: true });
+}
+
+//Get garment
+async function getGarment(garment, res) {
+  // Check if new garment exists
+  var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID });
+
+  if (query) {
+    console.log(query);
+    res.send(JSON.stringify(query));
+  }
+  else {
+    //Create a blank response
+    var garmentResponse = new Garment();
+    garmentResponse.orderID = garment.orderID;
+    garmentResponse.garmentID = garment.garmentID;
+    garmentResponse.designID = garment.designID;
+    garmentResponse.garmentSize = '';
+    garmentResponse.garmentStyleNumber = '';
+    garmentResponse.garmentAmount = 0;
+    garmentResponse.garmentCostPerItem = 0;
+    garmentResponse.garmentTotalCost = 0;
+    res.send(JSON.stringify(garmentResponse));
   }
 }
 
-//save design
+//Save other
+async function saveOther(other) {
+  // Save received Other information
+  await Other.updateOne({ designID: other.designID, garmentID: other.garmentID, orderID: other.orderID }, {
+    otherJobDescription: other.otherJobDescription, otherAmount: other.otherAmount,
+    otherCostPerItem: other.otherCostPerItem, otherTotalCost: other.otherTotalCost
+  }, { upsert: true });
+}
+
+//Save design
 async function saveDesign(design, garment, other) {
+  // Save Received Design information
+  await Design.updateOne({ designID: design.designID, orderID: design.orderID }, {
+    designType: design.designType, designDescription: design.designDescription,
+    designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
+  }, { upsert: true });
 
-  const query = await Order.findOne({ designID: design.designID });
-  if (!query) {
-    console.log("++++++++++++++++++++++++++++++++++++++++++No Match");
-
-    if (design.designType == 'Garment') {
-      garment = await garment.save();
+  if (design.designType == 'Garment') {
+    try {
+      saveGarment(garment);
+    } catch (error) {
+      console.log(error)
     }
-    else {
-      other = await other.save();
-    }
-    design = await design.save();
-  } else {
-    console.log("------------------------------------------Match!")
-
-    if (design.designType == 'Garment') {
-      Garment.updateOne({ designID: garment.designID }, {
-        garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
-        garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
-      });
-    }
-    else {
-      Other.updateOne({ designID: other.designID }, {
-        otherJobDescription: other.otherJobDescription, otherAmount: other.otherAmount,
-        otherCostPerItem: other.otherCostPerItem, otherTotalCost: other.otherTotalCost
-      });
-    }
-    design = await design.save();
-    await Design.updateOne({ designID: design.designID }, {
-      designType: design.designType, designDescription: design.designDescription,
-      designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
-    });
   }
+  else if (design.designType == 'Other') {
+    try {
+      saveOther(other);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 }
 
 app.post('/orderSubmit', async function (req, res) {
@@ -83,12 +108,11 @@ app.post('/orderSubmit', async function (req, res) {
 
   try {
     saveOrder(order, design, customer);
-    // res.json(order.orderID)
   } catch (error) {
     console.log(error)
   }
 
-  res.redirect('/');
+  res.redirect('/design');
 
 });
 
@@ -99,13 +123,41 @@ app.post('/designSubmit', async function (req, res) {
 
   try {
     saveDesign(design, garment, other);
-    res.json(order.orderID)
   } catch (error) {
     console.log(error)
   }
 
   res.redirect('/');
+});
 
+app.post('/garmentSubmit', async function (req, res) {
+  var garment = new Garment(req.body);
+
+  try {
+    saveGarment(garment);
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/garmentRetrieve', async function (req, res) {
+  var garment = new Garment(req.body);
+
+  try {
+    getGarment(garment, res);
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/otherSubmit', async function (req, res) {
+  var other = new Other(req.body);
+
+  try {
+    saveOther(other);
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 app.listen(port, () => {
