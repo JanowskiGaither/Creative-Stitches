@@ -10,8 +10,5 @@ orderID.addEventListener('change', function () {
 });
 
 function storeOrderID(message) {
-    // console.log('storeOrderID Action');
     sessionStorage.orderID = document.getElementById('orderID').value
-
-    // console.log(sessionStorage.orderID);
 }

@@ -5,17 +5,27 @@ import * as bootstrap from 'bootstrap'
 
 // Create Garment Class
 class Garment {
-    designID;
-    orderID;
-    garmentID;
-    garmentGender;
-    garmentSize;
-    garmentStyleNumber;
-    garmentAmount;
-    garmentCostPerItem;
-    garmentTotalCost;
-    constructor() {
-
+    designID = 0;
+    orderID = 0;
+    garmentID = 0;
+    garmentGender = 0;
+    garmentSize = 0;
+    garmentStyleNumber = 0;
+    garmentAmount = 0;
+    garmentCostPerItem = 0;
+    garmentTotalCost = 0;
+    constructor(getFormValues) {
+        if (getFormValues) {
+            this.designID = document.getElementById("designID").value;
+            this.orderID = document.getElementById("orderID").value;
+            this.garmentID = document.getElementById("garmentID").value;
+            this.garmentGender = document.getElementById("garmentGender").value;
+            this.garmentSize = document.getElementById("garmentSize").value;
+            this.garmentStyleNumber = document.getElementById("garmentStyleNumber").value;
+            this.garmentAmount = document.getElementById("garmentAmount").value;
+            this.garmentCostPerItem = document.getElementById("garmentCostPerItem").value;
+            this.garmentTotalCost = document.getElementById("garmentTotalCost").value;
+        }
     }
 }
 
@@ -33,7 +43,6 @@ function initialSetup() {
 
     //Retrieve orderID - Not currently working
     orderID.value = sessionStorage.getItem('orderID');
-    // console.log(sessionStorage.getItem('orderID'));
 
     // Calculate total costs at start
     var otherTotal = document.getElementById("otherAmount").value * document.getElementById("otherCostPerItem").value;
@@ -73,27 +82,19 @@ function calculateGarmentTotal() {
 }
 
 // Save the current garment and retrieve the next garment's values to display
-async function nextGarment() {
-    // "/designSubmit" method="post"
-
+function nextGarment() {
     //Retreive current garment values from HTML
-    currentGarment = new Garment();
-    currentGarment.designID = document.getElementById("designID").value;
-    currentGarment.orderID = document.getElementById("orderID").value;
-    currentGarment.garmentID = document.getElementById("garmentID").value;
-    currentGarment.garmentGender = document.getElementById("garmentGender").value;
-    currentGarment.garmentSize = document.getElementById("garmentSize").value;
-    currentGarment.garmentStyleNumber = document.getElementById("garmentStyleNumber").value;
-    currentGarment.garmentAmount = document.getElementById("garmentAmount").value;
-    currentGarment.garmentCostPerItem = document.getElementById("garmentCostPerItem").value;
-    currentGarment.garmentTotalCost = document.getElementById("garmentTotalCost").value;
+    var currentGarment = new Garment(true);
 
-    fetch('/designSubmit', {
-        method: 'POST',
-        body: JSON.currentGarment
-    })
-        .then(response => response.json())
-        .then(response => console.log(JSON.response))
+    //Debug 
+    console.log(currentGarment.garmentTotalCost);
+
+    // fetch('/designSubmit', {
+    //     method: 'POST',
+    //     body: JSON.currentGarment
+    // })
+    //     .then(response => response.json())
+    //     .then(response => console.log(JSON.response))
 }
 
 // Create event listeners to handle user inputs
