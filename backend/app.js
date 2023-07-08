@@ -58,26 +58,20 @@ async function saveDesign(design, garment, other) {
 
     if (design.designType == 'Garment') {
       Garment.updateOne({ designID: garment.designID }, {
-        "$set": {
-          garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
-          garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
-        }
+        garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
+        garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
       });
     }
     else {
       Other.updateOne({ designID: other.designID }, {
-        "$set": {
-          otherJobDescription: other.otherJobDescription, otherAmount: other.otherAmount,
-          otherCostPerItem: other.otherCostPerItem, otherTotalCost: other.otherTotalCost
-        }
+        otherJobDescription: other.otherJobDescription, otherAmount: other.otherAmount,
+        otherCostPerItem: other.otherCostPerItem, otherTotalCost: other.otherTotalCost
       });
     }
     design = await design.save();
     await Design.updateOne({ designID: design.designID }, {
-      "$set": {
-        designType: design.designType, designDescription: design.designDescription,
-        designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
-      }
+      designType: design.designType, designDescription: design.designDescription,
+      designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
     });
   }
 }

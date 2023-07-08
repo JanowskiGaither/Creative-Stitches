@@ -35,6 +35,7 @@ function initialSetup() {
 
     //Retrieve orderID - Not currently working
     orderID = sessionStorage.getItem('orderID');
+    console.log(sessionStorage.orderID);
 
     // Calculate total costs at start
     var otherTotal = document.getElementById("otherAmount").value * document.getElementById("otherCostPerItem").value;
@@ -91,10 +92,10 @@ async function nextGarment() {
 
     fetch('/designSubmit', {
         method: 'POST',
-        body: JSON.stringify(currentGarment)
+        body: JSON.currentGarment
     })
         .then(response => response.json())
-        .then(response => console.log(JSON.stringify(response)))
+        .then(response => console.log(JSON.response))
 }
 
 // Create event listeners to handle user inputs
