@@ -1,15 +1,16 @@
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
 
-.redbox {
-    background-color: red;
+a.navbar-toggler:hover {
+    border-color: black;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-.bluebox {
-    background-color: blue;
+a.navbar-brand {
+    transform: translateX(120px)
 }
 
-.sidebar {
-    max-width: 250px;
-    border-right: 5px solid blue;
+
+#currentOrders {
+    margin-top: 6%;
 }
