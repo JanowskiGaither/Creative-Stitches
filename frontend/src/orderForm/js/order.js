@@ -5,10 +5,13 @@ import * as bootstrap from 'bootstrap'
 
 let submitbutton = document.getElementById("submitButton");
 
-nextGarmentbutton.addEventListener('click', function () {
+submitbutton.addEventListener('click', function () {
     storeOrderID();
 });
 
 function storeOrderID(message) {
+    console.log('storeOrderID Action');
     sessionStorage.orderID = document.getElementById('orderID').value
+
+    console.log(sessionStorage.orderID);
 }

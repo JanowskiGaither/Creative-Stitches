@@ -89,7 +89,7 @@ app.post('/orderSubmit', async function (req, res) {
 
   try {
     saveOrder(order, design, customer);
-    res.json(order.orderID)
+    // res.json(order.orderID)
   } catch (error) {
     console.log(error)
   }
