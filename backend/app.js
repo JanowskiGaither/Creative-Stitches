@@ -88,6 +88,8 @@ app.post('/orderSubmit', async function (req, res) {
     console.log(error)
   }
 
+  res.redirect('/');
+
 });
 
 app.post('/designSubmit', async function (req, res) {
@@ -101,6 +103,8 @@ app.post('/designSubmit', async function (req, res) {
   } catch (error) {
     console.log(error)
   }
+
+  res.redirect('/');
 
 });
 

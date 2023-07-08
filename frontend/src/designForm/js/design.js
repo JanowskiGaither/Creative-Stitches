@@ -1,7 +1,5 @@
 import '../scss/designStyles.scss'
 
-const Promise = require('promise');
-
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
@@ -34,8 +32,8 @@ function initialSetup() {
     hiddenItemType.style.display = "none";
 
     //Retrieve orderID - Not currently working
-    orderID = sessionStorage.getItem('orderID');
-    console.log(sessionStorage.orderID);
+    orderID.value = sessionStorage.getItem('orderID');
+    // console.log(sessionStorage.getItem('orderID'));
 
     // Calculate total costs at start
     var otherTotal = document.getElementById("otherAmount").value * document.getElementById("otherCostPerItem").value;
@@ -125,7 +123,7 @@ otherCostPerItem.addEventListener("change", function () {
 });
 
 previousGarmentbutton.addEventListener('click', function () {
-
+    console.log(sessionStorage.getItem('orderID'));
 });
 
 nextGarmentbutton.addEventListener('click', function () {
