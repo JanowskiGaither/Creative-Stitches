@@ -3,15 +3,15 @@ import '../scss/orderStyles.scss'
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
-let submitbutton = document.getElementById("submitButton");
+let orderID = document.getElementById("orderID");
 
-submitbutton.addEventListener('click', function () {
+orderID.addEventListener('change', function () {
     storeOrderID();
 });
 
 function storeOrderID(message) {
-    console.log('storeOrderID Action');
+    // console.log('storeOrderID Action');
     sessionStorage.orderID = document.getElementById('orderID').value
 
-    console.log(sessionStorage.orderID);
+    // console.log(sessionStorage.orderID);
 }
