@@ -110,10 +110,12 @@ async function nextGarment() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+
         body: JSON.stringify(newGarment)
     })
         //.then(response => response.json(JSON.parse(response)))
         .then(response => console.log(response))
+        .then(data => console.log(data))
 }
 
 // Create event listeners to handle user inputs
