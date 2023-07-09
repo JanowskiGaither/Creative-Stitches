@@ -5,10 +5,18 @@ import * as bootstrap from 'bootstrap'
 
 let submitbutton = document.getElementById("submitButton");
 
-nextGarmentbutton.addEventListener('click', function () {
-    storeOrderID();
-});
-
-function storeOrderID(message) {
-    sessionStorage.orderID = document.getElementById('orderID').value
+async function readOrder() {
+    await fetch('/readOrder', {
+        methods: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(response => console.log(response))
 }
+
+submitbutton.addEventListener('click', async function () {
+    await readOrder();
+})

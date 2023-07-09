@@ -33,6 +33,7 @@ async function saveOrder(order, design, customer) {
     customer = await customer.save();
     order = await order.save();
     design = await design.save();
+    console.log('------------------------------------------Save Complete!')
   } else {
     console.log("------------------------------------------Match!")
     await Order.updateOne({ orderID: order.orderID }, { taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate });
@@ -89,11 +90,10 @@ app.post('/orderSubmit', async function (req, res) {
 
   try {
     saveOrder(order, design, customer);
-    res.json(order.orderID)
+    res.redirect('/order');
   } catch (error) {
     console.log(error)
   }
-
 });
 
 app.post('/designSubmit', async function (req, res) {
@@ -110,6 +110,14 @@ app.post('/designSubmit', async function (req, res) {
 
 });
 
+app.post('/readOrder', async function (req, res) {
+  var testOrder = await Order.findOne({ orderID: '1' });
+  console.log(testOrder);
+  console.log('------------------------------------------Read Order!')
+  res.json({ testOrder });
+});
+
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+
