@@ -88,12 +88,9 @@ async function nextGarment() {
 
     //Setup new garment query
     var newGarment = new Garment();
-    newGarment.garmentID = currentGarment.garmentID + 1;
+    newGarment.garmentID = (parseInt(currentGarment.garmentID, 10)) + 1;
     newGarment.orderID = currentGarment.orderID;
     newGarment.designID = currentGarment.designID;
-
-    //debug
-    console.log(currentGarment)
 
     fetch('/garmentSubmit', {
         method: 'POST',
@@ -102,7 +99,7 @@ async function nextGarment() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(currentGarment)
-    })
+    }).then(response => { return response })
 
     const response = await fetch('/garmentRetrieve', {
         method: 'POST',
@@ -116,14 +113,15 @@ async function nextGarment() {
 
     //Parse response to update values
     const jsonResponse = await response.json();
-    document.getElementById("garmentID").value = await jsonResponse.garmentID;
-    document.getElementById("garmentGender").value = await jsonResponse.garmentGender;
-    document.getElementById("garmentSize").value = await jsonResponse.garmentSize;
-    document.getElementById("garmentStyleNumber").value = await jsonResponse.garmentStyleNumber;
-    document.getElementById("garmentAmount").value = await jsonResponse.garmentAmount;
-    document.getElementById("garmentCostPerItem").value = await jsonResponse.garmentCostPerItem;
-    document.getElementById("garmentTotalCost").value = await jsonResponse.garmentTotalCost;
-    document.getElementById("garmentTotalCost").value = await jsonResponse.garmentTotalCost;
+    console.log(jsonResponse);
+    document.getElementById("garmentID").value = jsonResponse.garmentID;
+    document.getElementById("garmentGender").value = jsonResponse.garmentGender;
+    document.getElementById("garmentSize").value = jsonResponse.garmentSize;
+    document.getElementById("garmentStyleNumber").value = jsonResponse.garmentStyleNumber;
+    document.getElementById("garmentAmount").value = jsonResponse.garmentAmount;
+    document.getElementById("garmentCostPerItem").value = jsonResponse.garmentCostPerItem;
+    document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
+    document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
 }
 
 
@@ -134,7 +132,7 @@ async function previousGarment() {
 
     //Setup new garment query
     var newGarment = new Garment();
-    newGarment.garmentID = currentGarment.garmentID - 1;
+    newGarment.garmentID = (parseInt(currentGarment.garmentID, 10)) - 1;
     newGarment.orderID = currentGarment.orderID;
     newGarment.designID = currentGarment.designID;
 
@@ -145,7 +143,7 @@ async function previousGarment() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(currentGarment)
-    })
+    }).then(response => { return response })
 
     const response = await fetch('/garmentRetrieve', {
         method: 'POST',
@@ -159,13 +157,14 @@ async function previousGarment() {
 
     //Parse response to update values
     const jsonResponse = await response.json();
-    document.getElementById("garmentID").value = await jsonResponse.garmentID;
-    document.getElementById("garmentGender").value = await jsonResponse.garmentGender;
-    document.getElementById("garmentSize").value = await jsonResponse.garmentSize;
-    document.getElementById("garmentStyleNumber").value = await jsonResponse.garmentStyleNumber;
-    document.getElementById("garmentAmount").value = await jsonResponse.garmentAmount;
-    document.getElementById("garmentCostPerItem").value = await jsonResponse.garmentCostPerItem;
-    document.getElementById("garmentTotalCost").value = await jsonResponse.garmentTotalCost;
+    console.log(jsonResponse);
+    document.getElementById("garmentID").value = jsonResponse.garmentID;
+    document.getElementById("garmentGender").value = jsonResponse.garmentGender;
+    document.getElementById("garmentSize").value = jsonResponse.garmentSize;
+    document.getElementById("garmentStyleNumber").value = jsonResponse.garmentStyleNumber;
+    document.getElementById("garmentAmount").value = jsonResponse.garmentAmount;
+    document.getElementById("garmentCostPerItem").value = jsonResponse.garmentCostPerItem;
+    document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
 }
 
 // Create event listeners to handle user inputs
@@ -195,9 +194,9 @@ otherCostPerItem.addEventListener("change", function () {
 });
 
 previousGarmentbutton.addEventListener('click', async function () {
-    await previousGarment();
+    previousGarment();
 });
 
 nextGarmentbutton.addEventListener('click', async function () {
-    await nextGarment();
+    nextGarment();
 });

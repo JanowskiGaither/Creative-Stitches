@@ -139,6 +139,7 @@ app.post('/garmentSubmit', async function (req, res) {
 
   try {
     saveGarment(garment);
+    res.json('Success');
   } catch (error) {
     console.log(error)
   }
