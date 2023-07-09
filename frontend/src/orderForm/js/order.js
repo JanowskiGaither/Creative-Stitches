@@ -3,9 +3,9 @@ import '../scss/orderStyles.scss'
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
-let submitbutton = document.getElementById("submitButton");
+let orderID = document.getElementById("orderID");
 
-nextGarmentbutton.addEventListener('click', function () {
+orderID.addEventListener('change', function () {
     storeOrderID();
 });
 
