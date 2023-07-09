@@ -14,28 +14,27 @@
       <h1 class="display-4">Design Form</h1>
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
         <hr class="border border-primary border-3 opacity-75">
-        <label class="form-label" for="designID">Design ID</label>
-        <input class="form-control border border-dark" type="text" name="designID" id="designID"
-          placeholder="example: CHS Sports Team Design 1 2023">
+        <label class="form-label" for="numberOfDesigns">Number Of Designs</label>
+        <input class="form-control border border-dark" type="text" name="numberOfDesigns" id="numberOfDesigns" value="1"
+          placeholder="example: 1">
+        <hr class="border border-primary border-3 opacity-75">
       </div>
 
-      <!-- Show orderID -->
-      <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-        <div class="row justify-content-between">
-          <label class="form-label col-sm-7" for="orderID">orderID: </label>
-          <div class="col-sm-3">
-            <output class="form-inline border border-dark" name="orderID" for="orderID" id="orderID"
-              required="false">Test</output>
-          </div>
-        </div>
+      <div
+        class="container d-flex flex-column col-xl-5 col-lg-6 col-md-8 col-11 mb-3 justify-content-center align-items-center">
+        <h5 id="currentDesign" class="form-inline float-left padding: 5px 0">Design</h5>
       </div>
-
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
         <label class="form-label" for="designType">Type</label>
         <select class="form-control border border-dark" id="designType" name="designType">
           <option value="Garment" selected>Garment</option>
           <option value="Other">Other</option>
         </select>
+      </div>
+      <div id="showNumberOfGarment" class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
+        <label class="form-label" for="numberOfGarments">Number Of Garments</label>
+        <input class="form-control border border-dark" type="text" name="numberOfGarments" id="numberOfGarments"
+          value="1" placeholder="example: 1">
       </div>
 
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
@@ -111,11 +110,8 @@
 
       <div id="showGarment">
         <div class="card">
-          <div class="card-header d-flex">
-            <h5 class="form-inline float-left padding: 5px 0">Garment </h5>
-            <output class="form-inline float-right padding: 5px 0" name="garmentID" for="garmentID"
-              id="garmentID">Initial</output>
-
+          <div class="card-header d-flex justify-content-center align-items-center">
+            <h5 id="currentGarment" class="form-inline float-left padding: 5px 0">Garment</h5>
           </div>
           <div class="card-body">
             <!-- Select Gender for Garment -->

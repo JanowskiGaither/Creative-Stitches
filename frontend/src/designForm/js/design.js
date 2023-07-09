@@ -16,9 +16,9 @@ class Garment {
     garmentTotalCost = 0;
     constructor(getFormValues) {
         if (getFormValues) {
-            this.designID = document.getElementById("designID").value;
-            this.orderID = document.getElementById("orderID").value;
-            this.garmentID = document.getElementById("garmentID").value;
+            this.designID = designID;
+            this.orderID = orderID;
+            this.garmentID = garmentID;
             this.garmentGender = document.getElementById("garmentGender").value;
             this.garmentSize = document.getElementById("garmentSize").value;
             this.garmentStyleNumber = document.getElementById("garmentStyleNumber").value;
@@ -33,7 +33,18 @@ class Garment {
 let previousGarmentbutton = document.getElementById("previousGarment");
 let nextGarmentbutton = document.getElementById("nextGarment");
 let selectItemType = document.getElementById("designType");
-let orderID = document.getElementById("orderID");
+let numberOfDesigns = document.getElementById("numberOfDesigns");
+let numberOfGarments = document.getElementById("numberOfGarments");
+
+//Retrieve orderID
+const orderID = sessionStorage.getItem('orderID');
+
+//Create first designID
+var designNumber = 1;
+var garmentNumber = 1;
+var designID = orderID.toString() + '_' + designNumber.toString();
+var garmentID = designID.toString() + '_' + garmentNumber.toString();
+
 
 
 function initialSetup() {
@@ -41,8 +52,9 @@ function initialSetup() {
     let hiddenItemType = document.getElementById("showOther");
     hiddenItemType.style.display = "none";
 
-    //Retrieve orderID - Not currently working
-    orderID.value = sessionStorage.getItem('orderID');
+    //Update current design and garment
+    determineCurrentDesign()
+    determineCurrentGarment()
 
     // Calculate total costs at start
     var otherTotal = document.getElementById("otherAmount").value * document.getElementById("otherCostPerItem").value;
@@ -50,10 +62,14 @@ function initialSetup() {
 
     var garmentTotal = document.getElementById("garmentAmount").value * document.getElementById("garmentCostPerItem").value;
     document.getElementById("garmentTotalCost").value = garmentTotal;
+}
 
-    //Assign initial GarmentID and OtherID to 1
-    document.getElementById('garmentID').value = 1;
+function determineCurrentDesign() {
+    document.getElementById("currentDesign").innerText = "Design " + designNumber.toString() + " of " + numberOfDesigns.value.toString();
+}
 
+function determineCurrentGarment() {
+    document.getElementById("currentGarment").innerText = "Garment " + garmentNumber.toString() + " of " + numberOfGarments.value.toString();
 }
 
 function itemTypeSelection() {
@@ -61,10 +77,13 @@ function itemTypeSelection() {
 
     if (typeSelected == "Garment") {
         document.getElementById('showGarment').style.display = "block";
+        document.getElementById('showNumberOfGarment').style.display = "block";
         document.getElementById('showOther').style.display = "none";
+
     }
     else {
         document.getElementById('showGarment').style.display = 'none';
+        document.getElementById('showNumberOfGarment').style.display = "none";
         document.getElementById('showOther').style.display = "block";
     }
 }
@@ -88,9 +107,9 @@ async function nextGarment() {
 
     //Setup new garment query
     var newGarment = new Garment();
-    newGarment.garmentID = (parseInt(currentGarment.garmentID, 10)) + 1;
-    newGarment.orderID = currentGarment.orderID;
-    newGarment.designID = currentGarment.designID;
+    newGarment.garmentID = designID.toString() + '_' + ((parseInt(garmentNumber, 10)) + 1).toString();
+    newGarment.orderID = orderID;
+    newGarment.designID = designID;
 
     fetch('/garmentSubmit', {
         method: 'POST',
@@ -114,7 +133,8 @@ async function nextGarment() {
     //Parse response to update values
     const jsonResponse = await response.json();
     console.log(jsonResponse);
-    document.getElementById("garmentID").value = jsonResponse.garmentID;
+    garmentNumber = ((parseInt(garmentNumber, 10)) + 1);
+    garmentID = jsonResponse.garmentID;
     document.getElementById("garmentGender").value = jsonResponse.garmentGender;
     document.getElementById("garmentSize").value = jsonResponse.garmentSize;
     document.getElementById("garmentStyleNumber").value = jsonResponse.garmentStyleNumber;
@@ -122,6 +142,8 @@ async function nextGarment() {
     document.getElementById("garmentCostPerItem").value = jsonResponse.garmentCostPerItem;
     document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
     document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
+
+    determineCurrentGarment();
 }
 
 
@@ -132,9 +154,9 @@ async function previousGarment() {
 
     //Setup new garment query
     var newGarment = new Garment();
-    newGarment.garmentID = (parseInt(currentGarment.garmentID, 10)) - 1;
-    newGarment.orderID = currentGarment.orderID;
-    newGarment.designID = currentGarment.designID;
+    newGarment.garmentID = designID.toString() + '_' + ((parseInt(garmentNumber, 10)) - 1).toString();
+    newGarment.orderID = orderID;
+    newGarment.designID = designID;
 
     fetch('/garmentSubmit', {
         method: 'POST',
@@ -158,13 +180,16 @@ async function previousGarment() {
     //Parse response to update values
     const jsonResponse = await response.json();
     console.log(jsonResponse);
-    document.getElementById("garmentID").value = jsonResponse.garmentID;
+    garmentNumber = ((parseInt(garmentNumber, 10)) - 1);
+    garmentID = jsonResponse.garmentID;
     document.getElementById("garmentGender").value = jsonResponse.garmentGender;
     document.getElementById("garmentSize").value = jsonResponse.garmentSize;
     document.getElementById("garmentStyleNumber").value = jsonResponse.garmentStyleNumber;
     document.getElementById("garmentAmount").value = jsonResponse.garmentAmount;
     document.getElementById("garmentCostPerItem").value = jsonResponse.garmentCostPerItem;
     document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
+
+    determineCurrentGarment();
 }
 
 // Create event listeners to handle user inputs
@@ -188,6 +213,22 @@ garmentCostPerItem.addEventListener("change", function () {
 otherAmount.addEventListener("change", function () {
     calculateOtherTotal();
 });
+
+numberOfDesigns.addEventListener("change", function () {
+    determineCurrentDesign();
+});
+
+numberOfGarments.addEventListener("change", function () {
+    determineCurrentGarment();
+});
+
+// designNumber.addEventListener("change", function () {
+//     determineCurrentDesign();
+// });
+
+// garmentNumber.addEventListener("change", function () {
+//     determineCurrentGarment();
+// });
 
 otherCostPerItem.addEventListener("change", function () {
     calculateOtherTotal();
