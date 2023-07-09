@@ -30,8 +30,12 @@ class Garment {
 }
 
 // Link commonly used variables from HTML
-let previousGarmentbutton = document.getElementById("previousGarment");
-let nextGarmentbutton = document.getElementById("nextGarment");
+let previousGarmentButton = document.getElementById("previousGarment");
+let nextGarmentButton = document.getElementById("nextGarment");
+let previousDesignButtonTop = document.getElementById("previousDesignTop");
+let nextDesignButtonTop = document.getElementById("nextDesignTop");
+let previousDesignBottom = document.getElementById("previousDesignBottom");
+let nextDesignBottom = document.getElementById("nextDesignBottom");
 let selectItemType = document.getElementById("designType");
 let numberOfDesigns = document.getElementById("numberOfDesigns");
 let numberOfGarments = document.getElementById("numberOfGarments");
@@ -48,9 +52,10 @@ var garmentID = designID.toString() + '_' + garmentNumber.toString();
 
 
 function initialSetup() {
-    // Hide Other initially
-    let hiddenItemType = document.getElementById("showOther");
-    hiddenItemType.style.display = "none";
+    // Hide unselected initially
+    document.getElementById('showOther').style.display = "none";
+    document.getElementById('showEmbroidery').style.display = "none";
+    document.getElementById('showVinylize').style.display = "none";
 
     //Update current design and garment
     determineCurrentDesign()
@@ -72,19 +77,67 @@ function determineCurrentGarment() {
     document.getElementById("currentGarment").innerText = "Garment " + garmentNumber.toString() + " of " + numberOfGarments.value.toString();
 }
 
+function checkNextPreviousDesignShown() {
+    // If its the final design show submit
+    if (document.getElementById("currentDesign").value == numberOfDesigns.value) {
+        document.getElementById('submitButton').style.display = "block";
+        document.getElementById('nextDesignTop').style.display = "none";
+        document.getElementById('nextDesignBottom').style.display = "none";
+    }
+    // Hide submit and show next design button
+    else {
+        document.getElementById('submitButton').style.display = "none";
+        document.getElementById('nextDesignTop').style.display = "block";
+        document.getElementById('nextDesignBottom').style.display = "block";
+    }
+
+    // If its the first design don't show previous button
+    if (document.getElementById("currentDesign").value == 1) {
+        document.getElementById('previousDesignTop').style.display = "none";
+        document.getElementById('previousDesignBottom').style.display = "none";
+    }
+    // Show previous button
+    else {
+        document.getElementById('previousDesignTop').style.display = "block";
+        document.getElementById('previousDesignBottom').style.display = "block";
+    }
+}
+
 function itemTypeSelection() {
     var typeSelected = selectItemType.options[selectItemType.selectedIndex].text;
 
+    // Show Garment related divs, hide the rest
     if (typeSelected == "Garment") {
         document.getElementById('showGarment').style.display = "block";
         document.getElementById('showNumberOfGarment').style.display = "block";
         document.getElementById('showOther').style.display = "none";
+        document.getElementById('showEmbroidery').style.display = "none";
+        document.getElementById('showVinylize').style.display = "none";
 
     }
-    else {
-        document.getElementById('showGarment').style.display = 'none';
+    // Show Embroidery related divs, hide the rest
+    else if (typeSelected == "Embroidery") {
+        document.getElementById('showGarment').style.display = "none";
+        document.getElementById('showNumberOfGarment').style.display = "none";
+        document.getElementById('showOther').style.display = "none";
+        document.getElementById('showEmbroidery').style.display = "block";
+        document.getElementById('showVinylize').style.display = "none";
+    }
+    // Show Vinylize related divs, hide the rest
+    else if (typeSelected == "Vinylize") {
+        document.getElementById('showGarment').style.display = "none";
+        document.getElementById('showNumberOfGarment').style.display = "none";
+        document.getElementById('showOther').style.display = "none";
+        document.getElementById('showEmbroidery').style.display = "none";
+        document.getElementById('showVinylize').style.display = "block";
+    }
+    // Show Embroidery related divs, hide rest
+    else if (typeSelected == "Other") {
+        document.getElementById('showGarment').style.display = "none";
         document.getElementById('showNumberOfGarment').style.display = "none";
         document.getElementById('showOther').style.display = "block";
+        document.getElementById('showEmbroidery').style.display = "none";
+        document.getElementById('showVinylize').style.display = "none";
     }
 }
 
@@ -98,6 +151,18 @@ function calculateOtherTotal() {
 function calculateGarmentTotal() {
     var garmentTotal = document.getElementById('garmentAmount').value * document.getElementById('garmentCostPerItem').value;
     document.getElementById("garmentTotalCost").value = garmentTotal;
+}
+
+// Update Embroidery Total Cost after user input
+function calculateEmbroideryTotal() {
+    var garmentTotal = document.getElementById('embroideryAmount').value * document.getElementById('embroideryCostPerItem').value;
+    document.getElementById("embroideryTotalCost").value = garmentTotal;
+}
+
+// Update Vinylize Total Cost after user input
+function calculateVinylizeTotal() {
+    var garmentTotal = document.getElementById('vinylizeAmount').value * document.getElementById('vinylizeCostPerItem').value;
+    document.getElementById("vinylizeTotalCost").value = garmentTotal;
 }
 
 // Save the current garment and retrieve the next garment's values to display
@@ -140,7 +205,6 @@ async function nextGarment() {
     document.getElementById("garmentStyleNumber").value = jsonResponse.garmentStyleNumber;
     document.getElementById("garmentAmount").value = jsonResponse.garmentAmount;
     document.getElementById("garmentCostPerItem").value = jsonResponse.garmentCostPerItem;
-    document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
     document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
 
     determineCurrentGarment();
@@ -210,7 +274,27 @@ garmentCostPerItem.addEventListener("change", function () {
     calculateGarmentTotal();
 });
 
-otherAmount.addEventListener("change", function () {
+document.getElementById('vinylizeAmount').value.addEventListener("change", function () {
+    calculateVinylizeTotal();
+});
+
+document.getElementById('vinylizeCostPerItem').value.addEventListener("change", function () {
+    calculateVinylizeTotal();
+});
+
+document.getElementById('embroideryAmount').value.addEventListener("change", function () {
+    calculateEmbroideryTotal();
+});
+
+document.getElementById('embroideryCostPerItem').value.addEventListener("change", function () {
+    calculateEmbroideryTotal();
+});
+
+document.getElementById('otherCostPerItem').value.addEventListener("change", function () {
+    calculateOtherTotal();
+});
+
+document.getElementById('otherAmount').value.addEventListener("change", function () {
     calculateOtherTotal();
 });
 
@@ -222,22 +306,26 @@ numberOfGarments.addEventListener("change", function () {
     determineCurrentGarment();
 });
 
-// designNumber.addEventListener("change", function () {
-//     determineCurrentDesign();
-// });
-
-// garmentNumber.addEventListener("change", function () {
-//     determineCurrentGarment();
-// });
-
-otherCostPerItem.addEventListener("change", function () {
-    calculateOtherTotal();
-});
-
-previousGarmentbutton.addEventListener('click', async function () {
+previousGarmentButton.addEventListener('click', async function () {
     previousGarment();
 });
 
-nextGarmentbutton.addEventListener('click', async function () {
+nextGarmentButton.addEventListener('click', async function () {
+    nextGarment();
+});
+
+previousDesignButtonTop.addEventListener('click', async function () {
+    previousGarment();
+});
+
+nextDesignButtonTop.addEventListener('click', async function () {
+    nextGarment();
+});
+
+previousDesignButtonBottom.addEventListener('click', async function () {
+    previousGarment();
+});
+
+nextDesignButtonBottom.addEventListener('click', async function () {
     nextGarment();
 });

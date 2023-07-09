@@ -6,13 +6,15 @@ import * as bootstrap from 'bootstrap'
 let submitbutton = document.getElementById("submitButton");
 let org = document.getElementById("organization");
 
-//Create first designID
-var customerID = document.getElementById("firstName").toString() + document.getElementById("lastName").toString() + document.getElementById("email").toString();
-var orderID = customerID + Date().toLocaleDateString();
+//Create first IDs
+var customerID = document.getElementById("firstName").value.toString() + document.getElementById("lastName").value.toString() + "_" + document.getElementById("email").value.toString();
+var orderID = customerID + new Date().toLocaleDateString();
 
 function createID() {
-    customerID = document.getElementById("firstName").toString() + document.getElementById("lastName").toString() + document.getElementById("email").toString();
-    orderID = customerID + "_" + Date().toLocaleDateString();
+    customerID = document.getElementById("firstName").value.toString() + document.getElementById("lastName").value.toString() + "_" + document.getElementById("email").value.toString();
+    orderID = customerID + "_" + new Date().toLocaleDateString();
+
+    console.log(orderID);
 
     //Update stored orderID
     storeOrderID();

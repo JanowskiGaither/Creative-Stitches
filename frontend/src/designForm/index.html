@@ -19,15 +19,28 @@
           placeholder="example: 1">
         <hr class="border border-primary border-3 opacity-75">
       </div>
-
-      <div
-        class="container d-flex flex-column col-xl-5 col-lg-6 col-md-8 col-11 mb-3 justify-content-center align-items-center">
-        <h5 id="currentDesign" class="form-inline float-left padding: 5px 0">Design</h5>
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-xl-3 col-lg-2 col-md-2 col-2 mb-2 ">
+          <button class="btn btn-primary btn-sm float-left" id="previousDesignTop" style="color:white" type="button">
+            Previous Design
+          </button>
+        </div>
+        <div
+          class="container d-flex flex-column col-xl-5 col-lg-6 col-md-8 col-11 mb-3 justify-content-center align-items-center">
+          <h5 id="currentDesign" class="form-inline float-left padding: 5px 0">Design</h5>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-2 mb-2 ">
+          <button class="btn btn-primary btn-sm float-right" id="nextDesignTop" style="color:white" type="button">
+            Next Design
+          </button>
+        </div>
       </div>
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
         <label class="form-label" for="designType">Type</label>
         <select class="form-control border border-dark" id="designType" name="designType">
           <option value="Garment" selected>Garment</option>
+          <option value="Embroidery">Embroidery</option>
+          <option value="Vinylize">Vinylize</option>
           <option value="Other">Other</option>
         </select>
       </div>
@@ -56,24 +69,146 @@
         <img src="https://i.stack.imgur.com/H0xdb.png" class="d-block w-100" alt="...">
       </div>
 
-      <div id="showOther">
+      <div id="showEmbroidery">
         <div class="card" style="width:30rem;">
           <div class="card-header">
-            <h5 class="card-title text-center">Design Details</h5>
+            <h5 class="card-title text-center">Embroidery Details</h5>
           </div>
           <div class="card-body">
             <!-- Enter Other Job description  -->
-            <div class="col-xl-12 col-lg-6 col-md-8 col-11 mb-3 ">
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
               <div class="row justify-content-between">
-                <label class="form-label col-sm-7" for="otherJobDescription">Job Description: </label>
+                <label class="form-label col-sm-7" for="embroideryJobDescription">Job Description: </label>
                 <div class="col-sm-5">
-                  <input class="form-inline border border-dark" type="text" name="otherJobDescription"
-                    id="otherJobDescription" placeholder="Example:Embroidery">
+                  <input class="form-inline border border-dark" type="text" name="embroideryJobDescription"
+                    id="embroideryJobDescription" placeholder="Example: Stitching">
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-7" for="embroideryThread">Thread: </label>
+                <div class="col-sm-5">
+                  <input class="form-inline border border-dark" type="text" name="embroideryThread"
+                    id="embroideryThread" placeholder="Example: Napkins">
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-7" for="embroideryMaterial">Material: </label>
+                <div class="col-sm-5">
+                  <input class="form-inline border border-dark" type="text" name="embroideryMaterial"
+                    id="embroideryMaterial" placeholder="Example: Napkins">
                 </div>
               </div>
             </div>
             <!-- Enter Amount of Other -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-5" for="embroideryAmount">Amount: </label>
+                <div class="col-sm-5">
+                  <input class="form-inline border border-dark" type="number" name="embroideryAmount"
+                    id="embroideryAmount" placeholder="Example: 2" value="0">
+                </div>
+              </div>
+            </div>
+            <!-- Enter Cost Per Item -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-7" for="embroideryCostPerItem">Cost: </label>
+                <div class="col-sm-5">
+                  <input class="form-inline border border-dark" type="number" name="embroideryCostPerItem"
+                    id="embroideryCostPerItem" placeholder="Example: 5.50" min="0.00" step="0.01" value="0.00"
+                    required="false">
+                </div>
+              </div>
+            </div>
+            <!-- Show Total Cost -->
             <div class="col-xl-12 col-lg-6 col-md-8 col-11 mb-3 ">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-6" for="embroideryTotalCost">Total Cost: </label>
+                <div class="col-sm-5">
+                  <output class="form-inline border border-dark" name="embroideryTotalCost" for="embroideryTotalCost"
+                    id="embroideryTotalCost" required="false">
+                    Test</output>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="showVinylize">
+        <div class="card" style="width:30rem;">
+          <div class="card-header">
+            <h5 class="card-title text-center">Vinylize Details</h5>
+          </div>
+          <div class="card-body">
+            <!-- Enter Other Job description  -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-7" for="vinylizeJobDescription">Job Description: </label>
+                <div class="col-sm-5">
+                  <input class="form-inline border border-dark" type="text" name="vinylizeJobDescription"
+                    id="vinylizeJobDescription" placeholder="Example: Napkins">
+                </div>
+              </div>
+            </div>
+            <!-- Enter Amount of Other -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-5" for="vinylizeAmount">Amount: </label>
+                <div class="col-sm-5">
+                  <input class="form-inline border border-dark" type="number" name="vinylizeAmount" id="vinylizeAmount"
+                    placeholder="Example: 2" value="0">
+                </div>
+              </div>
+            </div>
+            <!-- Enter Cost Per Item -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-7" for="vinylizeCostPerItem">Cost: </label>
+                <div class="col-sm-5">
+                  <input class="form-inline border border-dark" type="number" name="vinylizeCostPerItem"
+                    id="vinylizeCostPerItem" placeholder="Example: 5.50" min="0.00" step="0.01" value="0.00"
+                    required="false">
+                </div>
+              </div>
+            </div>
+            <!-- Show Total Cost -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11 mb-3 ">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-6" for="vinylizeTotalCost">Total Cost: </label>
+                <div class="col-sm-5">
+                  <output class="form-inline border border-dark" name="vinylizeTotalCost" for="vinylizeTotalCost"
+                    id="vinylizeTotalCost" required="false">
+                    Test</output>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="showOther">
+        <div class="card" style="width:30rem;">
+          <div class="card-header">
+            <h5 class="card-title text-center">Other Design Details</h5>
+          </div>
+          <div class="card-body">
+            <!-- Enter Other Job description  -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+              <div class="row justify-content-between">
+                <label class="form-label col-sm-7" for="otherJobDescription">Job Description: </label>
+                <div class="col-sm-5">
+                  <input class="form-inline border border-dark" type="text" name="otherJobDescription"
+                    id="otherJobDescription" placeholder="Example: Napkins">
+                </div>
+              </div>
+            </div>
+            <!-- Enter Amount of Other -->
+            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
               <div class="row justify-content-between">
                 <label class="form-label col-sm-5" for="otherAmount">Amount: </label>
                 <div class="col-sm-5">
@@ -85,8 +220,8 @@
             <!-- Enter Cost Per Item -->
             <div class="col-xl-12 col-lg-6 col-md-8 col-11">
               <div class="row justify-content-between">
-                <label class="form-label col-sm-9" for="otherCostPerItem">Cost: </label>
-                <div class="col-sm-3">
+                <label class="form-label col-sm-7" for="otherCostPerItem">Cost: </label>
+                <div class="col-sm-5">
                   <input class="form-inline border border-dark" type="number" name="otherCostPerItem"
                     id="otherCostPerItem" placeholder="Example: 5.50" min="0.00" step="0.01" value="0.00"
                     required="false">
@@ -109,107 +244,133 @@
       </div>
 
       <div id="showGarment">
-        <div class="card">
-          <div class="card-header d-flex justify-content-center align-items-center">
-            <h5 id="currentGarment" class="form-inline float-left padding: 5px 0">Garment</h5>
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-2 mb-2">
+            <img id="previousGarment"
+              src="https://www.pngfind.com/pngs/m/316-3161853_left-arrow-png-back-icon-app-png-transparent.png"
+              style='height: 100%; width: 100%; object-fit: fill' alt="...">
           </div>
-          <div class="card-body">
-            <!-- Select Gender for Garment -->
-            <div class="col-xl-12 col-lg-6 col-md-8 col-11 mb-1 ">
-              <div class="row justify-content-between">
-                <label class="form-label col-sm-10" for="garmentGender">Gender: </label>
-                <div class="col-sm-1">
-                  <select class="form-inline border border-dark" id="garmentGender" name="garmentGender">
-                    <option disabled selected value> -- select an option -- </option>
-                    <option value="Boy">Boy</option>
-                    <option value="Girl">Girl</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
+          <div class="col col-xl-5 col-lg-6 col-md-8 col-9 mb-3">
+            <div class="card">
+              <div class="card-header d-flex justify-content-center align-items-center">
+                <h5 id="currentGarment" class="form-inline float-left padding: 5px 0">Garment</h5>
+              </div>
+              <div class="card-body">
+                <!-- Select Gender for Garment -->
+                <div class="col-xl-12 col-lg-6 col-md-8 col-12">
+                  <div class="row justify-content-between">
+                    <label class="form-label col-sm-6" for="garmentGender">Gender: </label>
+                    <div class="col-sm-6">
+                      <select class="form-inline border border-dark" id="garmentGender" name="garmentGender">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Boy">Boy</option>
+                        <option value="Girl">Girl</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- Select Size for Garment -->
+                <div class="col-xl-12 col-lg-6 col-md-8 col-12">
+                  <div class="row justify-content-between">
+                    <label class="form-label col-sm-6" for="garmentSize">Size: </label>
+                    <div class="col-sm-6">
+                      <select class="form-inline border border-dark" id="garmentSize" name="garmentSize">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="XXS">XXS</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="2XL">2XL</option>
+                        <option value="3XL">3XL</option>
+                        <option value="4XL">4XL</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- Enter Garment Style Number  -->
+                <div class="col-xl-12 col-lg-6 col-md-8 col-12">
+                  <div class="row justify-content-between">
+                    <label class="form-label col-sm-6" for="garmentStyleNumber">Style Number: </label>
+                    <div class="col-sm-6">
+                      <input class="form-inline border border-dark" type="text" name="garmentStyleNumber"
+                        id="garmentStyleNumber" placeholder="Example:PC78">
+                    </div>
+                  </div>
+                </div>
+                <!-- Enter Amount of Garments -->
+                <div class="col-xl-12 col-lg-6 col-md-8 col-12">
+                  <div class="row justify-content-between">
+                    <label class="form-label col-sm-6" for="garmentAmount">Amount: </label>
+                    <div class="col-sm-6">
+                      <input class="form-inline border border-dark" type="number" name="garmentAmount"
+                        id="garmentAmount" placeholder="Example: 2" value="0">
+                    </div>
+                  </div>
+                </div>
+                <!-- Enter Cost Per Item -->
+                <div class="col-xl-12 col-lg-6 col-md-8 col-12">
+                  <div class="row justify-content-between">
+                    <label class="form-label col-sm-6" for="garmentCostPerItem">Cost: </label>
+                    <div class="col-sm-6">
+                      <input class="form-inline border border-dark" type="number" name="garmentCostPerItem"
+                        id="garmentCostPerItem" placeholder="Example: 5.50" min="0.00" step="0.01" value="0.00"
+                        required="false">
+                    </div>
+                  </div>
+                </div>
+                <!-- Show Total Cost -->
+                <div class="col-xl-12 col-lg-6 col-md-8 col-12">
+                  <div class="row justify-content-between">
+                    <label class="form-label col-sm-6" for="garmentTotalCost">Total Cost: </label>
+                    <div class="col-sm-6">
+                      <output class="form-inline border border-dark" name="garmentTotalCost" for="garmentTotalCost"
+                        id="garmentTotalCost" required="false">Test</output>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- Select Size for Garment -->
-            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-              <div class="row justify-content-between">
-                <label class="form-label col-sm-7" for="garmentSize">Size: </label>
-                <div class="col-sm-1">
-                  <select class="form-inline border border-dark" id="garmentSize" name="garmentSize">
-                    <option disabled selected value> -- select an option -- </option>
-                    <option value="XXS">XXS</option>
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="2XL">2XL</option>
-                    <option value="3XL">3XL</option>
-                    <option value="4XL">4XL</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <!-- Enter Garment Style Number  -->
-            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-              <div class="row justify-content-between">
-                <label class="form-label col-sm-9" for="garmentStyleNumber">Style Number: </label>
-                <div class="col-sm-3">
-                  <input class="form-inline border border-dark" type="text" name="garmentStyleNumber"
-                    id="garmentStyleNumber" placeholder="Example:PC78">
-                </div>
-              </div>
-            </div>
-            <!-- Enter Amount of Garments -->
-            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-              <div class="row justify-content-between">
-                <label class="form-label col-sm-9" for="garmentAmount">Amount: </label>
-                <div class="col-sm-3">
-                  <input class="form-inline border border-dark" type="number" name="garmentAmount" id="garmentAmount"
-                    placeholder="Example: 2" value="0">
-                </div>
-              </div>
-            </div>
-            <!-- Enter Cost Per Item -->
-            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-              <div class="row justify-content-between">
-                <label class="form-label col-sm-9" for="garmentCostPerItem">Cost: </label>
-                <div class="col-sm-3">
-                  <input class="form-inline border border-dark" type="number" name="garmentCostPerItem"
-                    id="garmentCostPerItem" placeholder="Example: 5.50" min="0.00" step="0.01" value="0.00"
-                    required="false">
-                </div>
-              </div>
-            </div>
-            <!-- Show Total Cost -->
-            <div class="col-xl-12 col-lg-6 col-md-8 col-11">
-              <div class="row justify-content-between">
-                <label class="form-label col-sm-7" for="garmentTotalCost">Total Cost: </label>
-                <div class="col-sm-3">
-                  <output class="form-inline border border-dark" name="garmentTotalCost" for="garmentTotalCost"
-                    id="garmentTotalCost" required="false">Test</output>
-                </div>
-              </div>
+              <!-- <div class="card-footer text-center">
+                <button class="btn btn-primary btn-sm float-left" id="previousGarment" style="color:white"
+                  type="button">
+                  Previous
+                </button>
+                <button class="btn btn-primary btn-sm float-right" id="nextGarment" style="color:white" type="button">
+                  Next
+                </button>
+              </div> -->
             </div>
           </div>
-          <div class="card-footer text-center">
-            <button class="btn btn-primary btn-sm float-left" id="previousGarment" style="color:white" type="button">
-              Previous
-            </button>
-            <button class="btn btn-primary btn-sm float-right" id="nextGarment" style="color:white" type="button">
-              Next
-            </button>
+          <div class="col-xl-2 col-lg-2 col-md-2 col-2 mb-2">
+            <img id="nextGarment"
+              src="https://www.pngfind.com/pngs/m/37-379385_open-arrow-right-icon-png-transparent-png.png"
+              style='height: 100%; width: 100%; object-fit: fill' alt="...">
           </div>
         </div>
       </div>
 
       <!-- Submit and Reset Buttons -->
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
-        <div class="d-flex flex-row-reverse">
-          <div class="col-md-3 col-6 ps-2">
-            <input class="form-control btn btn-primary" type="submit" value="Submit">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="col-md-3 col-6 pe-2">
+            <button class="btn btn-primary btn-sm float-left" id="previousDesignBottom" style="color:white"
+              type="button">
+              Previous Design
+            </button>
           </div>
           <div class="col-md-3 col-6 pe-2">
             <button class="form-control btn btn-outline-secondary" id="resetButton" type="reset">Reset</button>
+          </div>
+          <div class="col-md-3 col-6 ps-2">
+            <input class="form-control btn btn-primary" id="submitButton" type="submit" value="Submit">
+          </div>
+          <div class="col-md-3 col-6 ps-2">
+            <button class="btn btn-primary btn-sm float-right" id="nextDesignBottom" style="color:white" type="button">
+              Next Design
+            </button>
           </div>
         </div>
       </div>

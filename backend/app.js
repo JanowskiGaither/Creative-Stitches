@@ -111,13 +111,10 @@ app.post('/orderSubmit', async function (req, res) {
   //console.log(order)
   try {
     saveOrder(order, design, customer);
-    res.redirect('/order');
+    res.redirect('/design');
   } catch (error) {
     console.log(error)
   }
-  //res.json(order.orderID);
-  res.redirect('/design');
-
 });
 
 app.post('/designSubmit', async function (req, res) {
