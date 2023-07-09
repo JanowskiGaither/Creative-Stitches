@@ -3,6 +3,7 @@ import '../scss/orderStyles.scss'
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
+let orderID = document.getElementById("orderID");
 let submitbutton = document.getElementById("submitButton");
 let org = document.getElementById("organization");
 
