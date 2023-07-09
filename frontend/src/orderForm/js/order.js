@@ -22,6 +22,15 @@ async function readOrder() {
 
 }
 
+function storeOrderID(message) {
+    sessionStorage.orderID = document.getElementById('orderID').value
+}
+
+orderID.addEventListener('change', function () {
+    storeOrderID();
+});
+
+
 submitbutton.addEventListener('click', async function () {
     await readOrder();
 })
