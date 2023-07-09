@@ -47,11 +47,11 @@ async function saveGarment(garment) {
 async function getGarment(garment) {
   console.log("--------------------start getGarment")
   // Check if new garment exists
-  var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID });
+  var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
 
   if (query) {
-    return query;
     console.log("--------------------return getGarment Result")
+    return query;
   }
   else {
     //Create a blank response
@@ -108,12 +108,13 @@ app.post('/orderSubmit', async function (req, res) {
   var design = new Design(req.body);
   var customer = new Customer(req.body);
 
+  //console.log(order)
   try {
     saveOrder(order, design, customer);
   } catch (error) {
     console.log(error)
   }
-
+  //res.json(order.orderID);
   res.redirect('/design');
 
 });
@@ -143,17 +144,19 @@ app.post('/garmentSubmit', async function (req, res) {
 });
 
 app.post('/garmentRetrieve', async function (req, res) {
-  var garment = new Garment(req.body);
+  const garment = new Garment(req.body);
 
   console.log("--------------------Garment Retrieve Request")
   try {
-    var result = await getGarment(garment);
+    const result = await getGarment(garment);
     console.log(result)
     console.log("--------------------Send json getGarment Result")
-    res.json(result);
+
   } catch (error) {
     console.log(error)
   }
+
+  res.json({ garment });
 });
 
 app.post('/otherSubmit', async function (req, res) {
