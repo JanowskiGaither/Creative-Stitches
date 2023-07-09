@@ -110,11 +110,15 @@ app.post('/designSubmit', async function (req, res) {
 
 });
 
-app.post('/readOrder', async function (req, res) {
-  var testOrder = await Order.findOne({ orderID: '1' });
-  console.log(testOrder);
-  console.log('------------------------------------------Read Order!')
-  res.json({ testOrder });
+app.get('/readOrder', async function (req, res) {
+  try {
+    const testOrder = await Order.findOne({ orderID: '1' });
+    console.log(testOrder);
+    console.log('------------------------------------------Read Order!')
+    res.json(testOrder);
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 app.listen(port, () => {

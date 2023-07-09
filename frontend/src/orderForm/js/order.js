@@ -4,17 +4,21 @@ import '../scss/orderStyles.scss'
 import * as bootstrap from 'bootstrap'
 
 let submitbutton = document.getElementById("submitButton");
+let org = document.getElementById("organization");
 
 async function readOrder() {
     await fetch('/readOrder', {
-        methods: 'POST',
+        methods: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
+        },
     })
         .then(response => response.json())
         .then(response => console.log(response))
+        .finally(() => {
+            org.setAttribute("placeholder", "it worked")
+        })
+
 }
 
 submitbutton.addEventListener('click', async function () {
