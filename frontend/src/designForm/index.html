@@ -12,12 +12,22 @@
   <form action="/designSubmit" method="post">
     <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
       <h1 class="display-4">Design Form</h1>
-
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
         <hr class="border border-primary border-3 opacity-75">
         <label class="form-label" for="designID">Design ID</label>
         <input class="form-control border border-dark" type="text" name="designID" id="designID"
           placeholder="example: CHS Sports Team Design 1 2023">
+      </div>
+
+      <!-- Show orderID -->
+      <div class="col-xl-12 col-lg-6 col-md-8 col-11">
+        <div class="row justify-content-between">
+          <label class="form-label col-sm-7" for="orderID">orderID: </label>
+          <div class="col-sm-3">
+            <output class="form-inline border border-dark" name="orderID" for="orderID" id="orderID"
+              required="false">Test</output>
+          </div>
+        </div>
       </div>
 
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">

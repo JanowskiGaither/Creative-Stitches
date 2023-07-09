@@ -24,160 +24,165 @@ mongoose.connect('mongodb://mongo:27017/test', { useNewUrlParser: true, useUnifi
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.post('/orderSubmit', function (req, res) {
+//Save order
+async function saveOrder(order, design, customer) {
 
+  // Save received Order and Customer information
+  await Order.updateOne({ customerID: order.customerID, orderID: order.orderID }, { taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate }, { upsert: true });
+  await Customer.updateOne({ customerID: customer.customerID }, {
+    firstName: customer.firstName, lastName: customer.lastName, organization: customer.organization, phone: customer.phone, email: customer.email
+  }, { upsert: true });
+}
+
+//Save garment
+async function saveGarment(garment) {
+  // Save received Garment information
+  await Garment.updateOne({ designID: garment.designID, garmentID: garment.garmentID, orderID: garment.orderID }, {
+    garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
+    garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
+  }, { upsert: true });
+}
+
+//Get garment
+async function getGarment(garment) {
+  console.log("--------------------start getGarment")
+  // Check if new garment exists
+  var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
+
+  if (query) {
+    console.log("--------------------return getGarment Result")
+    return query;
+  }
+  else {
+    //Create a blank response
+    var garmentResponse = new Garment();
+    garmentResponse.orderID = garment.orderID;
+    garmentResponse.garmentID = garment.garmentID;
+    garmentResponse.designID = garment.designID;
+    garmentResponse.garmentSize = '';
+    garmentResponse.garmentStyleNumber = '';
+    garmentResponse.garmentAmount = 0;
+    garmentResponse.garmentCostPerItem = 0;
+    garmentResponse.garmentTotalCost = 0;
+
+    return garmentResponse;
+  }
+}
+
+//Save other
+async function saveOther(other) {
+  // Save received Other information
+  await Other.updateOne({ designID: other.designID, garmentID: other.garmentID, orderID: other.orderID }, {
+    otherJobDescription: other.otherJobDescription, otherAmount: other.otherAmount,
+    otherCostPerItem: other.otherCostPerItem, otherTotalCost: other.otherTotalCost
+  }, { upsert: true });
+}
+
+//Save design
+async function saveDesign(design, garment, other) {
+  // Save Received Design information
+  await Design.updateOne({ designID: design.designID, orderID: design.orderID }, {
+    designType: design.designType, designDescription: design.designDescription,
+    designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
+  }, { upsert: true });
+
+  if (design.designType == 'Garment') {
+    try {
+      saveGarment(garment);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  else if (design.designType == 'Other') {
+    try {
+      saveOther(other);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+}
+
+app.post('/orderSubmit', async function (req, res) {
   var order = new Order(req.body);
   var design = new Design(req.body);
   var customer = new Customer(req.body);
 
-  //Search if this order exists in the database
-  Order.findOne({ orderID: order.orderID }, function (err, result) {
-    if (!result) {
-      console.log("++++++++++++++++++++++++++++++++++++++++++No Match")
-
-      //Save new Customer
-      customer.save()
-        .then(customer => {
-          console.log(customer)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-
-      //Save new Order
-      order.save()
-        .then(order => {
-          console.log(order)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-
-      //Save new Design
-      design.save()
-        .then(design => {
-          console.log(design)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    }
-    else {
-      console.log("------------------------------------------Match!")
-
-      // Manually set the fields to update for now
-      Order.updateOne({ order_id: order.order_id }, { "$set": { taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate } })
-        .then(order => {
-          console.log(order)
-        })
-
-    }
-  });
-
-  // Go back to Home
-  res.redirect('/', (req, resp) => {
-    resp.send('Welcome to mongodb API')
-  });
+  //console.log(order)
+  try {
+    saveOrder(order, design, customer);
+    res.redirect('/order');
+  } catch (error) {
+    console.log(error)
+  }
+  //res.json(order.orderID);
+  res.redirect('/design');
 
 });
 
-app.post('/designSubmit', function (req, res) {
-
+app.post('/designSubmit', async function (req, res) {
   var design = new Design(req.body);
   var garment = new Garment(req.body);
   var other = new Other(req.body);
 
-  //Search if this design exists in the database
-  // Use designID for testing, but orderID for functionality
-  Design.findOne({ designID: design.designID }, function (err, result) {
-    if (!result) {
-      console.log("++++++++++++++++++++++++++++++++++++++++++No Match")
+  try {
+    saveDesign(design, garment, other);
+  } catch (error) {
+    console.log(error)
+  }
 
-      //Saved as a new design
-      design.save()
-        .then(design => {
-          console.log(design)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-
-      Design.findOne({ designID: design.designID, designType: 'Garment' }, function (err, result) {
-        if (!result) {
-          //Saved as a new Other
-          other.save()
-            .then(other => {
-              console.log(other)
-            })
-            .catch(e => {
-              console.log(e)
-            })
-        }
-        else {
-          //Saved as a new Garment
-          garment.save()
-            .then(garment => {
-              console.log(garment)
-            })
-            .catch(e => {
-              console.log(e)
-            })
-        }
-
-        return res.end(JSON.stringify(garment));
-      });
-    }
-    else {
-      console.log("------------------------------------------Match!")
-      //Update the design
-      // Manually set the fields to update for now
-      Design.updateOne({ designID: design.designID }, {
-        "$set": {
-          designType: design.designType, designDescription: design.designDescription,
-          designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
-        }
-      })
-        .then(design => {
-          console.log(design)
-        })
-
-      //Determine if its a Garment or Other and save appropriately
-      Design.findOne({ designID: design.designID, designType: 'Garment' }, function (err, result) {
-        if (!result) {
-          //Update the Other
-          Other.updateOne({ designID: other.designID }, {
-            "$set": {
-              otherJobDescription: other.otherJobDescription, otherAmount: other.otherAmount,
-              otherCostPerItem: other.otherCostPerItem, otherTotalCost: other.otherTotalCost
-            }
-          })
-            .then(other => {
-              console.log(other)
-            })
-        }
-        else {
-          //Update the Garment
-          Garment.updateOne({ designID: garment.designID }, {
-            "$set": {
-              garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
-              garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
-            }
-          })
-            .then(garment => {
-              console.log(garment)
-            })
-        }
-
-        return res.end(JSON.stringify(garment));
-      });
-    }
-    //Go back to Home
-    //res.redirect('/');
-
-  });
+  res.redirect('/');
 });
 
+app.post('/garmentSubmit', async function (req, res) {
+  var garment = new Garment(req.body);
+
+  try {
+    saveGarment(garment);
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/garmentRetrieve', async function (req, res) {
+  const garment = new Garment(req.body);
+
+  console.log("--------------------Garment Retrieve Request")
+  try {
+    const result = await getGarment(garment);
+    console.log(result)
+    res.json(result);
+    console.log("--------------------Send json getGarment Result")
+
+  } catch (error) {
+    console.log(error)
+  }
+
+
+});
+
+app.post('/otherSubmit', async function (req, res) {
+  var other = new Other(req.body);
+
+  try {
+    saveOther(other);
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.get('/readOrder', async function (req, res) {
+  try {
+    const testOrder = await Order.findOne({ orderID: '1' });
+    console.log(testOrder);
+    console.log('------------------------------------------Read Order!')
+    res.json(testOrder);
+  } catch (error) {
+    console.log(error)
+  }
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`App listening on port ${port}`);
 });
+
