@@ -150,13 +150,14 @@ app.post('/garmentRetrieve', async function (req, res) {
   try {
     const result = await getGarment(garment);
     console.log(result)
+    res.json(result);
     console.log("--------------------Send json getGarment Result")
 
   } catch (error) {
     console.log(error)
   }
 
-  res.json({ garment });
+
 });
 
 app.post('/otherSubmit', async function (req, res) {
