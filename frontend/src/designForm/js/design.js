@@ -104,7 +104,7 @@ async function nextGarment() {
         body: JSON.stringify(currentGarment)
     })
 
-    await fetch('/garmentRetrieve', {
+    const response = await fetch('/garmentRetrieve', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -112,16 +112,18 @@ async function nextGarment() {
         },
 
         body: JSON.stringify(newGarment)
-    })
-        .then(response => response.json()).then(response => console.log(response));
+    }).then(response => { return response })
 
-    // document.getElementById("garmentID").value = response.Garment.garmentID;
-    // document.getElementById("garmentGender").value = response.Garment.garmentGender;
-    // document.getElementById("garmentSize").value = response.Garment.garmentSize;
-    // document.getElementById("garmentStyleNumber").value = response.Garment.garmentStyleNumber;
-    // document.getElementById("garmentAmount").value = response.Garment.garmentAmount;
-    // document.getElementById("garmentCostPerItem").value = response.Garment.garmentCostPerItem;
-    // document.getElementById("garmentTotalCost").value = response.Garment.garmentTotalCost;
+    //Parse response to update values
+    const jsonResponse = await response.json();
+    document.getElementById("garmentID").value = await jsonResponse.garmentID;
+    document.getElementById("garmentGender").value = await jsonResponse.garmentGender;
+    document.getElementById("garmentSize").value = await jsonResponse.garmentSize;
+    document.getElementById("garmentStyleNumber").value = await jsonResponse.garmentStyleNumber;
+    document.getElementById("garmentAmount").value = await jsonResponse.garmentAmount;
+    document.getElementById("garmentCostPerItem").value = await jsonResponse.garmentCostPerItem;
+    document.getElementById("garmentTotalCost").value = await jsonResponse.garmentTotalCost;
+    document.getElementById("garmentTotalCost").value = await jsonResponse.garmentTotalCost;
 }
 
 
@@ -136,9 +138,6 @@ async function previousGarment() {
     newGarment.orderID = currentGarment.orderID;
     newGarment.designID = currentGarment.designID;
 
-    //debug
-    console.log(currentGarment)
-
     fetch('/garmentSubmit', {
         method: 'POST',
         headers: {
@@ -148,7 +147,7 @@ async function previousGarment() {
         body: JSON.stringify(currentGarment)
     })
 
-    await fetch('/garmentRetrieve', {
+    const response = await fetch('/garmentRetrieve', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -156,16 +155,17 @@ async function previousGarment() {
         },
 
         body: JSON.stringify(newGarment)
-    })
-        .then(response => response.json()).then(response => console.log(response))
+    }).then(response => { return response })
 
-    // document.getElementById("garmentID").value = response.Garment.garmentID;
-    // document.getElementById("garmentGender").value = response.Garment.garmentGender;
-    // document.getElementById("garmentSize").value = response.Garment.garmentSize;
-    // document.getElementById("garmentStyleNumber").value = response.Garment.garmentStyleNumber;
-    // document.getElementById("garmentAmount").value = response.Garment.garmentAmount;
-    // document.getElementById("garmentCostPerItem").value = response.Garment.garmentCostPerItem;
-    // document.getElementById("garmentTotalCost").value = response.Garment.garmentTotalCost;
+    //Parse response to update values
+    const jsonResponse = await response.json();
+    document.getElementById("garmentID").value = await jsonResponse.garmentID;
+    document.getElementById("garmentGender").value = await jsonResponse.garmentGender;
+    document.getElementById("garmentSize").value = await jsonResponse.garmentSize;
+    document.getElementById("garmentStyleNumber").value = await jsonResponse.garmentStyleNumber;
+    document.getElementById("garmentAmount").value = await jsonResponse.garmentAmount;
+    document.getElementById("garmentCostPerItem").value = await jsonResponse.garmentCostPerItem;
+    document.getElementById("garmentTotalCost").value = await jsonResponse.garmentTotalCost;
 }
 
 // Create event listeners to handle user inputs
