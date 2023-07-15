@@ -115,18 +115,12 @@ function determineCurrentGarment() {
 function checkNextPreviousDesignShown() {
     // If its the final design show submit
     if (designNumber == numberOfDesigns.value) {
-        // console.log('----------designNumber = ' + designNumber);
-        // console.log('----------numberofDesigns = ' + numberOfDesigns.value);
-        // console.log('----------Final Design');
         document.getElementById('submitButton').style.display = "block";
         document.getElementById('nextDesignTop').style.display = "none";
         document.getElementById('nextDesignBottom').style.display = "none";
     }
     // Hide submit and show next design button
     else {
-        // console.log('----------designNumber = ' + designNumber);
-        // console.log('----------numberofDesigns = ' + numberOfDesigns.value);
-        // console.log('----------Not Final');
         document.getElementById('submitButton').style.display = "none";
         document.getElementById('nextDesignTop').style.display = "block";
         document.getElementById('nextDesignBottom').style.display = "block";
@@ -134,7 +128,6 @@ function checkNextPreviousDesignShown() {
 
     // If its the first design don't show previous button
     if (designNumber == 1) {
-        console.log('----------First Design');
         document.getElementById('previousDesignTop').style.display = "none";
         document.getElementById('previousDesignBottom').style.display = "none";
     }
@@ -307,28 +300,60 @@ async function fetchAllGarment(garment) {
 
     console.log(response);
 
-    // //Update table
+    //Update table
 
-    // //Determine if more rows are needed
-    // var numbRows = garmentTable.rows.length;
+    //Determine if more rows are needed
+    var numbRows = garmentTable.rows.length;
+    console.log(numbRows);
 
-    // //More rows are needed
-    // while (numbRows < numberOfGarments.value) {
-    //     //Add Row
-    //     garmentTable.insertRow()
+    //More rows are needed
+    while (numbRows <= numberOfGarments.value) {
+        //Add Row
+        console.log("Add Row")
+        garmentTable.insertRow()
 
-    //     //Update row count
-    //     numbRows = garmentTable.getElementsByTagName('tr').length;
-    // }
+        //Update row count
+        numbRows = garmentTable.rows.length;
+        console.log("Row count = " + numbRows)
+    }
 
-    // //Less rows are needed
-    // while (numbRows > numberOfGarments.value) {
-    //     //Add Row
-    //     garmentTable.deleteRow()
+    //Less rows are needed
+    while (numbRows > (numberOfGarments.value + 1)) {
+        //Add Row
+        garmentTable.deleteRow(numbRows - 1)
 
-    //     //Update row count
-    //     numbRows = garmentTable.getElementsByTagName('tr').length;
-    // }
+        //Update row count
+        numbRows = garmentTable.rows.length;
+    }
+
+
+
+    //Test add default values
+    for (let i = 1; i < numbRows; i++) {
+
+        console.log("Modify Row")
+
+        //Get number of cells in current row
+        var numbCells = garmentTable.rows[i].cells.length;
+
+        console.log(numbCells)
+
+        //Number of cells should always be 5
+        while (numbCells < 5) {
+            //Add Cell
+            garmentTable.rows[i].insertCell();
+
+            //Update cell count
+            numbCells = garmentTable.rows[i].cells.length;
+        }
+
+        //Modify all values in row
+        garmentTable.rows[i].cells[0].innerHTML = i;
+        garmentTable.rows[i].cells[1].innerHTML = "Female";
+        garmentTable.rows[i].cells[2].innerHTML = "XL";
+        garmentTable.rows[i].cells[3].innerHTML = "3";
+        garmentTable.rows[i].cells[4].innerHTML = "$" + "999.99";
+    }
 
     // //Test
     // // Add values to to row
