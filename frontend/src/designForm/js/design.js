@@ -43,7 +43,7 @@ class Design {
         if (getFormValues) {
             this.designID = designID;
             this.orderID = orderID;
-            this.designType = document.getElementById("garmentGender").designType;
+            this.designType = document.getElementById("designType").value;
             this.designDescription = document.getElementById("designDescription").value;
             this.designNotes = document.getElementById("designNotes").value;
             //this.designImages = document.getElementById("designImages").value;
@@ -91,8 +91,8 @@ function initialSetup() {
     document.getElementById('showVinylize').style.display = "none";
 
     //Update current design and garment
-    determineCurrentDesign();
-    determineCurrentGarment();
+    //determineCurrentDesign();
+    //determineCurrentGarment();
 
     //Update design forward/backward buttons
     checkNextPreviousDesignShown();
@@ -100,7 +100,7 @@ function initialSetup() {
 
     //Populate the first design if possible
     if (orderID != 'NA') {
-        getCurrentDesign();
+        //getCurrentDesign();
     }
 
     // Calculate total costs at start
@@ -394,9 +394,9 @@ async function fetchDesign(design) {
     const jsonResponse = await response.json();
     // console.log(jsonResponse);
     designID = jsonResponse.designID;
-    document.getElementById("designType").value = jsonResponse.designType;
-    document.getElementById("designDescription").value = jsonResponse.designDescription;
-    document.getElementById("designNotes").value = jsonResponse.designNotes;
+    //document.getElementById("designType").value = jsonResponse.designType;
+    //document.getElementById("designDescription").value = jsonResponse.designDescription;
+    //document.getElementById("designNotes").value = jsonResponse.designNotes;
     //document.getElementById("designImages").value = jsonResponse.designImages;
     //document.getElementById("designTotalCost").value = jsonResponse.designTotalCost;
 }
