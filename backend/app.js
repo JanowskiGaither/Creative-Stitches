@@ -70,6 +70,33 @@ async function getGarment(garment) {
   }
 }
 
+//Get design
+async function getDesign(design) {
+  console.log("--------------------start getDesign")
+  // Check if new garment exists
+  var query = await Design.findOne({ orderID: design.orderID, designID: design.designID }).exec();
+
+  if (query) {
+    console.log("--------------------return getDesign Result")
+    return query;
+  }
+  else {
+    //Create a blank response
+    var designResponse = new Design();
+    designResponse.orderID = design.orderID;
+    designResponse.garmentID = design.garmentID;
+    designResponse.designID = design.designID;
+    designResponse.designType = 'Garment';
+    designResponse.designDescription = 'NA';
+    designResponse.designNotes = 0;
+    designResponse.designImages = 0;
+    designResponse.designNumberGarments = 1;
+    designResponse.designTotalCost = 0;
+
+    return designResponse;
+  }
+}
+
 
 //Get garment
 async function getAllGarment(garment) {
@@ -107,28 +134,12 @@ async function saveOther(other) {
 }
 
 //Save design
-async function saveDesign(design, garment, other) {
+async function saveDesign(design) {
   // Save Received Design information
   await Design.updateOne({ designID: design.designID, orderID: design.orderID }, {
     designType: design.designType, designDescription: design.designDescription, designNotes: design.designNotes,
     designImages: design.designImages, designNumberGarments: design.designNumberGarments, designTotalCost: design.designTotalCost
   }, { upsert: true });
-
-  if (design.designType == 'Garment') {
-    try {
-      saveGarment(garment);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  else if (design.designType == 'Other') {
-    try {
-      saveOther(other);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
 }
 
 app.post('/orderSubmit', async function (req, res) {
@@ -147,11 +158,9 @@ app.post('/orderSubmit', async function (req, res) {
 
 app.post('/designSubmit', async function (req, res) {
   var design = new Design(req.body);
-  var garment = new Garment(req.body);
-  var other = new Other(req.body);
 
   try {
-    saveDesign(design, garment, other);
+    saveDesign(design);
   } catch (error) {
     console.log(error)
   }
@@ -179,6 +188,21 @@ app.post('/garmentRetrieve', async function (req, res) {
     console.log(result)
     res.json(result);
     console.log("--------------------Send json getGarment Result")
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/designRetrieve', async function (req, res) {
+  const design = new Design(req.body);
+
+  console.log("--------------------Design Retrieve Request")
+  try {
+    const result = await getDesign(design);
+    console.log(result)
+    res.json(result);
+    console.log("--------------------Send json getDesign Result")
 
   } catch (error) {
     console.log(error)

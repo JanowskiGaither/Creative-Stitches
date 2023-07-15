@@ -86,13 +86,11 @@ function initialSetup() {
     garmentID = designID.toString() + '_' + garmentNumber.toString();
 
     // Hide unselected initially
-    document.getElementById('showOther').style.display = "none";
-    document.getElementById('showEmbroidery').style.display = "none";
-    document.getElementById('showVinylize').style.display = "none";
+    itemTypeSelection();
 
     //Update current design and garment
-    //determineCurrentDesign();
-    //determineCurrentGarment();
+    determineCurrentDesign();
+    determineCurrentGarment();
 
     //Update design forward/backward buttons
     checkNextPreviousDesignShown();
@@ -100,7 +98,7 @@ function initialSetup() {
 
     //Populate the first design if possible
     if (orderID != 'NA') {
-        //getCurrentDesign();
+        getCurrentDesign();
     }
 
     // Calculate total costs at start
@@ -380,7 +378,7 @@ async function fetchAllGarment(garment) {
 
 
 async function fetchDesign(design) {
-    const response = await fetch('/garmentRetrieve', {
+    const response = await fetch('/designRetrieve', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -392,13 +390,19 @@ async function fetchDesign(design) {
 
     //Parse response to update values
     const jsonResponse = await response.json();
-    // console.log(jsonResponse);
     designID = jsonResponse.designID;
-    //document.getElementById("designType").value = jsonResponse.designType;
-    //document.getElementById("designDescription").value = jsonResponse.designDescription;
-    //document.getElementById("designNotes").value = jsonResponse.designNotes;
-    //document.getElementById("designImages").value = jsonResponse.designImages;
-    //document.getElementById("designTotalCost").value = jsonResponse.designTotalCost;
+
+    if (jsonResponse.designDescription != 'NA') {
+        document.getElementById("designType").value = jsonResponse.designType;
+        document.getElementById("designDescription").value = jsonResponse.designDescription;
+        document.getElementById("designNotes").value = jsonResponse.designNotes;
+        //document.getElementById("designImages").value = jsonResponse.designImages;
+    }
+    else {
+        document.getElementById("designType").value = 'Garment';
+    }
+
+    itemTypeSelection();
 }
 
 async function getCurrentDesign() {
