@@ -38,8 +38,9 @@ async function saveOrder(order, design, customer) {
 async function saveGarment(garment) {
   // Save received Garment information
   await Garment.updateOne({ designID: garment.designID, garmentID: garment.garmentID, orderID: garment.orderID }, {
-    garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
-    garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
+    garmentNumber: garment.garmentNumber, garmentGender: garment.garmentGender, garmentSize: garment.garmentSize,
+    garmentStyleNumber: garment.garmentStyleNumber, garmentAmount: garment.garmentAmount,
+    garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
   }, { upsert: true });
 }
 
@@ -109,8 +110,8 @@ async function saveOther(other) {
 async function saveDesign(design, garment, other) {
   // Save Received Design information
   await Design.updateOne({ designID: design.designID, orderID: design.orderID }, {
-    designType: design.designType, designDescription: design.designDescription,
-    designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
+    designType: design.designType, designDescription: design.designDescription, designNotes: design.designNotes,
+    designImages: design.designImages, designNumberGarments: design.designNumberGarments, designTotalCost: design.designTotalCost
   }, { upsert: true });
 
   if (design.designType == 'Garment') {

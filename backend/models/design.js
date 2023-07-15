@@ -19,6 +19,9 @@ const designSchema = new mongoose.Schema({
     designImages: {
         type: String,
     },
+    designNumberGarments: {
+        type: String,
+    },
     designTotalCost: {
         type: String,
     },
