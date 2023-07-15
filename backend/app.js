@@ -69,6 +69,33 @@ async function getGarment(garment) {
   }
 }
 
+
+//Get garment
+async function getAllGarment(garment) {
+  console.log("--------------------start getAllGarment")
+  // Check if new garment exists
+  var query = await Garment.find({ orderID: garment.orderID, designID: garment.designID }).exec();
+
+  if (query) {
+    console.log("--------------------return getAllGarment Result")
+    return query;
+  }
+  else {
+    //Create a blank response
+    var garmentResponse = new Garment();
+    garmentResponse.orderID = garment.orderID;
+    garmentResponse.garmentID = 0;
+    garmentResponse.designID = garment.designID;
+    garmentResponse.garmentSize = '';
+    garmentResponse.garmentStyleNumber = '';
+    garmentResponse.garmentAmount = 0;
+    garmentResponse.garmentCostPerItem = 0;
+    garmentResponse.garmentTotalCost = 0;
+
+    return garmentResponse;
+  }
+}
+
 //Save other
 async function saveOther(other) {
   // Save received Other information
@@ -151,6 +178,23 @@ app.post('/garmentRetrieve', async function (req, res) {
     console.log(result)
     res.json(result);
     console.log("--------------------Send json getGarment Result")
+
+  } catch (error) {
+    console.log(error)
+  }
+
+
+});
+
+app.post('/garmentAllRetrieve', async function (req, res) {
+  const garment = new Garment(req.body);
+
+  console.log("--------------------GarmentAll Retrieve Request")
+  try {
+    const result = await getAllGarment(garment);
+    console.log(result)
+    res.json(result);
+    console.log("--------------------Send json getAllGarment Result")
 
   } catch (error) {
     console.log(error)

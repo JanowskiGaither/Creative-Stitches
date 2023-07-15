@@ -293,6 +293,31 @@ async function fetchGarment(garment) {
     document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
 }
 
+async function fetchAllGarment(garment) {
+    const response = await fetch('/garmentAllRetrieve', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(garment)
+    }).then(response => { return response })
+
+    console.log(response);
+
+    // //Parse response to update values
+    // const jsonResponse = await response.json();
+    // garmentID = jsonResponse.garmentID;
+    // document.getElementById("garmentGender").value = jsonResponse.garmentGender;
+    // document.getElementById("garmentSize").value = jsonResponse.garmentSize;
+    // document.getElementById("garmentStyleNumber").value = jsonResponse.garmentStyleNumber;
+    // document.getElementById("garmentAmount").value = jsonResponse.garmentAmount;
+    // document.getElementById("garmentCostPerItem").value = jsonResponse.garmentCostPerItem;
+    // document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
+}
+
+
 async function fetchDesign(design) {
     const response = await fetch('/garmentRetrieve', {
         method: 'POST',
@@ -385,6 +410,19 @@ async function nextDesign() {
     checkNextPreviousDesignShown();
 }
 
+// Update the Garments table
+async function updateGarmentTable() {
+    //Create a query garment
+    var newGarment = new Garment(true);
+
+    //Setup new garment query
+    var newGarment = new Garment();
+    newGarment.orderID = orderID;
+    newGarment.designID = designID;
+
+    fetchAllGarment(newGarment)
+}
+
 // Save the current garment and retrieve the next garment's values to display
 async function previousGarment() {
     //Save current garment values from HTML
@@ -455,6 +493,10 @@ numberOfDesigns.addEventListener("change", function () {
 numberOfGarments.addEventListener("change", function () {
     determineCurrentGarment();
     checkNextPreviousGarmentShown();
+});
+
+numberOfGarments.addEventListener("change", async function () {
+    updateGarmentTable();
 });
 
 previousGarmentButton.addEventListener('click', async function () {
