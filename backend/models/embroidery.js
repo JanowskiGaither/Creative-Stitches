@@ -16,6 +16,9 @@ const embroiderySchema = new mongoose.Schema({
     embroideryThread: {
         type: String,
     },
+    embroideryMaterial: {
+        type: String,
+    },
     embroideryCostPerItem: {
         type: String,
     },

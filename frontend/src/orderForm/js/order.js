@@ -3,9 +3,23 @@ import '../scss/orderStyles.scss'
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
-let orderID = document.getElementById("orderID");
 let submitbutton = document.getElementById("submitButton");
 let org = document.getElementById("organization");
+
+//Create first IDs
+var customerID = document.getElementById("firstName").value.toString() + document.getElementById("lastName").value.toString() + "_" + document.getElementById("email").value.toString();
+var orderID = customerID + new Date().toLocaleDateString();
+
+function createID() {
+    customerID = document.getElementById("firstName").value.toString() + document.getElementById("lastName").value.toString() + "_" + document.getElementById("email").value.toString();
+    orderID = customerID + "_" + new Date().toLocaleDateString();
+
+    console.log(orderID);
+
+    //Update stored orderID
+    storeOrderID();
+}
+
 
 async function readOrder() {
     await fetch('/readOrder', {
@@ -22,14 +36,21 @@ async function readOrder() {
 
 }
 
-function storeOrderID(message) {
-    sessionStorage.orderID = document.getElementById('orderID').value
+function storeOrderID() {
+    sessionStorage.orderID = orderID
 }
 
-orderID.addEventListener('change', function () {
-    storeOrderID();
+document.getElementById("firstName").addEventListener('change', function () {
+    createID();
 });
 
+document.getElementById("lastName").addEventListener('change', function () {
+    createID();
+});
+
+document.getElementById("email").addEventListener('change', function () {
+    createID();
+});
 
 submitbutton.addEventListener('click', async function () {
     await readOrder();

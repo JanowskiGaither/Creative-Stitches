@@ -38,8 +38,9 @@ async function saveOrder(order, design, customer) {
 async function saveGarment(garment) {
   // Save received Garment information
   await Garment.updateOne({ designID: garment.designID, garmentID: garment.garmentID, orderID: garment.orderID }, {
-    garmentGender: garment.garmentGender, garmentSize: garment.garmentSize, garmentStyleNumber: garment.garmentStyleNumber,
-    garmentAmount: garment.garmentAmount, garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
+    garmentNumber: garment.garmentNumber, garmentGender: garment.garmentGender, garmentSize: garment.garmentSize,
+    garmentStyleNumber: garment.garmentStyleNumber, garmentAmount: garment.garmentAmount,
+    garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
   }, { upsert: true });
 }
 
@@ -69,6 +70,33 @@ async function getGarment(garment) {
   }
 }
 
+
+//Get garment
+async function getAllGarment(garment) {
+  console.log("--------------------start getAllGarment")
+  // Check if new garment exists
+  var query = await Garment.find({ orderID: garment.orderID, designID: garment.designID }).exec();
+
+  if (query) {
+    console.log("--------------------return getAllGarment Result")
+    return query;
+  }
+  else {
+    //Create a blank response
+    var garmentResponse = new Garment();
+    garmentResponse.orderID = garment.orderID;
+    garmentResponse.garmentID = 0;
+    garmentResponse.designID = garment.designID;
+    garmentResponse.garmentSize = '';
+    garmentResponse.garmentStyleNumber = '';
+    garmentResponse.garmentAmount = 0;
+    garmentResponse.garmentCostPerItem = 0;
+    garmentResponse.garmentTotalCost = 0;
+
+    return garmentResponse;
+  }
+}
+
 //Save other
 async function saveOther(other) {
   // Save received Other information
@@ -82,8 +110,8 @@ async function saveOther(other) {
 async function saveDesign(design, garment, other) {
   // Save Received Design information
   await Design.updateOne({ designID: design.designID, orderID: design.orderID }, {
-    designType: design.designType, designDescription: design.designDescription,
-    designNotes: design.designNotes, designImages: design.designImages, designTotalCost: design.designTotalCost
+    designType: design.designType, designDescription: design.designDescription, designNotes: design.designNotes,
+    designImages: design.designImages, designNumberGarments: design.designNumberGarments, designTotalCost: design.designTotalCost
   }, { upsert: true });
 
   if (design.designType == 'Garment') {
@@ -111,13 +139,10 @@ app.post('/orderSubmit', async function (req, res) {
   //console.log(order)
   try {
     saveOrder(order, design, customer);
-    res.redirect('/order');
+    res.redirect('/design');
   } catch (error) {
     console.log(error)
   }
-  //res.json(order.orderID);
-  res.redirect('/design');
-
 });
 
 app.post('/designSubmit', async function (req, res) {
@@ -139,6 +164,7 @@ app.post('/garmentSubmit', async function (req, res) {
 
   try {
     saveGarment(garment);
+    res.json('Success');
   } catch (error) {
     console.log(error)
   }
@@ -153,6 +179,23 @@ app.post('/garmentRetrieve', async function (req, res) {
     console.log(result)
     res.json(result);
     console.log("--------------------Send json getGarment Result")
+
+  } catch (error) {
+    console.log(error)
+  }
+
+
+});
+
+app.post('/garmentAllRetrieve', async function (req, res) {
+  const garment = new Garment(req.body);
+
+  console.log("--------------------GarmentAll Retrieve Request")
+  try {
+    const result = await getAllGarment(garment);
+    console.log(result)
+    res.json(result);
+    console.log("--------------------Send json getAllGarment Result")
 
   } catch (error) {
     console.log(error)
