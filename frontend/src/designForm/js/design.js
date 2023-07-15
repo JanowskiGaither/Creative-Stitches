@@ -62,18 +62,27 @@ let selectItemType = document.getElementById("designType");
 let numberOfDesigns = document.getElementById("numberOfDesigns");
 let numberOfGarments = document.getElementById("numberOfGarments");
 
-//Retrieve orderID
-const orderID = sessionStorage.getItem('orderID');
-
-//Create first designID
+var orderID;
 var designNumber = 1;
 var garmentNumber = 1;
-var designID = orderID.toString() + '_' + designNumber.toString();
-var garmentID = designID.toString() + '_' + garmentNumber.toString();
-
-
+var designID;
+var garmentID;
 
 function initialSetup() {
+
+    //Retrieve orderID
+    if (sessionStorage.getItem('orderID') != null) {
+        orderID = sessionStorage.getItem('orderID');
+    }
+    else {
+        //For now just substitude value, later update popup error maybe
+        orderID = 'NA'
+    }
+
+    //Create first designID
+    designID = orderID.toString() + '_' + designNumber.toString();
+    garmentID = designID.toString() + '_' + garmentNumber.toString();
+
     // Hide unselected initially
     document.getElementById('showOther').style.display = "none";
     document.getElementById('showEmbroidery').style.display = "none";
@@ -139,12 +148,12 @@ function checkNextPreviousGarmentShown() {
     }
 
     // If its the first design don't show previous button
-    if (document.getElementById("currentGarment").value == numberOfGarments.value) {
-        document.getElementById('nextGarment').style.display = "none";
+    if (document.getElementById("currentGarment").value == numberOfGarments) {
+        document.getElementById('showNextGarment').style.display = "none";
     }
     // Show previous button
     else {
-        document.getElementById('nextGarment').style.display = "block";
+        document.getElementById('showNextGarment').style.display = "block";
     }
 }
 
@@ -185,6 +194,8 @@ function itemTypeSelection() {
         document.getElementById('showVinylize').style.display = "none";
     }
 }
+
+
 
 // Update Other Total Cost after user input
 function calculateOtherTotal() {
@@ -229,6 +240,7 @@ async function nextGarment() {
 
     determineCurrentGarment();
     checkNextPreviousGarmentShown();
+    checkNextPreviousDesignShown();
 }
 
 async function saveGarment(garment) {
@@ -327,7 +339,9 @@ async function previousDesign() {
     fetchGarment(newGarment)
 
     determineCurrentGarment();
+    determineCurrentDesign();
     checkNextPreviousGarmentShown();
+    checkNextPreviousDesignShown();
 }
 
 // Save the current design and retrieve the next designs's values to display
@@ -360,7 +374,9 @@ async function nextDesign() {
     fetchDesign(newGarment)
 
     determineCurrentGarment();
+    determineCurrentDesign()
     checkNextPreviousGarmentShown();
+    checkNextPreviousDesignShown();
 }
 
 // Save the current garment and retrieve the next garment's values to display
