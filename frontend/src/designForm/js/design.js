@@ -113,20 +113,27 @@ function determineCurrentGarment() {
 
 function checkNextPreviousDesignShown() {
     // If its the final design show submit
-    if (document.getElementById("currentDesign").value == numberOfDesigns.value) {
+    if (designNumber == numberOfDesigns.value) {
+        // console.log('----------designNumber = ' + designNumber);
+        // console.log('----------numberofDesigns = ' + numberOfDesigns.value);
+        // console.log('----------Final Design');
         document.getElementById('submitButton').style.display = "block";
         document.getElementById('nextDesignTop').style.display = "none";
         document.getElementById('nextDesignBottom').style.display = "none";
     }
     // Hide submit and show next design button
     else {
+        // console.log('----------designNumber = ' + designNumber);
+        // console.log('----------numberofDesigns = ' + numberOfDesigns.value);
+        // console.log('----------Not Final');
         document.getElementById('submitButton').style.display = "none";
         document.getElementById('nextDesignTop').style.display = "block";
         document.getElementById('nextDesignBottom').style.display = "block";
     }
 
     // If its the first design don't show previous button
-    if (document.getElementById("currentDesign").value == 1) {
+    if (designNumber == 1) {
+        console.log('----------First Design');
         document.getElementById('previousDesignTop').style.display = "none";
         document.getElementById('previousDesignBottom').style.display = "none";
     }
@@ -139,7 +146,7 @@ function checkNextPreviousDesignShown() {
 
 function checkNextPreviousGarmentShown() {
     // If its the first Garment hide previous arrow
-    if (document.getElementById("currentGarment").value == 1) {
+    if (garmentNumber == 1) {
         document.getElementById('previousGarment').style.display = "none";
     }
     // Show previous arrow
@@ -148,12 +155,12 @@ function checkNextPreviousGarmentShown() {
     }
 
     // If its the first design don't show previous button
-    if (document.getElementById("currentGarment").value == numberOfGarments) {
-        document.getElementById('showNextGarment').style.display = "none";
+    if (garmentNumber == numberOfGarments.value) {
+        document.getElementById('nextGarment').style.display = "none";
     }
     // Show previous button
     else {
-        document.getElementById('showNextGarment').style.display = "block";
+        document.getElementById('nextGarment').style.display = "block";
     }
 }
 
@@ -240,7 +247,6 @@ async function nextGarment() {
 
     determineCurrentGarment();
     checkNextPreviousGarmentShown();
-    checkNextPreviousDesignShown();
 }
 
 async function saveGarment(garment) {
@@ -396,6 +402,7 @@ async function previousGarment() {
     fetchGarment(newGarment);
 
     determineCurrentGarment();
+    checkNextPreviousGarmentShown();
 }
 
 // Create event listeners to handle user inputs
