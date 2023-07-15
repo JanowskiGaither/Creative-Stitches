@@ -1,5 +1,4 @@
 **/node_modules
 .DS_Store
 .vscode
-frontend/dist/
-frontend/dist/index.html
+/frontend/dist/**
