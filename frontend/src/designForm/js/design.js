@@ -63,6 +63,7 @@ let selectItemType = document.getElementById("designType");
 let numberOfDesigns = document.getElementById("numberOfDesigns");
 let designNumberGarments = document.getElementById("designNumberGarments");
 let garmentTable = document.getElementById("garmentTable");
+let designForm = document.getElementById('designForm');
 
 var orderID;
 var designNumber = 1;
@@ -618,3 +619,10 @@ previousDesignButtonBottom.addEventListener('click', async function () {
 nextDesignButtonBottom.addEventListener('click', async function () {
     nextDesign()
 });
+
+//Prevent enter from submitting form
+designForm.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+    }
+})
