@@ -61,6 +61,7 @@ let nextDesignButtonBottom = document.getElementById("nextDesignBottom");
 let selectItemType = document.getElementById("designType");
 let numberOfDesigns = document.getElementById("numberOfDesigns");
 let numberOfGarments = document.getElementById("numberOfGarments");
+let garmentTable = document.getElementById("garmentTable");
 
 var orderID;
 var designNumber = 1;
@@ -306,6 +307,34 @@ async function fetchAllGarment(garment) {
 
     console.log(response);
 
+    // //Update table
+
+    // //Determine if more rows are needed
+    // var numbRows = garmentTable.rows.length;
+
+    // //More rows are needed
+    // while (numbRows < numberOfGarments.value) {
+    //     //Add Row
+    //     garmentTable.insertRow()
+
+    //     //Update row count
+    //     numbRows = garmentTable.getElementsByTagName('tr').length;
+    // }
+
+    // //Less rows are needed
+    // while (numbRows > numberOfGarments.value) {
+    //     //Add Row
+    //     garmentTable.deleteRow()
+
+    //     //Update row count
+    //     numbRows = garmentTable.getElementsByTagName('tr').length;
+    // }
+
+    // //Test
+    // // Add values to to row
+    // console.log("row = " + garmentTable.rows[0])
+    // console.log("cell = " + garmentTable.rows[0].cell[0].value)
+
     // //Parse response to update values
     // const jsonResponse = await response.json();
     // garmentID = jsonResponse.garmentID;
@@ -421,6 +450,8 @@ async function updateGarmentTable() {
     newGarment.designID = designID;
 
     fetchAllGarment(newGarment)
+
+
 }
 
 // Save the current garment and retrieve the next garment's values to display
