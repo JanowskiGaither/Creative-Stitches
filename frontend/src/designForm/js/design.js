@@ -19,7 +19,7 @@ class Garment {
         if (getFormValues) {
             this.designID = designID;
             this.orderID = orderID;
-            this.garmentNumberGarments = document.getElementById("designNumberGarments").value;
+            this.garmentNumberGarments = designNumberGarments;
             this.garmentID = garmentID;
             this.garmentNumber = garmentNumber;
             this.garmentGender = document.getElementById("garmentGender").value;
@@ -63,7 +63,6 @@ let previousDesignButtonBottom = document.getElementById("previousDesignBottom")
 let nextDesignButtonBottom = document.getElementById("nextDesignBottom");
 let selectItemType = document.getElementById("designType");
 let numberOfDesigns = document.getElementById("numberOfDesigns");
-let designNumberGarments = document.getElementById("designNumberGarments");
 let garmentTable = document.getElementById("garmentTable");
 let designForm = document.getElementById('designForm');
 let addGarmentButton = document.getElementById('addGarment');
@@ -72,6 +71,7 @@ let saveGarmentButton = document.getElementById('saveGarment');
 var orderID;
 var designNumber = 1;
 var garmentNumber = 1;
+var designNumberGarments = 1;
 var designID;
 var garmentID;
 var garmentTableButtonImplemented = [true, false]
@@ -119,12 +119,12 @@ function determineCurrentDesign() {
 }
 
 function determineCurrentGarment() {
-    document.getElementById("currentGarment").innerText = garmentNumber.toString() + " of " + designNumberGarments.value.toString();
+    document.getElementById("currentGarment").innerText = garmentNumber.toString() + " of " + designNumberGarments.toString();
 }
 
 async function addGarment() {
-    designNumberGarments.value++;
-    garmentNumber = designNumberGarments.value;
+    designNumberGarments++;
+    garmentNumber = designNumberGarments;
 
     garmentID = designID.toString() + '_' + ((parseInt(garmentNumber, 10))).toString();
 
@@ -162,33 +162,12 @@ function checkNextPreviousDesignShown() {
     }
 }
 
-// function checkNextPreviousGarmentShown() {
-//     // If its the first Garment hide previous arrow
-//     if (garmentNumber == 1) {
-//         document.getElementById('previousGarment').style.display = "none";
-//     }
-//     // Show previous arrow
-//     else {
-//         document.getElementById('previousGarment').style.display = "block";
-//     }
-
-//     // If its the first design don't show previous button
-//     if (garmentNumber == designNumberGarments.value) {
-//         document.getElementById('nextGarment').style.display = "none";
-//     }
-//     // Show previous button
-//     else {
-//         document.getElementById('nextGarment').style.display = "block";
-//     }
-// }
-
 function itemTypeSelection() {
     var typeSelected = selectItemType.options[selectItemType.selectedIndex].text;
 
     // Show Garment related divs, hide the rest
     if (typeSelected == "Garment") {
         document.getElementById('showGarment').style.display = "block";
-        document.getElementById('showNumberOfGarment').style.display = "block";
         document.getElementById('showOther').style.display = "none";
         document.getElementById('showEmbroidery').style.display = "none";
         document.getElementById('showVinylize').style.display = "none";
@@ -197,7 +176,6 @@ function itemTypeSelection() {
     // Show Embroidery related divs, hide the rest
     else if (typeSelected == "Embroidery") {
         document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showNumberOfGarment').style.display = "none";
         document.getElementById('showOther').style.display = "none";
         document.getElementById('showEmbroidery').style.display = "block";
         document.getElementById('showVinylize').style.display = "none";
@@ -205,7 +183,6 @@ function itemTypeSelection() {
     // Show Vinylize related divs, hide the rest
     else if (typeSelected == "Vinylize") {
         document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showNumberOfGarment').style.display = "none";
         document.getElementById('showOther').style.display = "none";
         document.getElementById('showEmbroidery').style.display = "none";
         document.getElementById('showVinylize').style.display = "block";
@@ -213,14 +190,11 @@ function itemTypeSelection() {
     // Show Embroidery related divs, hide rest
     else if (typeSelected == "Other") {
         document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showNumberOfGarment').style.display = "none";
         document.getElementById('showOther').style.display = "block";
         document.getElementById('showEmbroidery').style.display = "none";
         document.getElementById('showVinylize').style.display = "none";
     }
 }
-
-
 
 // Update Other Total Cost after user input
 function calculateOtherTotal() {
@@ -292,8 +266,7 @@ async function removeGarment(garment) {
     console.log('Garment Deleted');
 
     //Update Table
-    //Decrement max garments
-    designNumberGarments.value--;
+    designNumberGarments--;
 
     updateGarmentTable();
 }
@@ -338,7 +311,7 @@ async function deleteCurrentGarment() {
     newGarment.garmentID = garmentID;
     newGarment.orderID = orderID;
     newGarment.designID = designID;
-    newGarment.garmentNumberGarments = designNumberGarments.value;
+    newGarment.garmentNumberGarments = designNumberGarments;
     newGarment.garmentNumber = garmentNumber;
     await removeGarment(newGarment)
 }
@@ -379,7 +352,7 @@ async function fetchAllGarment(garment) {
     var numbRows = garmentTable.rows.length;
 
     //More rows are needed
-    while (numbRows <= designNumberGarments.value) {
+    while (numbRows <= designNumberGarments) {
 
         //Clone second row
         var clone = garmentTable.rows[1].cloneNode(true);
@@ -390,9 +363,9 @@ async function fetchAllGarment(garment) {
         //Update row count
         numbRows = garmentTable.rows.length;
     }
-    (parseInt(designNumberGarments.value, 10))
+    (parseInt(designNumberGarments, 10))
     //Less rows are needed
-    while (numbRows > (parseInt(designNumberGarments.value, 10)) + 1) {
+    while (numbRows > (parseInt(designNumberGarments, 10)) + 1) {
         //Remove Row
         garmentTable.deleteRow(numbRows - 1)
 
@@ -644,15 +617,6 @@ document.getElementById('otherAmount').addEventListener("change", function () {
 numberOfDesigns.addEventListener("change", function () {
     determineCurrentDesign();
     checkNextPreviousDesignShown();
-});
-
-// designNumberGarments.addEventListener("change", function () {
-//     determineCurrentGarment();
-//     checkNextPreviousGarmentShown();
-// });
-
-designNumberGarments.addEventListener("change", async function () {
-    updateGarmentTable();
 });
 
 addGarmentButton.addEventListener("click", async function () {
