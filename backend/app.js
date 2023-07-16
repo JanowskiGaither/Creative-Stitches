@@ -46,12 +46,10 @@ async function saveGarment(garment) {
 
 //Get garment
 async function getGarment(garment) {
-  console.log("--------------------start getGarment")
   // Check if new garment exists
   var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
 
   if (query) {
-    console.log("--------------------return getGarment Result")
     return query;
   }
   else {
@@ -70,15 +68,72 @@ async function getGarment(garment) {
   }
 }
 
+//Get garment
+async function removeGarment(garment) {
+  //console.log("--------------------start removeGarment");
+
+  var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
+
+  // console.log("------------------------remove this");
+  //console.log(query);
+
+  // Delete garment
+  query = await Garment.findOneAndDelete({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
+
+  //If this wasn't the last garment then go through and update the numbers of the rest
+  //console.log(parseInt(garment.garmentNumber, 10));
+  //console.log(parseInt(garment.garmentNumberGarments, 10));
+  for (let i = parseInt(garment.garmentNumber, 10); i <= parseInt(garment.garmentNumberGarments, 10); i++) {
+    var filter = { orderID: garment.orderID, garmentNumber: i, designID: garment.designID };
+    var newGarmentID = garment.designID.toString() + '_' + (i - 1).toString();
+    var update = { garmentNumber: (i - 1), garmentID: newGarmentID }
+    var updateResult = await Garment.findOneAndUpdate(filter, update, { new: true }).exec();
+
+    //console.log("--------------------updated result")
+    console.log(updateResult)
+  }
+
+  if (query) {
+    //console.log("--------------------return removeGarment Result")
+    return query;
+  }
+  else {
+    return "Deleted";
+  }
+}
+
+//Get design
+async function getDesign(design) {
+  // Check if new garment exists
+  var query = await Design.findOne({ orderID: design.orderID, designID: design.designID }).exec();
+
+  if (query) {
+    return query;
+  }
+  else {
+    //Create a blank response
+    var designResponse = new Design();
+    designResponse.orderID = design.orderID;
+    designResponse.garmentID = design.garmentID;
+    designResponse.designID = design.designID;
+    designResponse.designType = 'Garment';
+    designResponse.designDescription = 'NA';
+    designResponse.designNotes = 0;
+    designResponse.designImages = 0;
+    designResponse.designNumberGarments = 1;
+    designResponse.designTotalCost = 0;
+
+    return designResponse;
+  }
+}
+
 
 //Get garment
 async function getAllGarment(garment) {
-  console.log("--------------------start getAllGarment")
   // Check if new garment exists
   var query = await Garment.find({ orderID: garment.orderID, designID: garment.designID }).exec();
 
   if (query) {
-    console.log("--------------------return getAllGarment Result")
     return query;
   }
   else {
@@ -107,28 +162,12 @@ async function saveOther(other) {
 }
 
 //Save design
-async function saveDesign(design, garment, other) {
+async function saveDesign(design) {
   // Save Received Design information
   await Design.updateOne({ designID: design.designID, orderID: design.orderID }, {
     designType: design.designType, designDescription: design.designDescription, designNotes: design.designNotes,
     designImages: design.designImages, designNumberGarments: design.designNumberGarments, designTotalCost: design.designTotalCost
   }, { upsert: true });
-
-  if (design.designType == 'Garment') {
-    try {
-      saveGarment(garment);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  else if (design.designType == 'Other') {
-    try {
-      saveOther(other);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
 }
 
 app.post('/orderSubmit', async function (req, res) {
@@ -136,7 +175,6 @@ app.post('/orderSubmit', async function (req, res) {
   var design = new Design(req.body);
   var customer = new Customer(req.body);
 
-  //console.log(order)
   try {
     saveOrder(order, design, customer);
     res.redirect('/design');
@@ -147,11 +185,9 @@ app.post('/orderSubmit', async function (req, res) {
 
 app.post('/designSubmit', async function (req, res) {
   var design = new Design(req.body);
-  var garment = new Garment(req.body);
-  var other = new Other(req.body);
 
   try {
-    saveDesign(design, garment, other);
+    saveDesign(design);
   } catch (error) {
     console.log(error)
   }
@@ -173,12 +209,35 @@ app.post('/garmentSubmit', async function (req, res) {
 app.post('/garmentRetrieve', async function (req, res) {
   const garment = new Garment(req.body);
 
-  console.log("--------------------Garment Retrieve Request")
   try {
     const result = await getGarment(garment);
-    console.log(result)
     res.json(result);
-    console.log("--------------------Send json getGarment Result")
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/garmentRemove', async function (req, res) {
+  const garment = new Garment(req.body);
+
+  console.log("--------------------Garment Remove Request");
+  try {
+    const result = await removeGarment(garment);
+    res.json(result);
+    console.log("Garment removed");
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post('/designRetrieve', async function (req, res) {
+  const design = new Design(req.body);
+
+  try {
+    const result = await getDesign(design);
+    res.json(result);
 
   } catch (error) {
     console.log(error)
@@ -190,12 +249,9 @@ app.post('/garmentRetrieve', async function (req, res) {
 app.post('/garmentAllRetrieve', async function (req, res) {
   const garment = new Garment(req.body);
 
-  console.log("--------------------GarmentAll Retrieve Request")
   try {
     const result = await getAllGarment(garment);
-    console.log(result)
     res.json(result);
-    console.log("--------------------Send json getAllGarment Result")
 
   } catch (error) {
     console.log(error)
@@ -217,8 +273,6 @@ app.post('/otherSubmit', async function (req, res) {
 app.get('/readOrder', async function (req, res) {
   try {
     const testOrder = await Order.findOne({ orderID: '1' });
-    console.log(testOrder);
-    console.log('------------------------------------------Read Order!')
     res.json(testOrder);
   } catch (error) {
     console.log(error)
