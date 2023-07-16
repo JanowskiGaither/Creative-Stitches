@@ -8,6 +8,7 @@ class Garment {
     designID = 0;
     orderID = 0;
     garmentID = 0;
+    garmentNumberGarments = 1;
     garmentGender = 0;
     garmentSize = 0;
     garmentStyleNumber = 0;
@@ -18,6 +19,7 @@ class Garment {
         if (getFormValues) {
             this.designID = designID;
             this.orderID = orderID;
+            this.garmentNumberGarments = designNumberGarments;
             this.garmentID = garmentID;
             this.garmentNumber = garmentNumber;
             this.garmentGender = document.getElementById("garmentGender").value;
@@ -53,22 +55,26 @@ class Design {
 }
 
 // Link commonly used variables from HTML
-let previousGarmentButton = document.getElementById("previousGarment");
-let nextGarmentButton = document.getElementById("nextGarment");
+// let previousGarmentButton = document.getElementById("previousGarment");
+// let nextGarmentButton = document.getElementById("nextGarment");
 let previousDesignButtonTop = document.getElementById("previousDesignTop");
 let nextDesignButtonTop = document.getElementById("nextDesignTop");
 let previousDesignButtonBottom = document.getElementById("previousDesignBottom");
 let nextDesignButtonBottom = document.getElementById("nextDesignBottom");
 let selectItemType = document.getElementById("designType");
 let numberOfDesigns = document.getElementById("numberOfDesigns");
-let designNumberGarments = document.getElementById("designNumberGarments");
 let garmentTable = document.getElementById("garmentTable");
+let designForm = document.getElementById('designForm');
+let addGarmentButton = document.getElementById('addGarment');
+let saveGarmentButton = document.getElementById('saveGarment');
 
 var orderID;
 var designNumber = 1;
 var garmentNumber = 1;
+var designNumberGarments = 1;
 var designID;
 var garmentID;
+var garmentTableButtonImplemented = [true, false]
 
 function initialSetup() {
 
@@ -86,21 +92,19 @@ function initialSetup() {
     garmentID = designID.toString() + '_' + garmentNumber.toString();
 
     // Hide unselected initially
-    document.getElementById('showOther').style.display = "none";
-    document.getElementById('showEmbroidery').style.display = "none";
-    document.getElementById('showVinylize').style.display = "none";
+    itemTypeSelection();
 
     //Update current design and garment
-    //determineCurrentDesign();
-    //determineCurrentGarment();
+    determineCurrentDesign();
+    determineCurrentGarment();
 
     //Update design forward/backward buttons
     checkNextPreviousDesignShown();
-    checkNextPreviousGarmentShown();
+    //checkNextPreviousGarmentShown();
 
     //Populate the first design if possible
     if (orderID != 'NA') {
-        //getCurrentDesign();
+        getCurrentDesign();
     }
 
     // Calculate total costs at start
@@ -115,7 +119,21 @@ function determineCurrentDesign() {
 }
 
 function determineCurrentGarment() {
-    document.getElementById("currentGarment").innerText = "Garment " + garmentNumber.toString() + " of " + designNumberGarments.value.toString();
+    document.getElementById("currentGarment").innerText = garmentNumber.toString() + " of " + designNumberGarments.toString();
+}
+
+async function addGarment() {
+    designNumberGarments++;
+    garmentNumber = designNumberGarments;
+
+    garmentID = designID.toString() + '_' + ((parseInt(garmentNumber, 10))).toString();
+
+    await getCurrentGarment();
+
+    console.log('Done getCurrentGarment');
+
+    determineCurrentGarment();
+    updateGarmentTable()
 }
 
 function checkNextPreviousDesignShown() {
@@ -144,33 +162,12 @@ function checkNextPreviousDesignShown() {
     }
 }
 
-function checkNextPreviousGarmentShown() {
-    // If its the first Garment hide previous arrow
-    if (garmentNumber == 1) {
-        document.getElementById('previousGarment').style.display = "none";
-    }
-    // Show previous arrow
-    else {
-        document.getElementById('previousGarment').style.display = "block";
-    }
-
-    // If its the first design don't show previous button
-    if (garmentNumber == designNumberGarments.value) {
-        document.getElementById('nextGarment').style.display = "none";
-    }
-    // Show previous button
-    else {
-        document.getElementById('nextGarment').style.display = "block";
-    }
-}
-
 function itemTypeSelection() {
     var typeSelected = selectItemType.options[selectItemType.selectedIndex].text;
 
     // Show Garment related divs, hide the rest
     if (typeSelected == "Garment") {
         document.getElementById('showGarment').style.display = "block";
-        document.getElementById('showNumberOfGarment').style.display = "block";
         document.getElementById('showOther').style.display = "none";
         document.getElementById('showEmbroidery').style.display = "none";
         document.getElementById('showVinylize').style.display = "none";
@@ -179,7 +176,6 @@ function itemTypeSelection() {
     // Show Embroidery related divs, hide the rest
     else if (typeSelected == "Embroidery") {
         document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showNumberOfGarment').style.display = "none";
         document.getElementById('showOther').style.display = "none";
         document.getElementById('showEmbroidery').style.display = "block";
         document.getElementById('showVinylize').style.display = "none";
@@ -187,7 +183,6 @@ function itemTypeSelection() {
     // Show Vinylize related divs, hide the rest
     else if (typeSelected == "Vinylize") {
         document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showNumberOfGarment').style.display = "none";
         document.getElementById('showOther').style.display = "none";
         document.getElementById('showEmbroidery').style.display = "none";
         document.getElementById('showVinylize').style.display = "block";
@@ -195,14 +190,11 @@ function itemTypeSelection() {
     // Show Embroidery related divs, hide rest
     else if (typeSelected == "Other") {
         document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showNumberOfGarment').style.display = "none";
         document.getElementById('showOther').style.display = "block";
         document.getElementById('showEmbroidery').style.display = "none";
         document.getElementById('showVinylize').style.display = "none";
     }
 }
-
-
 
 // Update Other Total Cost after user input
 function calculateOtherTotal() {
@@ -229,28 +221,15 @@ function calculateVinylizeTotal() {
 }
 
 // Save the current garment and retrieve the next garment's values to display
-async function nextGarment() {
+async function updateGarment() {
     //Save current garment values from HTML
     var currentGarment = new Garment(true);
 
-    //Setup new garment query
-    var newGarment = new Garment();
-    garmentID = designID.toString() + '_' + ((parseInt(garmentNumber, 10)) + 1).toString();
-    newGarment.garmentID = garmentID;
-    garmentNumber = ((parseInt(garmentNumber, 10)) + 1);
-    newGarment.orderID = orderID;
-    newGarment.designID = designID;
-
     saveGarment(currentGarment);
-    fetchGarment(newGarment);
-
-    determineCurrentGarment();
-    checkNextPreviousGarmentShown();
-    updateGarmentTable();
 }
 
 async function saveGarment(garment) {
-    fetch('/garmentSubmit', {
+    await fetch('/garmentSubmit', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -258,6 +237,8 @@ async function saveGarment(garment) {
         },
         body: JSON.stringify(garment)
     }).then(response => { return response })
+
+    updateGarmentTable();
 }
 
 async function saveDesign(design) {
@@ -271,6 +252,26 @@ async function saveDesign(design) {
     }).then(response => { return response })
 }
 
+async function removeGarment(garment) {
+    const response = await fetch('/garmentRemove', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(garment)
+    }).then(response => { return response })
+
+    console.log('Garment Deleted');
+
+    //Update Table
+    designNumberGarments--;
+
+    updateGarmentTable();
+}
+
+
 async function fetchGarment(garment) {
     const response = await fetch('/garmentRetrieve', {
         method: 'POST',
@@ -281,7 +282,6 @@ async function fetchGarment(garment) {
 
         body: JSON.stringify(garment)
     }).then(response => { return response })
-
     //Parse response to update values
     const jsonResponse = await response.json();
     garmentID = jsonResponse.garmentID;
@@ -292,6 +292,43 @@ async function fetchGarment(garment) {
     document.getElementById("garmentCostPerItem").value = jsonResponse.garmentCostPerItem;
     document.getElementById("garmentTotalCost").value = jsonResponse.garmentTotalCost;
 }
+
+async function editGarment(currentButton) {
+
+    //Get garment ID of targetted row
+    var parent = currentButton.parentNode.parentNode;
+
+    garmentNumber = (parseInt(parent.cells[1].innerHTML, 10));
+
+    garmentID = designID.toString() + '_' + ((parseInt(garmentNumber, 10))).toString();
+
+    getCurrentGarment();
+}
+
+async function deleteCurrentGarment() {
+    //Setup new garment query
+    var newGarment = new Garment();
+    newGarment.garmentID = garmentID;
+    newGarment.orderID = orderID;
+    newGarment.designID = designID;
+    newGarment.garmentNumberGarments = designNumberGarments;
+    newGarment.garmentNumber = garmentNumber;
+    await removeGarment(newGarment)
+}
+
+async function deleteGarment(currentButton) {
+
+    //Get garment ID of targeted row
+    var parent = currentButton.parentNode.parentNode;
+
+    garmentNumber = (parseInt(parent.cells[1].innerHTML, 10));
+
+    garmentID = designID.toString() + '_' + ((parseInt(garmentNumber, 10))).toString();
+
+    console.log("Delete Garment")
+    deleteCurrentGarment();
+}
+
 
 async function fetchAllGarment(garment) {
     const data = await fetch('/garmentAllRetrieve', {
@@ -315,26 +352,26 @@ async function fetchAllGarment(garment) {
     var numbRows = garmentTable.rows.length;
 
     //More rows are needed
-    while (numbRows <= designNumberGarments.value) {
-        //Add Row
-        garmentTable.insertRow()
+    while (numbRows <= designNumberGarments) {
+
+        //Clone second row
+        var clone = garmentTable.rows[1].cloneNode(true);
+        garmentTable.appendChild(clone)
+
+        garmentTableButtonImplemented.push(false);
 
         //Update row count
         numbRows = garmentTable.rows.length;
     }
-    (parseInt(designNumberGarments.value, 10))
+    (parseInt(designNumberGarments, 10))
     //Less rows are needed
-    console.log(numbRows + " > " + (parseInt(designNumberGarments.value, 10) + 1));
-    while (numbRows > (parseInt(designNumberGarments.value, 10)) + 1) {
-        console.log("Remove Row");
+    while (numbRows > (parseInt(designNumberGarments, 10)) + 1) {
         //Remove Row
         garmentTable.deleteRow(numbRows - 1)
 
         //Update row count
         numbRows = garmentTable.rows.length;
     }
-
-    var dataLength = data.length;
 
     //Test add default values
     for (let i = 1; i < numbRows; i++) {
@@ -343,7 +380,7 @@ async function fetchAllGarment(garment) {
         var numbCells = garmentTable.rows[i].cells.length;
 
         //Number of cells should always be 5
-        while (numbCells < 5) {
+        while (numbCells < 7) {
             //Add Cell
             garmentTable.rows[i].insertCell();
 
@@ -351,17 +388,31 @@ async function fetchAllGarment(garment) {
             numbCells = garmentTable.rows[i].cells.length;
         }
 
+        //Check if update functioned is needed
+        if (garmentTableButtonImplemented[i] == false) {
+            //Add event listener for edit button
+            garmentTable.rows[i].cells[0].firstChild.addEventListener('click', async function () {
+                editGarment(this);
+            });
+
+            //Add event listener for delete button
+            garmentTable.rows[i].cells[6].firstChild.addEventListener('click', async function () {
+                deleteGarment(this);
+            });
+
+            garmentTableButtonImplemented[i] = true;
+        }
+
         //Determine if the database already has values for this row
         var rowUpdated = false;
         for (let j = 0; j < data.length; j++) {
-            //console.log(data[j].garmentNumber + "==" + i);
             if (data[j].garmentNumber == i) {
                 //console.log("Match Found");
-                garmentTable.rows[i].cells[0].innerHTML = data[j].garmentNumber;
-                garmentTable.rows[i].cells[1].innerHTML = data[j].garmentGender;
-                garmentTable.rows[i].cells[2].innerHTML = data[j].garmentSize;
-                garmentTable.rows[i].cells[3].innerHTML = data[j].garmentAmount;
-                garmentTable.rows[i].cells[4].innerHTML = "$" + data[j].garmentTotalCost;
+                garmentTable.rows[i].cells[1].innerHTML = data[j].garmentNumber;
+                garmentTable.rows[i].cells[2].innerHTML = data[j].garmentGender;
+                garmentTable.rows[i].cells[3].innerHTML = data[j].garmentSize;
+                garmentTable.rows[i].cells[4].innerHTML = data[j].garmentAmount;
+                garmentTable.rows[i].cells[5].innerHTML = "$" + data[j].garmentTotalCost;
 
                 rowUpdated = true;
             }
@@ -369,18 +420,18 @@ async function fetchAllGarment(garment) {
 
         //Modify all values in row
         if (rowUpdated == false) {
-            garmentTable.rows[i].cells[0].innerHTML = i;
-            garmentTable.rows[i].cells[1].innerHTML = "";
+            garmentTable.rows[i].cells[1].innerHTML = i;
             garmentTable.rows[i].cells[2].innerHTML = "";
             garmentTable.rows[i].cells[3].innerHTML = "";
             garmentTable.rows[i].cells[4].innerHTML = "";
+            garmentTable.rows[i].cells[5].innerHTML = "";
         }
     }
 }
 
 
 async function fetchDesign(design) {
-    const response = await fetch('/garmentRetrieve', {
+    const response = await fetch('/designRetrieve', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -392,13 +443,19 @@ async function fetchDesign(design) {
 
     //Parse response to update values
     const jsonResponse = await response.json();
-    // console.log(jsonResponse);
     designID = jsonResponse.designID;
-    //document.getElementById("designType").value = jsonResponse.designType;
-    //document.getElementById("designDescription").value = jsonResponse.designDescription;
-    //document.getElementById("designNotes").value = jsonResponse.designNotes;
-    //document.getElementById("designImages").value = jsonResponse.designImages;
-    //document.getElementById("designTotalCost").value = jsonResponse.designTotalCost;
+
+    if (jsonResponse.designDescription != 'NA') {
+        document.getElementById("designType").value = jsonResponse.designType;
+        document.getElementById("designDescription").value = jsonResponse.designDescription;
+        document.getElementById("designNotes").value = jsonResponse.designNotes;
+        //document.getElementById("designImages").value = jsonResponse.designImages;
+    }
+    else {
+        document.getElementById("designType").value = 'Garment';
+    }
+
+    itemTypeSelection();
 }
 
 async function getCurrentDesign() {
@@ -409,13 +466,16 @@ async function getCurrentDesign() {
     newDesign.designID = designID;
     newDesign.orderID = orderID;
 
-    fetchDesign(newDesign);
+    await fetchDesign(newDesign);
+
+    garmentID = designID.toString() + '_1';
+    garmentNumber = 1;
 
     getCurrentGarment();
 
     determineCurrentGarment();
     determineCurrentDesign()
-    checkNextPreviousGarmentShown();
+    //checkNextPreviousGarmentShown();
     checkNextPreviousDesignShown();
     updateGarmentTable();
 }
@@ -423,15 +483,13 @@ async function getCurrentDesign() {
 async function getCurrentGarment() {
     //Setup new garment query
     var newGarment = new Garment();
-    garmentID = designID.toString() + '_1';
-    garmentNumber = 1;
     newGarment.garmentID = garmentID;
     newGarment.orderID = orderID;
     newGarment.designID = designID;
     fetchGarment(newGarment)
 
     determineCurrentGarment();
-    checkNextPreviousGarmentShown();
+    //checkNextPreviousGarmentShown();
     updateGarmentTable();
 }
 
@@ -459,7 +517,7 @@ async function previousDesign() {
 
     determineCurrentGarment();
     determineCurrentDesign();
-    checkNextPreviousGarmentShown();
+    //checkNextPreviousGarmentShown();
     checkNextPreviousDesignShown();
     updateGarmentTable();
 }
@@ -496,7 +554,7 @@ async function nextDesign() {
 
     determineCurrentGarment();
     determineCurrentDesign()
-    checkNextPreviousGarmentShown();
+    //checkNextPreviousGarmentShown();
     checkNextPreviousDesignShown();
     updateGarmentTable();
 }
@@ -512,27 +570,6 @@ async function updateGarmentTable() {
     newGarment.designID = designID;
 
     fetchAllGarment(newGarment)
-}
-
-// Save the current garment and retrieve the next garment's values to display
-async function previousGarment() {
-    //Save current garment values from HTML
-    var currentGarment = new Garment(true);
-
-    //Setup new garment query
-    var newGarment = new Garment();
-    garmentID = designID.toString() + '_' + ((parseInt(garmentNumber, 10)) - 1).toString();
-    newGarment.garmentID = garmentID;
-    garmentNumber = ((parseInt(garmentNumber, 10)) - 1);
-    newGarment.orderID = orderID;
-    newGarment.designID = designID;
-
-    saveGarment(currentGarment);
-    fetchGarment(newGarment);
-
-    determineCurrentGarment();
-    checkNextPreviousGarmentShown();
-    updateGarmentTable();
 }
 
 // Create event listeners to handle user inputs
@@ -582,22 +619,14 @@ numberOfDesigns.addEventListener("change", function () {
     checkNextPreviousDesignShown();
 });
 
-designNumberGarments.addEventListener("change", function () {
-    determineCurrentGarment();
-    checkNextPreviousGarmentShown();
+addGarmentButton.addEventListener("click", async function () {
+    addGarment();
 });
 
-designNumberGarments.addEventListener("change", async function () {
-    updateGarmentTable();
+saveGarmentButton.addEventListener("click", async function () {
+    updateGarment();
 });
 
-previousGarmentButton.addEventListener('click', async function () {
-    previousGarment();
-});
-
-nextGarmentButton.addEventListener('click', async function () {
-    nextGarment();
-});
 
 previousDesignButtonTop.addEventListener('click', async function () {
     previousDesign()
@@ -614,3 +643,10 @@ previousDesignButtonBottom.addEventListener('click', async function () {
 nextDesignButtonBottom.addEventListener('click', async function () {
     nextDesign()
 });
+
+//Prevent enter from submitting form
+designForm.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+    }
+})

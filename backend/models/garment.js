@@ -10,6 +10,9 @@ const garment_schema = new mongoose.Schema({
     garmentID: {
         type: String,
     },
+    garmentNumberGarments: {
+        type: String,
+    },
     garmentNumber: {
         type: String,
     },
