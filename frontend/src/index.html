@@ -9,58 +9,58 @@
 </head>
 
 <body>
-  <nav class="navbar bg-light fixed-top py-3">
-    <div class="container-fluid">
-      <a class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar" aria-label="Toggle navigation" role="button">
-        <span class="navbar-toggler-icon"></span>
-      </a>
-      <a class="navbar-brand justify-content-center" href="#"><img src="assets/logoipsum-297.svg"></a>
-      <ul class="nav nav-tabs nav-fill">
-        <li class="nav-item">
-          <a class="nav-link active" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/order">Order</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Sales</a>
-        </li>
-      </ul>
-      <div class="offcanvas offcanvas-start" tabindex="0" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  <div class="container-fluid">
+    <nav class="navbar sticky-top bg-light py-3">
+      <div class="container-fluid">
+        <a class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar" aria-label="Toggle navigation" role="button">
+          <span class="navbar-toggler-icon"></span>
+        </a>
+        <div class="mx-auto">
+          <a class="navbar-brand" href="#"><img src="assets/logoipsum-297.svg"></a>
         </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Orders</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Designs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Calendars</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Database</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Inventory</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Financials</a>
-            </li>
-          </ul>
-          <form class="d-flex mt-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+        <ul class="nav nav-tabs nav-fill">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/order"> New Order</a>
+          </li>
+        </ul>
+        <div class="offcanvas offcanvas-start" tabindex="0" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigation</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/order">Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/design">Designs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Calendars</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Database</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Inventory</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Financials</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 
   <div class="container-fluid" id="currentOrders">
     <div class="d-flex justify-content-evenly">

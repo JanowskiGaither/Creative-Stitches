@@ -7,10 +7,28 @@ a.navbar-toggler:hover {
 }
 
 a.navbar-brand {
-    transform: translateX(90px)
+    padding: 0px 40px 0px 0px;
 }
 
+.nav-fill {
+    display: none;
+}
 
-#currentOrders {
-    margin-top: 6%;
+.custombar {
+    max-width: 768px;
+}
+
+#orderForm {
+    max-width: 768px;
+}
+
+@include media-breakpoint-up(md) {
+    .nav-fill {
+        display: flex;
+    }
+
+    a.navbar-brand {
+        padding: 0px 0px 0px 160px;
+    }
+
 }
