@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <form action="/designSubmit" method="post">
+  <form action="/designSubmit" method="post" id="designForm">
     <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
       <h1 class="display-4">Design Form</h1>
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
@@ -43,11 +43,6 @@
           <option value="Vinylize">Vinylize</option>
           <option value="Other">Other</option>
         </select>
-      </div>
-      <div id="showNumberOfGarment" class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
-        <label class="form-label" for="designNumberGarments">Number Of Garments</label>
-        <input class="form-control border border-dark" type="text" name="designNumberGarments" id="designNumberGarments"
-          value="1" placeholder="example: 1">
       </div>
 
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
@@ -244,16 +239,82 @@
       </div>
 
       <div id="showGarment">
-        <div class="row d-flex justify-content-center align-items-center">
-          <div class="col-xl-2 col-lg-2 col-md-2 col-2 mb-2">
-            <img id="previousGarment"
-              src="https://www.pngfind.com/pngs/m/316-3161853_left-arrow-png-back-icon-app-png-transparent.png"
-              style='height: 100%; width: 100%; object-fit: fill' alt="...">
+        <!-- Result table -->
+        <table style="border: 1px solid black width=100%" id="garmentTable">
+          <tr style="border: 1px solid black">
+            <th></th>
+            <th style="border: 1px solid black; text-align: center;">Garment</th>
+            <th style="border: 1px solid black; text-align: center;">Gender</th>
+            <th style="border: 1px solid black; text-align: center;">Size</th>
+            <th style="border: 1px solid black; text-align: center;">Amount</th>
+            <th style="border: 1px solid black; text-align: center;">Cost</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td><button class="btn btn-sm btn-primary" id="editButton" style="color:white" type="button"
+                data-bs-toggle="modal" data-bs-target="#garmentModal">Edit</button>
+            </td>
+            <td style="text-align: center;">1</th>
+            <td style="text-align: center;">Male</th>
+            <td style="text-align: center;">XS</th>
+            <td style="text-align: center;">5</th>
+            <td style="text-align: center;">999.99</th>
+            <td><button class="btn btn-sm btn-primary" id="deleteButton" style="color:white"
+                type="button">Delete</button></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Submit and Reset Buttons -->
+      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
+        <div class="d-flex justify-content-center align-items-center"></div>
+        <div class="col-md-3 col-6 pe-2">
+          <button class="btn btn-primary btn-sm" id="addGarment" style="color:white" type="button"
+            data-bs-toggle="modal" data-bs-target="#garmentModal">
+            Add Garment
+          </button>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="row">
+          <div class="col-md-3 col-6 pe-2">
+            <button class="btn btn-primary btn-sm float-left" id="previousDesignBottom" style="color:white"
+              type="button">
+              Previous Design
+            </button>
           </div>
-          <div class="col col-xl-5 col-lg-6 col-md-8 col-9 mb-3">
+          <div class="col-md-3 col-6 pe-2">
+            <button class="form-control btn btn-outline-secondary" id="resetButton" type="reset">Reset</button>
+          </div>
+          <div class="col-md-3 col-6 ps-2">
+            <input class="form-control btn btn-primary" id="submitButton" type="submit" value="Submit">
+          </div>
+          <div class="col-md-3 col-6 ps-2">
+            <button class="btn btn-primary btn-sm float-right" id="nextDesignBottom" style="color:white" type="button">
+              Next Design
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </form>
+
+  <!-- Modal -->
+  <div class="modal fade" data-bs-backdrop="static" id="garmentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="currentGarment" class="form-inline float-left">Garment</h1>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+        <div class="modal-body">
+          <div class="col col-xl-5 col-lg-6 col-md-8 col-9">
             <div class="card">
               <div class="card-header d-flex justify-content-center align-items-center">
-                <h5 id="currentGarment" class="form-inline float-left padding: 5px 0">Garment</h5>
+                <h3>Garment</h5>
               </div>
               <div class="card-body">
                 <!-- Select Gender for Garment -->
@@ -325,7 +386,7 @@
                 <!-- Show Total Cost -->
                 <div class="col-xl-12 col-lg-6 col-md-8 col-12">
                   <div class="row justify-content-between">
-                    <label class="form-label col-sm-6" for="garmentTotalCost">Total Cost: </label>
+                    <label class="form-label col-sm-6" for="garmentTotalCost">Garment Cost: </label>
                     <div class="col-sm-6">
                       <output class="form-inline border border-dark" name="garmentTotalCost" for="garmentTotalCost"
                         id="garmentTotalCost" required="false">Test</output>
@@ -333,67 +394,17 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="card-footer text-center">
-                <button class="btn btn-primary btn-sm float-left" id="previousGarment" style="color:white"
-                  type="button">
-                  Previous
-                </button>
-                <button class="btn btn-primary btn-sm float-right" id="nextGarment" style="color:white" type="button">
-                  Next
-                </button>
-              </div> -->
             </div>
           </div>
-          <div class="col-xl-2 col-lg-2 col-md-2 col-2 mb-2">
-            <img id="nextGarment"
-              src="https://www.pngfind.com/pngs/m/37-379385_open-arrow-right-icon-png-transparent-png.png"
-              style='height: 100%; width: 100%; object-fit: fill' alt="...">
-          </div>
         </div>
-        <!-- Result table -->
-        <table style="border: 1px solid black width=100%" id="garmentTable">
-          <tr style="border: 1px solid black">
-            <th style="border: 1px solid black">Garment</th>
-            <th style="border: 1px solid black">Gender</th>
-            <th style="border: 1px solid black">Size</th>
-            <th style="border: 1px solid black">Amount</th>
-            <th style="border: 1px solid black">Total</th>
-          </tr>
-          <tr>
-            <td>1</th>
-            <td>Male</th>
-            <td>XS</th>
-            <td>5</th>
-            <td>999.99</th>
-          </tr>
-        </table>
-      </div>
-
-      <!-- Submit and Reset Buttons -->
-      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="col-md-3 col-6 pe-2">
-            <button class="btn btn-primary btn-sm float-left" id="previousDesignBottom" style="color:white"
-              type="button">
-              Previous Design
-            </button>
-          </div>
-          <div class="col-md-3 col-6 pe-2">
-            <button class="form-control btn btn-outline-secondary" id="resetButton" type="reset">Reset</button>
-          </div>
-          <div class="col-md-3 col-6 ps-2">
-            <input class="form-control btn btn-primary" id="submitButton" type="submit" value="Submit">
-          </div>
-          <div class="col-md-3 col-6 ps-2">
-            <button class="btn btn-primary btn-sm float-right" id="nextDesignBottom" style="color:white" type="button">
-              Next Design
-            </button>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="saveGarment">Save changes</button>
         </div>
       </div>
-
     </div>
-  </form>
+  </div>
 </body>
 
 </html>
