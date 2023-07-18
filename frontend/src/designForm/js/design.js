@@ -40,6 +40,8 @@ class Design {
     designDescription = 0;
     designNotes = 0;
     designImages = 0;
+    designNumberGarments = 1;
+    designNumber = 1;
     designTotalCost = 0;
     constructor(getFormValues) {
         if (getFormValues) {
@@ -49,6 +51,8 @@ class Design {
             this.designDescription = document.getElementById("designDescription").value;
             this.designNotes = document.getElementById("designNotes").value;
             //this.designImages = document.getElementById("designImages").value;
+            this.designNumberGarments = designNumberGarments;
+            this.designNumber = designNumber;
             //this.designTotalCost = document.getElementById("designTotalCost").value;
         }
     }
@@ -62,16 +66,17 @@ let nextDesignButtonTop = document.getElementById("nextDesignTop");
 let previousDesignButtonBottom = document.getElementById("previousDesignBottom");
 let nextDesignButtonBottom = document.getElementById("nextDesignBottom");
 let selectItemType = document.getElementById("designType");
-let numberOfDesigns = document.getElementById("numberOfDesigns");
 let garmentTable = document.getElementById("garmentTable");
 let designForm = document.getElementById('designForm');
 let addGarmentButton = document.getElementById('addGarment');
 let saveGarmentButton = document.getElementById('saveGarment');
+let submitButton = document.getElementById('submitButton');
 
 var orderID;
 var designNumber = 1;
 var garmentNumber = 1;
 var designNumberGarments = 1;
+var numberOfDesigns = 1;
 var designID;
 var garmentID;
 var garmentTableButtonImplemented = [true, false]
@@ -115,7 +120,7 @@ function initialSetup() {
 }
 
 function determineCurrentDesign() {
-    document.getElementById("currentDesign").innerText = "Design " + designNumber.toString() + " of " + numberOfDesigns.value.toString();
+    document.getElementById("currentDesign").innerText = "Design " + designNumber.toString() + " of " + numberOfDesigns.toString();
 }
 
 function determineCurrentGarment() {
@@ -138,7 +143,7 @@ async function addGarment() {
 
 function checkNextPreviousDesignShown() {
     // If its the final design show submit
-    if (designNumber == numberOfDesigns.value) {
+    if (designNumber == numberOfDesigns) {
         document.getElementById('submitButton').style.display = "block";
         document.getElementById('nextDesignTop').style.display = "none";
         document.getElementById('nextDesignBottom').style.display = "none";
@@ -494,6 +499,14 @@ async function getCurrentGarment() {
 }
 
 // Save the current design and retrieve the next designs's values to display
+async function submitDesign() {
+    //Save the current design
+    var currentDesign = new Design(true);
+
+    saveDesign(currentDesign);
+}
+
+// Save the current design and retrieve the next designs's values to display
 async function previousDesign() {
     //Save the current design
     var currentDesign = new Design(true);
@@ -614,11 +627,6 @@ document.getElementById('otherAmount').addEventListener("change", function () {
     calculateOtherTotal();
 });
 
-numberOfDesigns.addEventListener("change", function () {
-    determineCurrentDesign();
-    checkNextPreviousDesignShown();
-});
-
 addGarmentButton.addEventListener("click", async function () {
     addGarment();
 });
@@ -642,6 +650,10 @@ previousDesignButtonBottom.addEventListener('click', async function () {
 
 nextDesignButtonBottom.addEventListener('click', async function () {
     nextDesign()
+});
+
+submitButton.addEventListener('click', async function () {
+    submitDesign()
 });
 
 //Prevent enter from submitting form

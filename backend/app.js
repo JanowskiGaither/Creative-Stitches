@@ -68,6 +68,80 @@ async function getGarment(garment) {
   }
 }
 
+//Get customer
+async function getCustomer(customer) {
+  // Check if customer exists
+  var query = await Customer.findOne({ customerID: customer.customerID }).exec();
+
+  if (query) {
+    return query;
+  }
+  else {
+    //Create a blank response
+    var customerResponse = new Customer();
+    orderResponse.customerID = customer.customerID;
+    orderResponse.firstName = "";
+    orderResponse.lastName = '';
+    orderResponse.organization = '';
+    orderResponse.phone = '';
+    orderResponse.email = 0;
+
+    return customerResponse;
+  }
+}
+
+//Get order
+async function getOrder(order) {
+  // Check if order exists
+  var query = await Order.findOne({ orderID: order.orderID }).exec();
+
+  if (query) {
+    return query;
+  }
+  else {
+    //Create a blank response
+    var orderResponse = new Order();
+    orderResponse.orderID = order.orderID;
+    orderResponse.customerID = "NA";
+    orderResponse.orderDescription = '';
+    orderResponse.orderDate = '';
+    orderResponse.requestedDeliveryDate = '';
+    orderResponse.scheduledDeliveryDate = 0;
+    orderResponse.taxExemption = 0;
+    orderResponse.totalItems = 0;
+    orderResponse.totalMaterialCost = 0;
+    orderResponse.totalTaxes = 0;
+    orderResponse.totalProfit = 0;
+    orderResponse.totalSale = 0;
+
+    return orderResponse;
+  }
+}
+
+//Get garment
+async function getGarment(garment) {
+  // Check if new garment exists
+  var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
+
+  if (query) {
+    return query;
+  }
+  else {
+    //Create a blank response
+    var garmentResponse = new Garment();
+    garmentResponse.orderID = garment.orderID;
+    garmentResponse.garmentID = garment.garmentID;
+    garmentResponse.designID = garment.designID;
+    garmentResponse.garmentSize = '';
+    garmentResponse.garmentStyleNumber = '';
+    garmentResponse.garmentAmount = 0;
+    garmentResponse.garmentCostPerItem = 0;
+    garmentResponse.garmentTotalCost = 0;
+
+    return garmentResponse;
+  }
+}
+
 //Get garment
 async function removeGarment(garment) {
   //console.log("--------------------start removeGarment");
@@ -152,6 +226,31 @@ async function getAllGarment(garment) {
   }
 }
 
+//Get garment
+async function getAllDesign(design) {
+  // Check if new garment exists
+  var query = await Design.find({ orderID: design.orderID }).exec();
+
+  if (query) {
+    return query;
+  }
+  else {
+    //Create a blank response
+    var designResponse = new Design();
+    designResponse.orderID = garment.orderID;
+    designResponse.designID = '';
+    designResponse.designType = '';
+    designResponse.designDescription = '';
+    designResponse.designNotes = 0;
+    // designResponse.designImages = 0;
+    designResponse.designNumberGarments = 0;
+    designResponse.designTotalItems = 0;
+    designResponse.designTotalCost = 0;
+
+    return designResponse;
+  }
+}
+
 //Save other
 async function saveOther(other) {
   // Save received Other information
@@ -165,7 +264,7 @@ async function saveOther(other) {
 async function saveDesign(design) {
   // Save Received Design information
   await Design.updateOne({ designID: design.designID, orderID: design.orderID }, {
-    designType: design.designType, designDescription: design.designDescription, designNotes: design.designNotes,
+    designType: design.designType, designDescription: design.designDescription, designNotes: design.designNotes, designNumberGarments: design.designNumberGarments, designNumber: design.designNumber,
     designImages: design.designImages, designNumberGarments: design.designNumberGarments, designTotalCost: design.designTotalCost
   }, { upsert: true });
 }
@@ -218,6 +317,30 @@ app.post('/garmentRetrieve', async function (req, res) {
   }
 });
 
+app.post('/customerRetrieve', async function (req, res) {
+  const customer = new Customer(req.body);
+
+  try {
+    const result = await getCustomer(customer);
+    res.json(result);
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/orderRetrieve', async function (req, res) {
+  const order = new Order(req.body);
+
+  try {
+    const result = await getOrder(order);
+    res.json(result);
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+
 app.post('/garmentRemove', async function (req, res) {
   const garment = new Garment(req.body);
 
@@ -251,6 +374,20 @@ app.post('/garmentAllRetrieve', async function (req, res) {
 
   try {
     const result = await getAllGarment(garment);
+    res.json(result);
+
+  } catch (error) {
+    console.log(error)
+  }
+
+
+});
+
+app.post('/designAllRetrieve', async function (req, res) {
+  const design = new Design(req.body);
+
+  try {
+    const result = await getAllDesign(design);
     res.json(result);
 
   } catch (error) {

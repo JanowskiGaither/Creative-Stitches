@@ -29,13 +29,16 @@ const orderSchema = new mongoose.Schema({
     totalMaterialCost: {
         type: String,
     },
+    totalCost: {
+        type: String,
+    },
     totalTaxes: {
         type: String,
     },
     totalProfit: {
         type: String,
     },
-    totalSale: {
+    totalPrice: {
         type: String,
     },
 });
