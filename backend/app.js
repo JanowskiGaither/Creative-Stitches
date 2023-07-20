@@ -373,7 +373,8 @@ app.post('/garmentAllRetrieve', async function (req, res) {
   const garment = new Garment(req.body);
 
   try {
-    const result = await getAllGarment(garment);
+    var result = await getAllGarment(garment);
+    //result.sort({ garmentNumber: 1 });
     res.json(result);
 
   } catch (error) {
@@ -387,7 +388,8 @@ app.post('/designAllRetrieve', async function (req, res) {
   const design = new Design(req.body);
 
   try {
-    const result = await getAllDesign(design);
+    var result = await getAllDesign(design);
+    //result.sort({ designNumber: 1 });
     res.json(result);
 
   } catch (error) {

@@ -167,7 +167,7 @@
             <!-- Create the default garment card -->
             <div class="card border-info" id="garment_1">
               <div class="card-body">
-                <div class="row align-items-center">
+                <div class="d-flex flex-column justify-content-center align-items-center">
                   <h5 class="card-title" id="garmentTitle">Garment 1</h5>
                 </div>
 
@@ -272,13 +272,13 @@
             <row>
               <!-- Order Date -->
               <label class="form-label" for="orderDate">Order Date: </label>
-              <output class="form-inline border border-dark" type="date" name="orderDate" id="orderDate"
+              <output class="form-inline border border-dark" type="text" name="orderDate" id="orderDate"
                 style="padding:5px">
             </row>
             <row>
               <!-- Delivery Date -->
               <label class="form-label" for="requestedDeliveryDate">Delivery Date: </label>
-              <output class="form-inline border border-dark" type="date" name="requestedDeliveryDate"
+              <output class="form-inline border border-dark" type="text" name="requestedDeliveryDate"
                 id="requestedDeliveryDate" style="padding:5px">
             </row>
           </div>
@@ -289,6 +289,15 @@
           <div class="form-group form-inline">
             <label class="form-label" for="totalItems">Total Items: </label>
             <output class="form-inline border border-dark" type="text" name="totalItems" id="totalItems"
+              style="padding:5px">
+          </div>
+        </div>
+
+        <!-- Shipping Cost of Order -->
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="form-group form-inline">
+            <label class="form-label" for="shippingCost">Shipping Cost: </label>
+            <output class="form-inline border border-dark" type="text" name="shippingCost" id="shippingCost"
               style="padding:5px">
           </div>
         </div>
