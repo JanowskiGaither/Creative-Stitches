@@ -25,12 +25,18 @@ app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 //Save order
-async function saveOrder(order, design, customer) {
+async function saveOrder(order) {
 
-  // Save received Order and Customer information
-  await Order.updateOne({ customerID: order.customerID, orderID: order.orderID }, { taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate }, { upsert: true });
+  // Save received information
+  await Order.updateOne({ customerID: order.customerID, orderID: order.orderID }, { customerID: order.customerID, orderID: order.orderID, taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate }, { upsert: true });
+}
+
+//Save order
+async function saveCustomer(customer) {
+
+  // Save received  Customer information
   await Customer.updateOne({ customerID: customer.customerID }, {
-    firstName: customer.firstName, lastName: customer.lastName, organization: customer.organization, phone: customer.phone, email: customer.email
+    customerID: customer.customerID, firstName: customer.firstName, lastName: customer.lastName, organization: customer.organization, phone: customer.phone, email: customer.email
   }, { upsert: true });
 }
 
@@ -144,31 +150,23 @@ async function getGarment(garment) {
 
 //Get garment
 async function removeGarment(garment) {
-  //console.log("--------------------start removeGarment");
 
   var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
-
-  // console.log("------------------------remove this");
-  //console.log(query);
 
   // Delete garment
   query = await Garment.findOneAndDelete({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
 
   //If this wasn't the last garment then go through and update the numbers of the rest
-  //console.log(parseInt(garment.garmentNumber, 10));
-  //console.log(parseInt(garment.garmentNumberGarments, 10));
   for (let i = parseInt(garment.garmentNumber, 10); i <= parseInt(garment.garmentNumberGarments, 10); i++) {
     var filter = { orderID: garment.orderID, garmentNumber: i, designID: garment.designID };
     var newGarmentID = garment.designID.toString() + '_' + (i - 1).toString();
     var update = { garmentNumber: (i - 1), garmentID: newGarmentID }
     var updateResult = await Garment.findOneAndUpdate(filter, update, { new: true }).exec();
 
-    //console.log("--------------------updated result")
     console.log(updateResult)
   }
 
   if (query) {
-    //console.log("--------------------return removeGarment Result")
     return query;
   }
   else {
@@ -271,12 +269,23 @@ async function saveDesign(design) {
 
 app.post('/orderSubmit', async function (req, res) {
   var order = new Order(req.body);
-  var design = new Design(req.body);
+  try {
+    saveOrder(order);
+    res.redirect('/design');
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/customerSubmit', async function (req, res) {
   var customer = new Customer(req.body);
 
+  console.log("-----------------req.body");
+  console.log(req.body);
+  console.log("-----------------Customer");
+  console.log(Customer);
   try {
-    saveOrder(order, design, customer);
-    res.redirect('/design');
+    saveCustomer(customer);
   } catch (error) {
     console.log(error)
   }
