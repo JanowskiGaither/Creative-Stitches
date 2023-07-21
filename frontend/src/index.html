@@ -9,149 +9,46 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-    <nav class="navbar sticky-top bg-light py-3">
-      <div class="container-fluid">
-        <a class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar" aria-label="Toggle navigation" role="button">
-          <span class="navbar-toggler-icon"></span>
-        </a>
-        <div class="mx-auto">
-          <a class="navbar-brand" href="#"><img src="assets/logoipsum-297.svg"></a>
-        </div>
-        <ul class="nav nav-tabs nav-fill">
+  <nav class="navbar navbar-expand-md bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <div class="collapse navbar-collapse" id="logoCollapse">
+        <img src="assets/logoipsum-297.svg" class="mx-auto" alt="brandLogo" data-bs-toggle="collapse"
+          data-bs-target="logoCollapse">
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/order"> New Order</a>
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
           </li>
         </ul>
-        <div class="offcanvas offcanvas-start" tabindex="0" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigation</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/order">Orders</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/design">Designs</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Calendars</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Database</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Inventory</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Financials</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
-
-  <div class="container-fluid" id="currentOrders">
-    <div class="d-flex justify-content-evenly">
-      <div class="col-xxl-10 col-9 mt-3">
-        <div class="display-6 text-center">Current Orders</div>
-        <div class="row d-flex justify-content-evenly">
-          <div class="col-md-3 col-10 m-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Evans County Hunting Club</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Organization</h6>
-                <hr>
-                <ul class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A list item
-                    <span class="badge bg-primary rounded-pill">14</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A second list item
-                    <span class="badge bg-primary rounded-pill">2</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A third list item
-                    <span class="badge bg-primary rounded-pill">1</span>
-                  </li>
-                </ul>
-                <hr>
-                <img
-                  src="https://images-platform.99static.com//AHx9pSSz3qU9lO0i6jWGpapjncY=/36x43:962x969/fit-in/590x590/99designs-contests-attachments/124/124322/attachment_124322331"
-                  class="card-img-bottom" alt="..." style="max-height: 240px;">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-10 m-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Evans County Hunting Club</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Organization</h6>
-                <hr>
-                <ul class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A list item
-                    <span class="badge bg-primary rounded-pill">14</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A second list item
-                    <span class="badge bg-primary rounded-pill">2</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A third list item
-                    <span class="badge bg-primary rounded-pill">1</span>
-                  </li>
-                </ul>
-                <hr>
-                <img
-                  src="https://previews.123rf.com/images/ednal/ednal1905/ednal190500041/123983885-hunting-logo-hunt-badge-or-emblem-for-hunting-club-or-sport-deer-hunting-stamp.jpg"
-                  class="card-img-bottom" alt="..." style="max-height: 240px;">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-10 m-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Evans County Hunting Club</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Organization</h6>
-                <hr>
-                <ul class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A list item
-                    <span class="badge bg-primary rounded-pill">14</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A second list item
-                    <span class="badge bg-primary rounded-pill">2</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A third list item
-                    <span class="badge bg-primary rounded-pill">1</span>
-                  </li>
-                </ul>
-                <hr>
-                <img
-                  src="https://previews.123rf.com/images/ednal/ednal1905/ednal190500041/123983885-hunting-logo-hunt-badge-or-emblem-for-hunting-club-or-sport-deer-hunting-stamp.jpg"
-                  class="card-img-bottom" alt="..." style="max-height: 240px;">
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
-  </div>
+  </nav>
+
 
 </body>
 
