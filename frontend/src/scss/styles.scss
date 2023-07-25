@@ -1,2 +1,18 @@
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
+
+.hidden-md {
+    display: none;
+}
+
+//display smaller logo from the medium breakpoint down 
+@include media-breakpoint-down(md) {
+    .hidden-md {
+        display: block;
+    }
+
+    a.navbar-brand.pe-4 {
+        padding-right: 0% !important;
+        margin-right: 0% !important;
+    }
+}
