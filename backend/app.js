@@ -33,6 +33,8 @@ async function saveOrder(order) {
 
 //Save order
 async function saveCustomer(customer) {
+  console.log("Save Customer");
+  console.log(customer);
 
   // Save received  Customer information
   await Customer.updateOne({ customerID: customer.customerID }, {
@@ -77,6 +79,8 @@ async function getGarment(garment) {
 //Get customer
 async function getCustomer(customer) {
   // Check if customer exists
+  //console.log("Get Customer");
+  //console.log(customer);
   var query = await Customer.findOne({ customerID: customer.customerID }).exec();
 
   if (query) {
@@ -85,12 +89,12 @@ async function getCustomer(customer) {
   else {
     //Create a blank response
     var customerResponse = new Customer();
-    orderResponse.customerID = customer.customerID;
-    orderResponse.firstName = "";
-    orderResponse.lastName = '';
-    orderResponse.organization = '';
-    orderResponse.phone = '';
-    orderResponse.email = 0;
+    customerResponse.customerID = customer.customerID;
+    customerResponse.firstName = "Nothing Found";
+    customerResponse.lastName = '';
+    customerResponse.organization = '';
+    customerResponse.phone = '';
+    customerResponse.email = 0;
 
     return customerResponse;
   }
@@ -163,7 +167,7 @@ async function removeGarment(garment) {
     var update = { garmentNumber: (i - 1), garmentID: newGarmentID }
     var updateResult = await Garment.findOneAndUpdate(filter, update, { new: true }).exec();
 
-    console.log(updateResult)
+    //console.log(updateResult)
   }
 
   if (query) {
@@ -268,7 +272,9 @@ async function saveDesign(design) {
 }
 
 app.post('/orderSubmit', async function (req, res) {
+  //console.log(req.body);
   var order = new Order(req.body);
+  //console.log(order);
   try {
     saveOrder(order);
     res.redirect('/design');
@@ -280,10 +286,10 @@ app.post('/orderSubmit', async function (req, res) {
 app.post('/customerSubmit', async function (req, res) {
   var customer = new Customer(req.body);
 
-  console.log("-----------------req.body");
-  console.log(req.body);
-  console.log("-----------------Customer");
-  console.log(Customer);
+  //console.log("-----------------req.body");
+  //console.log(req.body);
+  //console.log("-----------------Customer");
+  //console.log(Customer);
   try {
     saveCustomer(customer);
   } catch (error) {
@@ -295,12 +301,14 @@ app.post('/designSubmit', async function (req, res) {
   var design = new Design(req.body);
 
   try {
-    saveDesign(design);
+    await saveDesign(design);
   } catch (error) {
     console.log(error)
   }
-
-  res.redirect('/');
+  if (req.body.reviewOrder) {
+    console.log("Go to review order ");
+    res.redirect('/review');
+  }
 });
 
 app.post('/garmentSubmit', async function (req, res) {
@@ -340,9 +348,10 @@ app.post('/customerRetrieve', async function (req, res) {
 
 app.post('/orderRetrieve', async function (req, res) {
   const order = new Order(req.body);
-
+  //console.log(order);
   try {
     const result = await getOrder(order);
+    //console.log(result);
     res.json(result);
 
   } catch (error) {

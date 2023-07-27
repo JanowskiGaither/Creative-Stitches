@@ -70,7 +70,11 @@
       <div id="customerInfo">
         <hr class="border border-primary border-3 opacity-75" style="width:100%">
         <div class="d-flex flex-column justify-content-center align-items-center">
-          <h4>Customer Information</h4>
+          <div class="row">
+            <h4>Customer Information</h4>
+            <button class="btn btn-sm btn-primary" id="editCustomerButton" style="color:white"
+              type="button">Edit</button>
+          </div>
         </div>
 
         <!-- Customer Name -->
@@ -121,7 +125,11 @@
         <!-- Create the default design -->
         <div class="d-flex flex-column justify-content-center align-items-center" id="design_1">
           <div class="d-flex flex-column justify-content-center align-items-center">
-            <h5 id="designOf">Design 1</h5>
+            <div class="row">
+              <h5 id="designOf">Design 1</h5>
+              <button class="btn btn-sm btn-primary" id="editDesignButton" style="color:white"
+                type="button">Edit</button>
+            </div>
           </div>
 
           <!-- Design Description -->
@@ -168,7 +176,11 @@
             <div class="card border-info" id="garment_1">
               <div class="card-body">
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                  <h5 class="card-title" id="garmentTitle">Garment 1</h5>
+                  <div class="row">
+                    <h5 class="card-title" id="garmentTitle">Garment 1</h5>
+                    <button class="btn btn-sm btn-primary" id="editDesignButton" style="color:white"
+                      type="button">Edit</button>
+                  </div>
                 </div>
 
                 <!-- Show these two side by side -->
@@ -263,7 +275,10 @@
       <div id="orderSummary">
         <hr class="border border-primary border-3 opacity-75" style="width:100%">
         <div class="d-flex flex-column justify-content-center align-items-center">
-          <h4>Order Sumamry</h4>
+          <div class="row">
+            <h4>Order Sumamry</h4>
+            <button class="btn btn-sm btn-primary" id="editOrderButton" style="color:white" type="button">Edit</button>
+          </div>
         </div>
 
         <!-- Show these two side by side -->
@@ -298,7 +313,7 @@
           <div class="form-group form-inline">
             <label class="form-label" for="shippingCost">Shipping Cost: </label>
             <output class="form-inline border border-dark" type="text" name="shippingCost" id="shippingCost"
-              style="padding:5px">
+              style="padding:5px" min="0" step="0.01">
           </div>
         </div>
 

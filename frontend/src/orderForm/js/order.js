@@ -39,7 +39,7 @@ class Customer {
             this.customerID = customerID;
             this.firstName = document.getElementById("firstName").value;
             this.lastName = document.getElementById("lastName").value;
-            this.Organization = document.getElementById("organization").value;
+            this.organization = document.getElementById("organization").value;
             this.email = document.getElementById("email").value;
             this.phone = document.getElementById("phone").value;
         }
@@ -47,6 +47,7 @@ class Customer {
 }
 
 let submitbutton = document.getElementById("submitButton");
+let orderForm = document.getElementById("orderForm");
 let org = document.getElementById("organization");
 
 //Create first IDs
@@ -82,6 +83,8 @@ async function readOrder() {
 async function saveOrder() {
     //Save current order values from HTML
     var currentOrder = new Order(true);
+    console.log("currentOrder");
+    console.log(currentOrder);
 
     await fetch('/orderSubmit', {
         method: 'POST',
@@ -97,6 +100,7 @@ async function saveOrder() {
 async function saveCustomer() {
     //Save current customer values from HTML
     var currentCustomer = new Customer(true);
+    console.log(currentCustomer);
 
     await fetch('/customerSubmit', {
         method: 'POST',
@@ -126,6 +130,15 @@ document.getElementById("email").addEventListener('change', function () {
 });
 
 submitbutton.addEventListener('click', async function () {
-    await saveCustomer();
+    //console.log("Save Customer");
+    saveCustomer();
+    //console.log("Save Order");
     saveOrder();
+})
+
+//Prevent enter from submitting form
+orderForm.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+    }
 })

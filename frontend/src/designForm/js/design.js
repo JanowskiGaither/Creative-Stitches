@@ -43,6 +43,7 @@ class Design {
     designNumberGarments = 1;
     designNumber = 1;
     designTotalCost = 0;
+    reviewOrder = false;
     constructor(getFormValues) {
         if (getFormValues) {
             this.designID = designID;
@@ -53,6 +54,7 @@ class Design {
             //this.designImages = document.getElementById("designImages").value;
             this.designNumberGarments = designNumberGarments;
             this.designNumber = designNumber;
+            this.reviewOrder = false;
             //this.designTotalCost = document.getElementById("designTotalCost").value;
         }
     }
@@ -70,7 +72,7 @@ let garmentTable = document.getElementById("garmentTable");
 let designForm = document.getElementById('designForm');
 let addGarmentButton = document.getElementById('addGarment');
 let saveGarmentButton = document.getElementById('saveGarment');
-let submitButton = document.getElementById('submitButton');
+let reviewButton = document.getElementById('reviewButton');
 
 var orderID;
 var designNumber = 1;
@@ -80,6 +82,7 @@ var numberOfDesigns = 1;
 var designID;
 var garmentID;
 var garmentTableButtonImplemented = [true, false]
+var reviewOrder = false;
 
 function initialSetup() {
 
@@ -144,13 +147,13 @@ async function addGarment() {
 function checkNextPreviousDesignShown() {
     // If its the final design show submit
     if (designNumber == numberOfDesigns) {
-        document.getElementById('submitButton').style.display = "block";
+        document.getElementById('reviewButton').style.display = "block";
         document.getElementById('nextDesignTop').style.display = "none";
         document.getElementById('nextDesignBottom').style.display = "none";
     }
     // Hide submit and show next design button
     else {
-        document.getElementById('submitButton').style.display = "none";
+        document.getElementById('reviewButton').style.display = "none";
         document.getElementById('nextDesignTop').style.display = "block";
         document.getElementById('nextDesignBottom').style.display = "block";
     }
@@ -499,10 +502,12 @@ async function getCurrentGarment() {
 }
 
 // Save the current design and retrieve the next designs's values to display
-async function submitDesign() {
+async function submitDesign(reviewOrder) {
     //Save the current design
     var currentDesign = new Design(true);
-
+    if (reviewOrder) {
+        currentDesign.reviewOrder = true;
+    }
     saveDesign(currentDesign);
 }
 
@@ -652,8 +657,10 @@ nextDesignButtonBottom.addEventListener('click', async function () {
     nextDesign()
 });
 
-submitButton.addEventListener('click', async function () {
-    submitDesign()
+reviewButton.addEventListener('click', async function () {
+    console.log('Review Order'
+    )
+    submitDesign(true);
 });
 
 //Prevent enter from submitting form

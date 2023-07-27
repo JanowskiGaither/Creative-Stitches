@@ -95,7 +95,6 @@ var designID;
 
 //Retrieve all the current order values from the database
 async function initialSetup() {
-    //console.log("Initial Setup");
     //Retrieve orderID
     if (sessionStorage.getItem('orderID') != null) {
         orderID = sessionStorage.getItem('orderID');
@@ -105,30 +104,20 @@ async function initialSetup() {
         orderID = 'NA'
     }
 
+    document.getElementById("totalItems").value = 0
+    document.getElementById("shippingCost").value = 0;
+    document.getElementById("totalTaxes").value = 0;
+    document.getElementById("totalPrice").value = 0;
+    document.getElementById("totalCost").value = 0;
 
     //Retrieve the current order
     await getCurrentOrder();
 
-    //Retrieve customer information
-    await getCurrentCustomer();
-
     //Retrieve all designs for the current order
     await getAllDesigns();
 
-    //Determine shipping estimate
-    //Placeholder for now
-    document.getElementById("shippingCost").value = document.getElementById("totalItems").value * 0.10;
-
-    //Calculate taxes
-    if (document.getElementById("taxExemption").value != "NA" || document.getElementById("taxExemption").value != "N/A" || document.getElementById("taxExemption").value != null) {
-        // GA sales tax = 4.00 percent
-        document.getElementById("totalTaxes").value = (document.getElementById("shippingCost").value + document.getElementById("totalCost").value) * 0.04;
-    }
-
-    //Determine Total Price
-    document.getElementById("totalPrice").value = document.getElementById("totalTaxes").value + document.getElementById("totalCost").value + document.getElementById("shippingCost").value;
-
     //Update Mongo with calculated values
+
 }
 
 async function getCurrentOrder() {
@@ -142,6 +131,8 @@ async function getCurrentCustomer() {
     //Setup customer query
     var newCustomer = new Customer();
     newCustomer.customerID = customerID;
+    console.log("customerID");
+    console.log(customerID);
     fetchCustomer(newCustomer)
 }
 
@@ -156,13 +147,17 @@ async function fetchOrder(order) {
         body: JSON.stringify(order)
     }).then(response => { return response })
     //Parse response to update values
+    console.log("Order Retrieved");
     const jsonResponse = await response.json();
     console.log(jsonResponse);
     customerID = jsonResponse.customerID;
     console.log(jsonResponse.requestedDeliveryDate);
-    document.getElementById("requestedDeliveryDate").value = jsonResponse.requestedDeliveryDate;
+    document.getElementById("requestedDeliveryDate").value = jsonResponse.requestedDeliveryDate.substr(5, 2) + "/" + jsonResponse.requestedDeliveryDate.substr(8, 2) + "/" + jsonResponse.requestedDeliveryDate.substr(0, 4);
     document.getElementById("taxExemption").value = jsonResponse.taxExemption;
     document.getElementById("orderDate").value = new Date().toLocaleDateString();
+
+    //Retrieve customer information
+    await getCurrentCustomer();
 }
 
 async function fetchCustomer(customer) {
@@ -263,11 +258,36 @@ async function fetchAllGarments(garment, thisDesignNumber) {
         thisGarment.querySelector('#garmentTotalCost').value = data[i].garmentTotalCost;
 
         //Add items to Items in Design
-        thisDesign.querySelector('#designTotalItems').value = parseInt(thisDesign.querySelector('#designTotalItems').value, 10) + parseInt(data[i].garmentAmount, 10);
+        thisDesign.querySelector('#designTotalItems').value = parseFloat(thisDesign.querySelector('#designTotalItems').value) + parseFloat(data[i].garmentAmount);
 
         //Add value to Design cost
-        thisDesign.querySelector('#designTotalCost').value = parseInt(thisDesign.querySelector('#designTotalCost').value, 10) + parseInt(data[i].garmentTotalCost, 10);
+        thisDesign.querySelector('#designTotalCost').value = parseFloat(thisDesign.querySelector('#designTotalCost').value) + parseFloat(data[i].garmentTotalCost);
     }
+
+    //Update order cost
+    document.getElementById("totalItems").value = parseFloat(document.getElementById("totalItems").value) + parseFloat(thisDesign.querySelector('#designTotalItems').value);
+    console.log(document.getElementById("totalCost").value);
+    document.getElementById("totalCost").value = parseFloat(document.getElementById("totalCost").value) + parseFloat(thisDesign.querySelector('#designTotalCost').value);
+    console.log(document.getElementById("totalCost").value);
+
+    //Determine shipping estimate
+    //Placeholder for now
+    document.getElementById("shippingCost").value = parseFloat(document.getElementById("totalItems").value) * 0.10;
+
+    //Add Shipping cost to Total Cost
+    //document.getElementById("totalCost").value = parseInt(document.getElementById("totalCost").value, 10) + parseInt(document.getElementById("shippingCost").value, 10)
+
+    //Calculate taxes
+    if (document.getElementById("taxExemption").value != "NA" && document.getElementById("taxExemption").value != "N/A" && document.getElementById("taxExemption").value != null && document.getElementById("taxExemption").value != "0") {
+        // GA sales tax = 4.00 percent
+        document.getElementById("totalTaxes").value = 0;
+    }
+    else {
+        document.getElementById("totalTaxes").value = parseFloat(document.getElementById("shippingCost").value) * 0.04;
+    }
+
+    //Determine Total Price by adding taxes to order 
+    document.getElementById("totalPrice").value = parseFloat(document.getElementById("totalCost").value) + parseFloat(document.getElementById("totalTaxes").value)
 }
 
 
@@ -338,13 +358,6 @@ async function fetchAllDesigns(design) {
 
         //Retreive all garments for this design
         await getAllGarments(data[i].designNumber, data[i].designID, data[i].orderID);
-
-        //Add items to Total Items
-        document.getElementById("totalItems").value = document.getElementById("totalItems").value + thisDesign.querySelector('#designTotalItems').value;
-
-        //Add value to Total cost
-        document.getElementById("totalCost").value = document.getElementById("totalCost").value + thisDesign.querySelector('#designTotalCost').value;
-
     }
 }
 
