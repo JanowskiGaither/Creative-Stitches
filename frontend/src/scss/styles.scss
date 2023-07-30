@@ -17,10 +17,12 @@ button.navbar-toggler:hover {
 
 .card {
     box-shadow: 0 2px 6px 0 $gray-500;
-    max-width: 460px;
-    min-width: 300px;
+    max-width: 442 !important;
+    flex-basis: 100%;
 }
 
-.card img {
-    max-height: 250px;
+
+.card-img-bottom {
+    width: 100%;
+    aspect-ratio: 1/1;
 }
