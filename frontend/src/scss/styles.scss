@@ -17,12 +17,22 @@ button.navbar-toggler:hover {
 
 .card {
     box-shadow: 0 2px 6px 0 $gray-500;
-    max-width: 442 !important;
+    max-width: 382px !important;
     flex-basis: 100%;
 }
-
 
 .card-img-bottom {
     width: 100%;
     aspect-ratio: 1/1;
+}
+
+@include media-breakpoint-up(md) {
+    .card.card-even {
+        margin-right: auto;
+
+    }
+
+    .card.card-odd {
+        margin-left: auto;
+    }
 }
