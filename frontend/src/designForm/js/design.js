@@ -85,7 +85,7 @@ var garmentID;
 var garmentTableButtonImplemented = [true, false]
 var reviewOrder = false;
 
-function initialSetup() {
+async function initialSetup() {
 
     //Retrieve editOrder
     if (sessionStorage.getItem('editOrder') != null) {
@@ -107,6 +107,9 @@ function initialSetup() {
             if (sessionStorage.editType = "garment") {
                 garmentID = sessionStorage.getItem('garmentId');
 
+                console.log("garmentID");
+                console.log(garmentID);
+
                 if (sessionStorage.getItem('designID') != null) {
                     getCurrentDesign();
                 }
@@ -114,6 +117,7 @@ function initialSetup() {
                 if (sessionStorage.getItem('garmentId') != null) {
                     getCurrentGarment();
                     updateGarmentTable();
+                    console.log("Pop the modal");
                     $('#garmentModal').modal('show');
                     //document.getElementById("garmentModal").focus()
                 }
@@ -131,39 +135,39 @@ function initialSetup() {
         //Retrieve orderID
         if (sessionStorage.getItem('orderID') != null) {
             orderID = sessionStorage.getItem('orderID');
+
+            //Populate the first design if possible
+            getCurrentDesign();
+            updateGarmentTable();
         }
         else {
             //For now just substitude value, later update popup error maybe
             orderID = 'NA'
+
+            //Create first designID
+            designID = orderID.toString() + '_' + designNumber.toString();
+            garmentID = designID.toString() + '_' + garmentNumber.toString();
+
+            // Hide unselected initially
+            itemTypeSelection();
+
+            //Update current design and garment
+            determineCurrentDesign();
+            determineCurrentGarment();
+
+            //Update design forward/backward buttons
+            checkNextPreviousDesignShown();
+            //checkNextPreviousGarmentShown();
+
+
+            // Calculate total costs at start
+            calculateGarmentTotal();
+            calculateOtherTotal();
+            calculateVinylizeTotal();
+            calculateEmbroideryTotal();
         }
     }
 
-    //Create first designID
-    designID = orderID.toString() + '_' + designNumber.toString();
-    garmentID = designID.toString() + '_' + garmentNumber.toString();
-
-    // Hide unselected initially
-    itemTypeSelection();
-
-    //Update current design and garment
-    determineCurrentDesign();
-    determineCurrentGarment();
-
-    //Update design forward/backward buttons
-    checkNextPreviousDesignShown();
-    //checkNextPreviousGarmentShown();
-
-    //Populate the first design if possible
-    if (orderID != 'NA') {
-        getCurrentDesign();
-        updateGarmentTable();
-    }
-
-    // Calculate total costs at start
-    calculateGarmentTotal();
-    calculateOtherTotal();
-    calculateVinylizeTotal();
-    calculateEmbroideryTotal();
 }
 
 function determineCurrentDesign() {
@@ -636,7 +640,7 @@ async function updateGarmentTable() {
 
 // Create event listeners to handle user inputs
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     initialSetup();
 });
 

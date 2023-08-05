@@ -2,49 +2,22 @@ import '../scss/orderStyles.scss'
 
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
+import * as stitchesReadSave from '../../Library/stitchesReadSave'
+import * as stitchesIDs from '../../Library/stitchesIDs'
+import * as stichesClass from '../../Library/stichesClass.js'
 
-// Create Order Class
-class Order {
-    orderID = 0;
-    customerID = "";
-    orderDescription = "";
-    orderDate = "";
-    requestedDeliveryDate = "";
-    scheduledDeliveryDate = "";
-    taxExemption = "";
-    totalItems = "";
-    totalMaterialCost = "";
-    totalTaxes = "";
-    totalProfit = "";
-    totalSale = "";
-    constructor(getFormValues) {
-        if (getFormValues) {
-            this.orderID = orderID;
-            this.customerID = customerID;
-            this.requestedDeliveryDate = document.getElementById("requestedDeliveryDate").value;
-            this.taxExemption = document.getElementById("taxExemption").value;
-        }
-    }
-}
+//Define variables
+let submitbutton = document.getElementById("submitButton");
+let orderForm = document.getElementById("orderForm");
+let customerID = document.getElementById("customerID");
+let orderID = document.getElementById("orderID");
 
-class Customer {
-    customerID = 0;
-    firstName = "";
-    lastName = "";
-    organization = "";
-    phone = "";
-    email = "";
-    constructor(getFormValues) {
-        if (getFormValues) {
-            this.customerID = customerID;
-            this.firstName = document.getElementById("firstName").value;
-            this.lastName = document.getElementById("lastName").value;
-            this.organization = document.getElementById("organization").value;
-            this.email = document.getElementById("email").value;
-            this.phone = document.getElementById("phone").value;
-        }
-    }
-}
+//Handle edit orders
+var editOrder;
+
+//Create first IDs
+customerID.value = document.getElementById("firstName").value.toString() + document.getElementById("lastName").value.toString() + "_" + document.getElementById("email").value.toString();
+orderID.value = customerID + new Date().toLocaleDateString();
 
 function initialSetup() {
 
@@ -54,104 +27,41 @@ function initialSetup() {
     }
     else {
         //For now just substitude value, later update popup error maybe
-        editOrder = 'NA'
+        orderValues.editOrder = 'NA'
     }
 
     if (editOrder == true) {
-        sessionStorage.editOrder = false;
+        editOrder = false;
+        sessionStorage.editOrder = orderValues.editOrder;
         orderID = sessionStorage.getItem('orderID');
-        readOrder();
+        stitchesReadSave.readOrder();
     }
 }
 
-let submitbutton = document.getElementById("submitButton");
-let orderForm = document.getElementById("orderForm");
-let org = document.getElementById("organization");
+//Create event Listeners
 
-//Create first IDs
-var customerID = document.getElementById("firstName").value.toString() + document.getElementById("lastName").value.toString() + "_" + document.getElementById("email").value.toString();
-var orderID = customerID + new Date().toLocaleDateString();
-
-function createID() {
-    customerID = document.getElementById("firstName").value.toString() + document.getElementById("lastName").value.toString() + "_" + document.getElementById("email").value.toString();
-    orderID = customerID + "_" + new Date().toLocaleDateString();
-
-    console.log(orderID);
-
-    //Update stored orderID
-    storeOrderID();
-}
-
-
-async function readOrder() {
-    await fetch('/readOrder', {
-        methods: 'GET',
-        headers: {
-            'Accept': 'application/json',
-        },
-    })
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .finally(() => {
-            org.setAttribute("placeholder", "it worked")
-        })
-
-}
-
-async function saveOrder() {
-    //Save current order values from HTML
-    var currentOrder = new Order(true);
-    console.log("currentOrder");
-    console.log(currentOrder);
-
-    await fetch('/orderSubmit', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(currentOrder)
-    }).then(response => { return response })
-
-}
-
-async function saveCustomer() {
-    //Save current customer values from HTML
-    var currentCustomer = new Customer(true);
-    console.log(currentCustomer);
-
-    await fetch('/customerSubmit', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(currentCustomer)
-    }).then(response => { return response })
-}
-
-
-function storeOrderID() {
-    sessionStorage.orderID = orderID
-}
-
+// Update the Customer ID based on changes in the form
 document.getElementById("firstName").addEventListener('change', function () {
-    createID();
+    [customerID.value, orderID.value] = stitchesIDs.createID();
 });
 
 document.getElementById("lastName").addEventListener('change', function () {
-    createID();
+    [customerID.value, orderID.value] = stitchesIDs.createID();
 });
 
 document.getElementById("email").addEventListener('change', function () {
-    createID();
+    [customerID.value, orderID.value] = stitchesIDs.createID();
 });
 
+// Submit form values and move to the design page
 submitbutton.addEventListener('click', async function () {
-    //console.log("Save Customer");
-    saveCustomer();
-    //console.log("Save Order");
-    saveOrder();
+    //Save the Customer and Order values
+    var currentOrder = new stichesClass.Order(true);
+    console.log(currentOrder);
+    var currentCustomer = new stichesClass.Customer(true);
+    console.log(currentCustomer);
+    stitchesReadSave.saveCustomer(currentCustomer);
+    stitchesReadSave.saveOrder(currentOrder);
 
     //Redirct to design
     window.location.href = '/design';
@@ -163,3 +73,8 @@ orderForm.addEventListener('keypress', function (e) {
         e.preventDefault();
     }
 })
+
+// Wait for the page to fully load, then run initial setup for the page
+document.addEventListener("DOMContentLoaded", async function () {
+    initialSetup();
+});

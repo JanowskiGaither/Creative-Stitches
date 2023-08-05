@@ -272,12 +272,10 @@ async function saveDesign(design) {
 }
 
 app.post('/orderSubmit', async function (req, res) {
-  //console.log(req.body);
   var order = new Order(req.body);
-  //console.log(order);
+
   try {
-    saveOrder(order);
-    res.redirect('/design');
+    await saveOrder(order).then();
   } catch (error) {
     console.log(error)
   }
@@ -285,13 +283,9 @@ app.post('/orderSubmit', async function (req, res) {
 
 app.post('/customerSubmit', async function (req, res) {
   var customer = new Customer(req.body);
-
-  //console.log("-----------------req.body");
-  //console.log(req.body);
-  //console.log("-----------------Customer");
-  //console.log(Customer);
   try {
-    saveCustomer(customer);
+    await saveCustomer(customer);
+    return (true);
   } catch (error) {
     console.log(error)
   }
@@ -302,12 +296,12 @@ app.post('/designSubmit', async function (req, res) {
 
   try {
     await saveDesign(design);
+    return (true);
   } catch (error) {
     console.log(error)
   }
   if (req.body.reviewOrder) {
     console.log("Go to review order ");
-    res.redirect('/review');
   }
 });
 
