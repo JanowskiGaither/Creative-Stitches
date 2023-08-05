@@ -249,6 +249,11 @@ async function fetchAllGarments(garment, thisDesignNumber) {
             thisGarment = thisDesign.querySelector(thisGarmentLabel);
         }
 
+        //Add event listener for edit button
+        thisGarment.querySelector('#editGarmentButton').addEventListener('click', async function () {
+            editGarment(thisDesign, thisGarment);
+        });
+
         //Update garment with these values
         thisGarment.querySelector('#garmentGender').innerHTML = data[i].garmentGender;
         thisGarment.querySelector('#garmentSize').value = data[i].garmentSize;
@@ -273,12 +278,13 @@ async function fetchAllGarments(garment, thisDesignNumber) {
     //Determine shipping estimate
     //Placeholder for now
     document.getElementById("shippingCost").value = parseFloat(document.getElementById("totalItems").value) * 0.10;
+    document.getElementById("totalCost").value = parseFloat(document.getElementById("totalCost").value) + parseFloat(document.getElementById("shippingCost").value);
 
     //Add Shipping cost to Total Cost
     //document.getElementById("totalCost").value = parseInt(document.getElementById("totalCost").value, 10) + parseInt(document.getElementById("shippingCost").value, 10)
 
     //Calculate taxes
-    if (document.getElementById("taxExemption").value != "NA" && document.getElementById("taxExemption").value != "N/A" && document.getElementById("taxExemption").value != null && document.getElementById("taxExemption").value != "0") {
+    if (document.getElementById("taxExemption").value != "NA" || document.getElementById("taxExemption").value != "N/A" || document.getElementById("taxExemption").value != null || document.getElementById("taxExemption").value != "0") {
         // GA sales tax = 4.00 percent
         document.getElementById("totalTaxes").value = 0;
     }
@@ -290,6 +296,57 @@ async function fetchAllGarments(garment, thisDesignNumber) {
     document.getElementById("totalPrice").value = parseFloat(document.getElementById("totalCost").value) + parseFloat(document.getElementById("totalTaxes").value)
 }
 
+async function editOrder() {
+
+    //Store info
+    sessionStorage.editOrder = true;
+    sessionStorage.editType = "order";
+    sessionStorage.orderID = orderID;
+    sessionStorage.customerID = customerID;
+
+    //Redirect to design
+    window.location.href = '/order';
+}
+
+async function editCustomer() {
+
+    //Store info
+    sessionStorage.editOrder = true;
+    sessionStorage.editType = "customer";
+    sessionStorage.orderID = orderID;
+    sessionStorage.customerID = customerID;
+    //Redirect to design
+    window.location.href = '/order';
+}
+
+async function editDesign(thisDesign) {
+
+    //Store info
+    sessionStorage.editOrder = true;
+    sessionStorage.editType = "design";
+    sessionStorage.orderID = orderID;
+    var designOfString = thisDesign.id;
+    sessionStorage.designID = orderID.toString() + '_' + designOfString.toString().substring(8, designOfString.length);
+
+    //Redirect to design
+    window.location.href = '/design';
+}
+
+async function editGarment(thisDesign, thisGarment) {
+
+    //Store info
+    sessionStorage.editOrder = true;
+    sessionStorage.editType = "garment";
+    sessionStorage.orderID = orderID;
+    var designOfString = thisDesign.id;
+    var garmentOfString = thisGarment.id;
+    console.log(thisGarment.id);
+    sessionStorage.designID = orderID.toString() + '_' + designOfString.toString().substring(8, designOfString.length);
+    sessionStorage.garmentID = sessionStorage.getItem('designID').toString() + '_' + garmentOfString.toString().substring(8, garmentOfString.length);
+
+    //Redirect to design
+    window.location.href = '/design';
+}
 
 async function fetchAllDesigns(design) {
     const data = await fetch('/designAllRetrieve', {
@@ -325,6 +382,11 @@ async function fetchAllDesigns(design) {
             //Append to Design
             document.getElementById("orderReview").appendChild(clone);
         }
+
+        //Add event listener for edit button
+        thisDesign.querySelector('#editDesignButton').addEventListener('click', async function () {
+            editDesign(thisDesign);
+        });
 
         //Update design with these values
         thisDesign.querySelector('#designOf').innerHTML = "Design " + data[i].designNumber;
@@ -365,3 +427,14 @@ async function fetchAllDesigns(design) {
 document.addEventListener("DOMContentLoaded", async function () {
     initialSetup();
 });
+
+let editCustomerButton = document.getElementById("editCustomerButton");
+let editOrderButton = document.getElementById("editOrderButton");
+
+editCustomerButton.addEventListener('click', async function () {
+    editCustomer();
+})
+
+editOrderButton.addEventListener('click', async function () {
+    editOrder();
+})

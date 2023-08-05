@@ -46,6 +46,24 @@ class Customer {
     }
 }
 
+function initialSetup() {
+
+    //Retrieve editOrder
+    if (sessionStorage.getItem('editOrder') != null) {
+        editOrder = sessionStorage.getItem('editOrder');
+    }
+    else {
+        //For now just substitude value, later update popup error maybe
+        editOrder = 'NA'
+    }
+
+    if (editOrder == true) {
+        sessionStorage.editOrder = false;
+        orderID = sessionStorage.getItem('orderID');
+        readOrder();
+    }
+}
+
 let submitbutton = document.getElementById("submitButton");
 let orderForm = document.getElementById("orderForm");
 let org = document.getElementById("organization");
@@ -134,6 +152,9 @@ submitbutton.addEventListener('click', async function () {
     saveCustomer();
     //console.log("Save Order");
     saveOrder();
+
+    //Redirct to design
+    window.location.href = '/design';
 })
 
 //Prevent enter from submitting form

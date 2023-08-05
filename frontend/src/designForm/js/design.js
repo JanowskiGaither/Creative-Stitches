@@ -75,6 +75,7 @@ let saveGarmentButton = document.getElementById('saveGarment');
 let reviewButton = document.getElementById('reviewButton');
 
 var orderID;
+var editOrder;
 var designNumber = 1;
 var garmentNumber = 1;
 var designNumberGarments = 1;
@@ -86,13 +87,55 @@ var reviewOrder = false;
 
 function initialSetup() {
 
-    //Retrieve orderID
-    if (sessionStorage.getItem('orderID') != null) {
-        orderID = sessionStorage.getItem('orderID');
+    //Retrieve editOrder
+    if (sessionStorage.getItem('editOrder') != null) {
+        editOrder = sessionStorage.getItem('editOrder');
     }
     else {
         //For now just substitude value, later update popup error maybe
-        orderID = 'NA'
+        editOrder = 'NA'
+    }
+
+    if (editOrder == true) {
+        //Retrieve designID
+        sessionStorage.editOrder = false;
+        if (sessionStorage.getItem('designID') != null) {
+            orderID = sessionStorage.getItem('orderID');
+            designID = sessionStorage.getItem('designID');
+
+            //Determine where to focus
+            if (sessionStorage.editType = "garment") {
+                garmentID = sessionStorage.getItem('garmentId');
+
+                if (sessionStorage.getItem('designID') != null) {
+                    getCurrentDesign();
+                }
+
+                if (sessionStorage.getItem('garmentId') != null) {
+                    getCurrentGarment();
+                    updateGarmentTable();
+                    $('#garmentModal').modal('show');
+                    //document.getElementById("garmentModal").focus()
+                }
+            }
+            else if (sessionStorage.editType = "design") {
+                document.getElementById("designForm").focus()
+            }
+        }
+        else {
+            //For now just substitude value, later update popup error maybe
+            designID = orderID.toString() + '_' + designNumber.toString();
+        }
+    }
+    else {
+        //Retrieve orderID
+        if (sessionStorage.getItem('orderID') != null) {
+            orderID = sessionStorage.getItem('orderID');
+        }
+        else {
+            //For now just substitude value, later update popup error maybe
+            orderID = 'NA'
+        }
     }
 
     //Create first designID
@@ -113,6 +156,7 @@ function initialSetup() {
     //Populate the first design if possible
     if (orderID != 'NA') {
         getCurrentDesign();
+        updateGarmentTable();
     }
 
     // Calculate total costs at start
@@ -661,6 +705,9 @@ reviewButton.addEventListener('click', async function () {
     console.log('Review Order'
     )
     submitDesign(true);
+
+    //Redirct to review
+    window.location.href = '/review';
 });
 
 //Prevent enter from submitting form
