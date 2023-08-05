@@ -177,7 +177,6 @@ app.post('/orderSubmit', async function (req, res) {
 
   try {
     saveOrder(order, design, customer);
-    res.redirect('/design');
   } catch (error) {
     console.log(error)
   }

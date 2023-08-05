@@ -26,8 +26,8 @@
               Orders
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">New Order</a></li>
-              <li><a class="dropdown-item" href="#">View Orders</a></li>
+              <li><a class="dropdown-item" href="/order">New Order</a></li>
+              <li><a class="dropdown-item" href="/">View Orders</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -45,10 +45,29 @@
   </nav>
 
   <div class="container">
-    <h1 class="display-6 text-center mb-4">Current Orders</h1>
-    <div class="mx-3 mx-md-0 gx-4 gx-lg-5 gy-5 row">
+    <h2 class="display-6 ps-4 text-center mb-4" id="financialH2">Financials</h2>
+
+    <div class="row">
+      <div class="col d-flex mb-4">
+        <div class="card card-financial">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.
+            </p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="display-6 text-center ps-4 mt-4 mb-4">Current Orders</h2>
+
+    <div class="mx-3 mx-md-0 gx-4 gx-lg-5 row scrollView">
       <div class="col-xxl-4 col-md-6 d-flex justify-content-center">
-        <div class="card card-odd">
+        <div class="card card-odd order-card mb-4">
           <div class="card-body">
             <h5 class="card-title">CHS Band</h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">Fall Sweatshirts 2023</h6>
@@ -80,11 +99,10 @@
       </div>
 
       <div class="col-xxl-4 col-md-6 d-flex justify-content-center">
-        <div class="card card-even">
+        <div class="card card-even order-card mb-4">
           <div class="card-body">
             <h5 class="card-title">Hagan Hunting Club</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Ballcap with Leather Patch Ballcap with Leather Patch
-              Ballcap with Leather Patch testing the lengh of the subtitle</h6>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Ballcap with Leather</h6>
             <hr>
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -112,8 +130,9 @@
           </div>
         </div>
       </div>
+
       <div class="col-xxl-4 col-md-6 d-flex justify-content-center">
-        <div class="card card-odd">
+        <div class="card card-odd order-card mb-4">
           <div class="card-body">
             <h5 class="card-title">Kaylee's Wedding</h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">Monogramed Napkins</h6>
@@ -145,7 +164,7 @@
       </div>
 
       <div class="col-xxl-4 col-md-6 d-flex justify-content-center">
-        <div class="card card-even">
+        <div class="card card-even order-card mb-4">
           <div class="card-body">
             <h5 class="card-title">CHS Band</h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">Fall Sweatshirts 2023</h6>
@@ -175,7 +194,75 @@
           </div>
         </div>
       </div>
+
+      <div class="col-xxl-4 col-md-6 d-flex justify-content-center">
+        <div class="card card-even order-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Hagan Hunting Club</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Ballcap with Leather Patch Ballcap with Leather Patch
+              Ballcap with Leather Patch testing the lengh of the subtitle</h6>
+            <hr>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Due Date</div>
+                </div>
+                7/24/2023
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Total Items</div>
+                </div>
+                <span class="fw-semibold ">30</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Status</div>
+                </div>
+                <span class="badge bg-danger rounded-pill">Overdue</span>
+              </li>
+            </ul>
+            <hr>
+            <img src="assets/Vintage-Watch-Hunting-Club-Green_002_06489617-9b7a-485c-a229-4800d4f0e0bb.jpg"
+              class="card-img-bottom" alt="sweatshirt asset">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-4 col-md-6 d-flex justify-content-center">
+        <div class="card card-odd order-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">CHS Band</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Fall Sweatshirts 2023</h6>
+            <hr>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Due Date</div>
+                </div>
+                10/6/2023
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Total Items</div>
+                </div>
+                <span class="fw-semibold ">14</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Status</div>
+                </div>
+                <span class="badge bg-success rounded-pill">Ready</span>
+              </li>
+            </ul>
+            <hr>
+            <img src="assets/DynamicImageHandler.png" class="card-img-bottom" alt="sweatshirt asset">
+          </div>
+        </div>
+      </div>
+
     </div>
+
   </div>
 </body>
 

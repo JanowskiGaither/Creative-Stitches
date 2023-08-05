@@ -15,18 +15,43 @@ button.navbar-toggler:hover {
     border: .125rem solid $gray-600;
 }
 
+h6.card-subtitle {
+    box-sizing: content-box;
+    height: 20.4px;
+    overflow: auto;
+    align-items: center;
+}
+
 .card {
     box-shadow: 0 2px 6px 0 $gray-500;
-    max-width: 382px !important;
+}
+
+.card.order-card {
+    max-width: 342px !important;
+    max-height: 600px;
     flex-basis: 100%;
+}
+
+.card.card-financial {
+    width: 100%;
+    margin-left: 48px;
+    margin-right: 48px;
 }
 
 .card-img-bottom {
     width: 100%;
     aspect-ratio: 1/1;
+    overflow: hidden;
 }
 
-@include media-breakpoint-up(md) {
+.scrollView {
+    height: 625px;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+
+@include media-breakpoint-between(md, xxl) {
     .card.card-even {
         margin-right: auto;
 

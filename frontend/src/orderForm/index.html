@@ -9,60 +9,42 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-    <nav class="navbar sticky-top bg-light py-3">
-      <div class="container-fluid">
-        <a class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar" aria-label="Toggle navigation" role="button">
-          <span class="navbar-toggler-icon"></span>
-        </a>
-        <div class="mx-auto">
-          <a class="navbar-brand" href="#"><img src="../assets/logoipsum-297.svg"></a>
-        </div>
-        <ul class="nav nav-tabs nav-fill">
+  <nav class="navbar sticky-top navbar-expand-md bg-light mb-4">
+    <div class="container-xxl">
+      <a class="navbar-brand" href="#"><img src="../assets/logoipsum-297.svg" alt="brand logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Orders
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/order">New Order</a></li>
+              <li><a class="dropdown-item" href="/">View Orders</a></li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/order"> New Order</a>
+            <a class="nav-link" href="#">Financials</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Inventory</a>
           </li>
         </ul>
-        <div class="offcanvas offcanvas-start" tabindex="0" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigation</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/order">Orders</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/design">Designs</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Calendars</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Database</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Inventory</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Financials</a>
-              </li>
-            </ul>
-          </div>
-        </div>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 
-  <div class="container-fluid">
+  <div class="container-lg">
     <div class="row">
       <div class=" col-11 col-lg-12 custombar mx-auto mt-5">
         <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="33"
@@ -125,7 +107,7 @@
         <div class="col-11 col-lg-12 justify-content-end mb-3">
           <div class="d-flex flex-row-reverse">
             <div class="col-4 col-sm-3 ps-2">
-              <input class="form-control btn btn-primary" type="submit" value="Submit">
+              <input class="form-control btn btn-primary" type="button" value="button" id="submitButton">
             </div>
             <div class="col-4 col-sm-3 pe-2">
               <button class="form-control btn btn-outline-secondary" id="submitButton" type="button">
