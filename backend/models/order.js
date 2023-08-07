@@ -13,6 +13,9 @@ const orderSchema = new mongoose.Schema({
     orderDate: {
         type: Date,
     },
+    orderStatus: {
+        type: String,
+    },
     requestedDeliveryDate: {
         type: Date,
     },
