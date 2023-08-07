@@ -22,42 +22,28 @@ h6.card-subtitle {
     align-items: center;
 }
 
+.row {
+    margin: 0;
+}
+
 .card {
     box-shadow: 0 2px 6px 0 $gray-500;
 }
 
 .card.order-card {
     max-width: 342px !important;
-    max-height: 600px;
     flex-basis: 100%;
 }
 
-.card.card-financial {
-    width: 100%;
-    margin-left: 48px;
-    margin-right: 48px;
-}
-
 .card-img-bottom {
-    width: 100%;
+    width: 200px;
     aspect-ratio: 1/1;
     overflow: hidden;
+    border-radius: 15px;
 }
 
 .scrollView {
-    height: 625px;
+    height: 500px;
     width: 100%;
     overflow-x: scroll;
-}
-
-
-@include media-breakpoint-between(md, xxl) {
-    .card.card-even {
-        margin-right: auto;
-
-    }
-
-    .card.card-odd {
-        margin-left: auto;
-    }
 }
