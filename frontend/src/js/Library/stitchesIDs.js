@@ -102,6 +102,28 @@ export function createGarmentID(setGarmentNumber) {
 }
 
 // Update page text based on IDs
+export function determineFullName() {
+    //Assume the fields aren't populated
+    var firstNameString = "";
+    var lastNameString = "";
+
+    //Check if the form has values for each field
+    let customerName = document.getElementById("customerName");
+    let firstName = document.getElementById("firstName");
+    let lastName = document.getElementById("lastName");
+
+    if (firstName !== null) {
+        firstNameString = firstName.value.toString();
+    }
+
+    if (lastName !== null) {
+        lastNameString = lastName.value.toString();
+    }
+
+    // Update the customer name
+    customerName.value = firstNameString + " " + lastNameString;
+}
+
 
 export function determineCurrentDesign() {
     // Assume the fields aren't populated
@@ -151,6 +173,36 @@ export function determineCurrentGarment() {
     }
 }
 
+export function updateDeliveryDate() {
+    //Check if the form has values for the field
+    let requestedDeliveryDate = document.getElementById("requestedDeliveryDate");
+
+    if (requestedDeliveryDate !== null) {
+        requestedDeliveryDate.value = requestedDeliveryDate.value.substr(5, 2) + "/" + requestedDeliveryDate.value.substr(8, 2) + "/" + requestedDeliveryDate.value.substr(0, 4);
+    }
+}
+
+export function updateOrderDate() {
+    //Check if the form has values for the field
+    let orderDate = document.getElementById("orderDate");
+
+    if (orderDate !== null) {
+        let todayDate = new Date();
+        let todayYear = todayDate.getFullYear();
+        let todayMonth = todayDate.getMonth() + 1; // Months start at 0!
+        let todayDay = todayDate.getDate();
+
+        if (todayDay < 10) {
+            todayDay = '0' + todayDay;
+        }
+        if (todayMonth < 10) {
+            todayMonth = '0' + todayMonth;
+        }
+
+        orderDate.value = todayDay + '/' + todayMonth + '/' + todayYear;
+    }
+}
+
 // Store and retrieve session variables
 
 export function storeIDs() {
@@ -176,7 +228,7 @@ export function storeCustomerID(setCustomerID) {
     }
     else {
         if (customerID !== null) {
-            currentCustomerID = customerID;
+            currentCustomerID = customerID.value;
         }
     }
 
@@ -196,7 +248,7 @@ export function storeOrderID(setOrderID) {
     }
     else {
         if (orderID !== null) {
-            currentOrderID = orderID;
+            currentOrderID = orderID.value;
         }
     }
 
@@ -216,7 +268,7 @@ export function storeDesignID(setDesignId) {
     }
     else {
         if (designID !== null) {
-            currentDesignId = designID;
+            currentDesignId = designID.value;
         }
     }
 
@@ -236,7 +288,7 @@ export function storeGarmentID(setGarmentId) {
     }
     else {
         if (garmentID !== null) {
-            currentGarmentId = garmentID;
+            currentGarmentId = garmentID.value;
         }
     }
 
@@ -256,7 +308,7 @@ export function storeEmbroideryID(setEmbroideryID) {
     }
     else {
         if (embroideryID !== null) {
-            currentEmbroideryID = embroideryID;
+            currentEmbroideryID = embroideryID.value;
         }
     }
 
@@ -276,7 +328,7 @@ export function storeVinylizeID(setVinylizeID) {
     }
     else {
         if (vinylizeID !== null) {
-            currentVinylizeID = vinylizeID;
+            currentVinylizeID = vinylizeID.value;
         }
     }
 
@@ -296,7 +348,7 @@ export function storeOtherID(setOtherID) {
     }
     else {
         if (otherID !== null) {
-            currentOtherID = otherID;
+            currentOtherID = otherID.value;
         }
     }
 
@@ -326,7 +378,7 @@ export function retrieveCustomerID() {
 export function retrieveOrderID() {
     let orderID = document.getElementById('orderID');
 
-    if (sessionStorage.getItem('orderID') !== null && sessionStorage.getItem('orderID' && orderID !== null && orderID !== undefined) !== undefined) {
+    if (sessionStorage.getItem('orderID') !== null && sessionStorage.getItem('orderID') !== undefined && orderID !== null && orderID !== undefined) {
         orderID.value = sessionStorage.getItem('orderID');
     }
 }
@@ -334,7 +386,7 @@ export function retrieveOrderID() {
 export function retrieveDesignID() {
     let designID = document.getElementById('designID');
 
-    if (sessionStorage.getItem('designID') !== null && sessionStorage.getItem('designID' && designID !== null && designID !== undefined) !== undefined) {
+    if (sessionStorage.getItem('designID') !== null && sessionStorage.getItem('designID') !== undefined && designID !== null && designID !== undefined) {
         designID.value = sessionStorage.getItem('designID');
     }
 }
@@ -342,7 +394,7 @@ export function retrieveDesignID() {
 export function retrieveGarmentID() {
     let garmentID = document.getElementById('garmentID');
 
-    if (sessionStorage.getItem('garmentID') !== null && sessionStorage.getItem('garmentID' && garmentID !== null && garmentID !== undefined) !== undefined) {
+    if (sessionStorage.getItem('garmentID') !== null && sessionStorage.getItem('garmentID') !== undefined && garmentID !== null && garmentID !== undefined) {
         garmentID.value = sessionStorage.getItem('garmentID');
     }
 }
@@ -350,7 +402,7 @@ export function retrieveGarmentID() {
 export function retrieveEmbroideryID() {
     let embroideryID = document.getElementById('embroideryID');
 
-    if (sessionStorage.getItem('embroideryID') !== null && sessionStorage.getItem('embroideryID') && embroideryID !== null && embroideryID !== undefined) {
+    if (sessionStorage.getItem('embroideryID') !== null && sessionStorage.getItem('embroideryID') !== undefined && embroideryID !== null && embroideryID !== undefined) {
         embroideryID.value = sessionStorage.getItem('embroideryID');
     }
 }
@@ -358,7 +410,7 @@ export function retrieveEmbroideryID() {
 export function retrieveVinlyizeID() {
     let vinylizeID = document.getElementById('vinylizeID');
 
-    if (sessionStorage.getItem('vinylizeID') !== null && sessionStorage.getItem('vinylizeID' && vinylizeID !== null && vinylizeID !== undefined) !== undefined) {
+    if (sessionStorage.getItem('vinylizeID') !== null && sessionStorage.getItem('vinylizeID') !== undefined && vinylizeID !== null && vinylizeID !== undefined) {
         vinylizeID.value = sessionStorage.getItem('vinylizeID');
     }
 }
@@ -366,7 +418,7 @@ export function retrieveVinlyizeID() {
 export function retrieveOtherID() {
     let otherID = document.getElementById('otherID');
 
-    if (sessionStorage.getItem('otherID') !== null && sessionStorage.getItem('otherID' && otherID !== null && otherID !== undefined) !== undefined) {
+    if (sessionStorage.getItem('otherID') !== null && sessionStorage.getItem('otherID') !== undefined && otherID !== null && otherID !== undefined) {
         otherID.value = sessionStorage.getItem('otherID');
     }
 }

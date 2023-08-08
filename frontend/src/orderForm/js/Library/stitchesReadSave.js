@@ -4,9 +4,68 @@ import * as stitchesFetchGet from './stitchesFetchGet.js'
 
 // Handle Orders
 
+export async function editOrder() {
+
+    //Store info
+    sessionStorage.editOrder = true;
+    sessionStorage.editType = "order";
+
+    stitchesIDs.storeIDs();
+
+    //Redirect to design
+    window.location.href = '/order';
+}
+
+export async function getCurrentOrder() {
+    //Fetch the current Garment
+    var currentOrder = new stichesClass.Order(true);
+    let orderResult = await stitchesFetchGet.fetchOrder(currentOrder);
+
+    //Update the form with the current order
+    let resultOrder = new stichesClass.Order(false, orderResult);
+
+    return resultOrder;
+}
+
 // Handle Customers
 
+export async function editCustomer() {
+
+    //Store info
+    sessionStorage.editOrder = true;
+    sessionStorage.editType = "customer";
+
+    stitchesIDs.storeIDs();
+
+    //Redirect to design
+    window.location.href = '/order';
+}
+
+export async function getCurrentCustomer() {
+    //Fetch the current Garment
+    var currentCustomer = new stichesClass.Customer(true);
+    let customerResult = await stitchesFetchGet.fetchCustomer(currentCustomer);
+
+    //Update the form with the current order
+    let resultCustomer = new stichesClass.Customer(false, customerResult);
+
+    return resultCustomer;
+}
+
+
 // Handle Designs
+
+export async function editDesign(thisDesign) {
+
+    //Store info
+    sessionStorage.editOrder = true;
+    sessionStorage.editType = "design";
+
+    stitchesIDs.storeIDs();
+
+    //Redirect to design
+    window.location.href = '/design';
+}
 
 // Save the current design and retrieve the next designs's values to display
 export async function submitDesign() {
@@ -130,26 +189,38 @@ export async function updateGarment() {
     updateGarmentTable();
 }
 
-export async function editGarment(currentButton) {
+export async function editGarment(currentButton, editForm = null) {
 
-    //Get garment ID of targeted row
-    var parent = currentButton.parentNode.parentNode;
+    if (editForm != null && editForm != undefined) {
+        //Store info
+        sessionStorage.editOrder = true;
+        sessionStorage.editType = "garment";
 
-    let garmentNumber = document.getElementById('garmentNumber');
-    let garmentID = document.getElementById('garmentID');
+        stitchesIDs.storeIDs();
 
-    garmentNumber.value = (parseInt(parent.cells[1].innerHTML, 10));
-    garmentID.value = stitchesIDs.createGarmentID();
+        //Redirect to design
+        window.location.href = '/design';
+    }
+    else {
+        //Get garment ID of targeted row
+        var parent = currentButton.parentNode.parentNode;
 
-    var newGarment = new stichesClass.Garment(true);
+        let garmentNumber = document.getElementById('garmentNumber');
+        let garmentID = document.getElementById('garmentID');
 
-    let resultJSON = await stitchesFetchGet.fetchGarment(newGarment);
+        garmentNumber.value = (parseInt(parent.cells[1].innerHTML, 10));
+        garmentID.value = stitchesIDs.createGarmentID();
 
-    //Update the page based on the result
-    new stichesClass.Garment(false, resultJSON);
+        var newGarment = new stichesClass.Garment(true);
 
-    stitchesIDs.determineCurrentGarment();
-    updateGarmentTable()
+        let resultJSON = await stitchesFetchGet.fetchGarment(newGarment);
+
+        //Update the page based on the result
+        new stichesClass.Garment(false, resultJSON);
+
+        stitchesIDs.determineCurrentGarment();
+        updateGarmentTable()
+    }
 }
 
 export async function deleteGarment(currentButton) {
@@ -192,6 +263,18 @@ export async function addGarment() {
 
     stitchesIDs.determineCurrentGarment();
     updateGarmentTable()
+}
+
+export function cloneGarmentCard(thisDesign, garmentNumber) {
+    var sourceCard = thisDesign.querySelector('#garment_1');
+    var clone = sourceCard.cloneNode(true);
+
+    //Update values for clone
+    clone.id = "garment_" + garmentNumber;
+    clone.querySelector('#garmentTitle').innerHTML = "Garment " + garmentNumber;
+
+    //Append to Design
+    thisDesign.querySelector('#showGarments').appendChild(clone);
 }
 
 // Update the Garments table

@@ -13,6 +13,22 @@ export async function readOrder() {
     return jsonResponse;
 }
 
+export async function fetchOrder(order) {
+    let response = await fetch('/orderRetrieve', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(order)
+    })
+
+    //Parse response to update values
+    let jsonResponse = await response.json();
+    return jsonResponse;
+}
+
 export async function saveOrder(currentOrder) {
     let response = await fetch('/orderSubmit', {
         method: 'POST',
@@ -38,6 +54,22 @@ export async function saveCustomer(currentCustomer) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(currentCustomer)
+    })
+
+    //Parse response to update values
+    let jsonResponse = await response.json();
+    return jsonResponse;
+}
+
+export async function fetchCustomer(customer) {
+    let response = await fetch('/customerRetrieve', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(customer)
     })
 
     //Parse response to update values
@@ -76,6 +108,22 @@ export async function fetchDesign(design) {
     //Parse response to update values
     let jsonResponse = await response.json();
     return jsonResponse;
+}
+
+export async function fetchAllDesigns(design) {
+    let data = await fetch('/designAllRetrieve', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(design)
+    })
+
+    //Parse response to update values
+    let dataJson = await data.json();
+    return dataJson;
 }
 
 // Handle Garments

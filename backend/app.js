@@ -90,9 +90,7 @@ async function getGarment(garment) {
 //Get customer
 async function getCustomer(customer) {
   // Check if customer exists
-  //console.log("Get Customer");
-  //console.log(customer);
-  var query = await Customer.findOne({ customerID: customer.customerID }).exec();
+  let query = await Customer.findOne({ customerID: customer.customerID }).exec();
 
   if (query) {
     return query;
@@ -324,6 +322,8 @@ app.post('/garmentRetrieve', async function (req, res) {
 
 app.post('/customerRetrieve', async function (req, res) {
   const customer = new Customer(req.body);
+
+  console.log(customer);
 
   try {
     const result = await getCustomer(customer);

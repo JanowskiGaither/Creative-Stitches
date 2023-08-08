@@ -49,20 +49,20 @@ async function initialSetup() {
     if (editOrder == true) {
         //Load Design
 
-        if (editType = "garment") {
+        if (editType == "garment") {
             //Update the garment table
 
 
             //Load Garment and set focus
 
         }
-        else if (editType = "embroidery") {
+        else if (editType == "embroidery") {
             //Load Embroidery and set focus
         }
-        else if (editType = "vinylize") {
+        else if (editType == "vinylize") {
             //Load Vinylize and set focus
         }
-        else if (editType = "other") {
+        else if (editType == "other") {
             //Load Other and set focus
         }
     }
@@ -160,102 +160,106 @@ function itemTypeSelection() {
 }
 
 // Create event listeners to handle user inputs
+{
+    document.addEventListener("DOMContentLoaded", async function () {
+        // Wait for the page to fully load, then run initial setup for the page
+        initialSetup();
+    });
 
-document.addEventListener("DOMContentLoaded", async function () {
-    // Wait for the page to fully load, then run initial setup for the page
-    initialSetup();
-});
+    selectItemType.addEventListener("change", function () {
+        // Show the correct item type based on current selection
+        itemTypeSelection();
+    });
 
-selectItemType.addEventListener("change", function () {
-    // Show the correct item type based on current selection
-    itemTypeSelection();
-});
+    garmentAmount.addEventListener("change", function () {
+        // Calulate a new total based on changed inputs
+        stichesCalculations.calculateGarmentTotal();
+    });
 
-garmentAmount.addEventListener("change", function () {
-    // Calulate a new total based on changed inputs
-    stichesCalculations.calculateGarmentTotal();
-});
+    garmentCostPerItem.addEventListener("change", function () {
+        // Calulate a new total based on changed inputs
+        stichesCalculations.calculateGarmentTotal();
+    });
 
-garmentCostPerItem.addEventListener("change", function () {
-    // Calulate a new total based on changed inputs
-    stichesCalculations.calculateGarmentTotal();
-});
+    document.getElementById('vinylizeAmount').addEventListener("change", function () {
+        // Calulate a new total based on changed inputs
+        stichesCalculations.calculateVinylizeTotal();
+    });
 
-document.getElementById('vinylizeAmount').addEventListener("change", function () {
-    // Calulate a new total based on changed inputs
-    stichesCalculations.calculateVinylizeTotal();
-});
+    document.getElementById('vinylizeCostPerItem').addEventListener("change", function () {
+        // Calulate a new total based on changed inputs
+        stichesCalculations.calculateVinylizeTotal();
+    });
 
-document.getElementById('vinylizeCostPerItem').addEventListener("change", function () {
-    // Calulate a new total based on changed inputs
-    stichesCalculations.calculateVinylizeTotal();
-});
+    document.getElementById('embroideryAmount').addEventListener("change", function () {
+        // Calulate a new total based on changed inputs
+        stichesCalculations.calculateEmbroideryTotal();
+    });
 
-document.getElementById('embroideryAmount').addEventListener("change", function () {
-    // Calulate a new total based on changed inputs
-    stichesCalculations.calculateEmbroideryTotal();
-});
+    document.getElementById('embroideryCostPerItem').addEventListener("change", function () {
+        // Calulate a new total based on changed inputs
+        stichesCalculations.calculateEmbroideryTotal();
+    });
 
-document.getElementById('embroideryCostPerItem').addEventListener("change", function () {
-    // Calulate a new total based on changed inputs
-    stichesCalculations.calculateEmbroideryTotal();
-});
+    document.getElementById('otherCostPerItem').addEventListener("change", function () {
+        // Calulate a new total based on changed inputs
+        stichesCalculations.calculateOtherTotal();
+    });
 
-document.getElementById('otherCostPerItem').addEventListener("change", function () {
-    // Calulate a new total based on changed inputs
-    stichesCalculations.calculateOtherTotal();
-});
+    document.getElementById('otherAmount').addEventListener("change", function () {
+        // Calulate a new total based on changed inputs
+        stichesCalculations.calculateOtherTotal();
+    });
 
-document.getElementById('otherAmount').addEventListener("change", function () {
-    // Calulate a new total based on changed inputs
-    stichesCalculations.calculateOtherTotal();
-});
+    addGarmentButton.addEventListener("click", async function () {
+        // Add a new garment to the design
+        await stitchesReadSave.addGarment();
+    });
 
-addGarmentButton.addEventListener("click", async function () {
-    // Add a new garment to the design
-    await stitchesReadSave.addGarment();
-});
+    saveGarmentButton.addEventListener("click", async function () {
+        // Save the changes made to a garment
+        await stitchesReadSave.updateGarment();
+    });
 
-saveGarmentButton.addEventListener("click", async function () {
-    // Save the changes made to a garment
-    await stitchesReadSave.updateGarment();
-});
+    previousDesignButtonTop.addEventListener('click', async function () {
+        // Switch to the previous design
+        await stitchesReadSave.previousDesign();
+        checkNextPreviousDesignShown();
+    });
 
-previousDesignButtonTop.addEventListener('click', async function () {
-    // Switch to the previous design
-    await stitchesReadSave.previousDesign();
-    checkNextPreviousDesignShown();
-});
+    previousDesignButtonBottom.addEventListener('click', async function () {
+        // Switch to the previous design
+        await stitchesReadSave.previousDesign();
+        checkNextPreviousDesignShown();
+    });
 
-previousDesignButtonBottom.addEventListener('click', async function () {
-    // Switch to the previous design
-    await stitchesReadSave.previousDesign();
-    checkNextPreviousDesignShown();
-});
+    nextDesignButtonTop.addEventListener('click', async function () {
+        // Switch to the next design
+        await stitchesReadSave.nextDesign();
+        checkNextPreviousDesignShown();
+    });
 
-nextDesignButtonTop.addEventListener('click', async function () {
-    // Switch to the next design
-    await stitchesReadSave.nextDesign();
-    checkNextPreviousDesignShown();
-});
+    nextDesignButtonBottom.addEventListener('click', async function () {
+        // Switch to the next design
+        await stitchesReadSave.nextDesign();
+        checkNextPreviousDesignShown();
+    });
 
-nextDesignButtonBottom.addEventListener('click', async function () {
-    // Switch to the next design
-    await stitchesReadSave.nextDesign();
-    checkNextPreviousDesignShown();
-});
+    reviewButton.addEventListener('click', async function () {
+        // Submit the design and move to the review page
+        await stitchesReadSave.submitDesign(true);
 
-reviewButton.addEventListener('click', async function () {
-    // Submit the design and move to the review page
-    await stitchesReadSave.submitDesign(true);
+        //Save Design Type as well
 
-    //Redirct to review
-    window.location.href = '/review';
-});
+        //Redirct to review
+        window.location.href = '/review';
+    });
 
-designForm.addEventListener('keypress', function (e) {
-    //Prevent enter from submitting form
-    if (e.key === 'Enter') {
-        e.preventDefault();
-    }
-})
+    designForm.addEventListener('keypress', function (e) {
+        //Prevent enter from submitting form
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    })
+
+}

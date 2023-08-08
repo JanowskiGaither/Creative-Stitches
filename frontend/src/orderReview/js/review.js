@@ -3,164 +3,132 @@ import '../scss/styles.scss'
 
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
+import * as stitchesReadSave from './Library/stitchesReadSave.js'
+import * as stitchesIDs from './Library/stitchesIDs'
+import * as stichesClass from './Library/stichesClass.js'
+import * as stitchesFetchGet from './Library/stitchesFetchGet'
 
-var orderID;
-var customerID;
-var designID;
+// Get elements from webpage
+let editOrderButton = document.getElementById("editOrderButton");
+let editCustomerButton = document.getElementById("editCustomerButton");
 
 //Retrieve all the current order values from the database
 async function initialSetup() {
-    //Retrieve orderID
-    if (sessionStorage.getItem('orderID') != null) {
-        orderID = sessionStorage.getItem('orderID');
-    }
-    else {
-        //For now just substitude value, later update popup error maybe
-        orderID = 'NA'
-    }
+    //Retrieve all available IDs
+    stitchesIDs.retrieveIDs();
 
-    document.getElementById("totalItems").value = 0
-    document.getElementById("shippingCost").value = 0;
-    document.getElementById("totalTaxes").value = 0;
-    document.getElementById("totalPrice").value = 0;
-    document.getElementById("totalCost").value = 0;
+    //Retrieve the current Customer
+    let currentCustomer = await stitchesReadSave.getCurrentCustomer();
+
+    //Update the customer name
+    stitchesIDs.determineFullName();
 
     //Retrieve the current order
-    await getCurrentOrder();
+    await stitchesReadSave.getCurrentOrder();
+
+    //Update the dates
+    stitchesIDs.updateDeliveryDate();
+    stitchesIDs.updateOrderDate();
 
     //Retrieve all designs for the current order
-    await getAllDesigns();
+    await updateDesignCards(true);
 
     //Update Mongo with calculated values
 
 }
 
-async function getCurrentOrder() {
-    //Setup new order query
-    var newOrder = new Order();
-    newOrder.orderID = orderID;
-    fetchOrder(newOrder)
-}
-
-async function getCurrentCustomer() {
-    //Setup customer query
-    var newCustomer = new Customer();
-    newCustomer.customerID = customerID;
-    console.log("customerID");
-    console.log(customerID);
-    fetchCustomer(newCustomer)
-}
-
-async function fetchOrder(order) {
-    const response = await fetch('/orderRetrieve', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify(order)
-    }).then(response => { return response })
-    //Parse response to update values
-    console.log("Order Retrieved");
-    const jsonResponse = await response.json();
-    console.log(jsonResponse);
-    customerID = jsonResponse.customerID;
-    console.log(jsonResponse.requestedDeliveryDate);
-    document.getElementById("requestedDeliveryDate").value = jsonResponse.requestedDeliveryDate.substr(5, 2) + "/" + jsonResponse.requestedDeliveryDate.substr(8, 2) + "/" + jsonResponse.requestedDeliveryDate.substr(0, 4);
-    document.getElementById("taxExemption").value = jsonResponse.taxExemption;
-    document.getElementById("orderDate").value = new Date().toLocaleDateString();
-
-    //Retrieve customer information
-    await getCurrentCustomer();
-}
-
-async function fetchCustomer(customer) {
-    const response = await fetch('/customerRetrieve', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify(customer)
-    }).then(response => { return response })
-    //Parse response to update values
-    const jsonResponse = await response.json();
-    document.getElementById("customerName").value = jsonResponse.firstName + " " + jsonResponse.lastName;
-    document.getElementById("organization").value = jsonResponse.organization;
-    document.getElementById("phone").value = "(" + jsonResponse.phone.substr(0, 3) + ") " + jsonResponse.phone.substr(3, 3) + "-" + jsonResponse.phone.substr(6, 4);
-    document.getElementById("email").value = jsonResponse.email;
-}
-
 // Get all the Designs
-async function getAllDesigns() {
-    //Create a design query
-    var newDesign = new Design();
-    newDesign.orderID = orderID;
+async function updateDesignCards(updateGarments) {
 
-    fetchAllDesigns(newDesign)
-}
+    // Retrieve all matching designs from the database
+    var newDesign = new stichesClass.Design(true);
+    let designResults = await stitchesFetchGet.fetchAllDesigns(newDesign)
 
+    var designLength = await designResults.length;
 
-// Update the Garments table
-async function getAllGarments(thisDesignNumber, thisDesignID, thisOrderID, thisDesign) {
-    //Create a query garment
-    var newGarment = new Garment();
+    console.log("designResults");
+    console.log(designResults);
 
-    //Setup new garment query
-    var newGarment = new Garment();
-    newGarment.orderID = thisOrderID;
-    newGarment.designID = thisDesignID;
-
-    fetchAllGarments(newGarment, thisDesignNumber, thisDesign)
-}
-
-
-function cloneGarment(thisDesign, garmentNumber) {
-    var sourceCard = thisDesign.querySelector('#garment_1');
-    var clone = sourceCard.cloneNode(true);
-
-    //Update values for clone
-    clone.id = "garment_" + garmentNumber;
-    clone.querySelector('#garmentTitle').innerHTML = "Garment " + garmentNumber;
-
-    //Append to Design
-    thisDesign.querySelector('#showGarments').appendChild(clone);
-}
-
-async function fetchAllGarments(garment, thisDesignNumber) {
-    const data = await fetch('/garmentAllRetrieve', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify(garment)
-    }).then(data => data.json())
-        .then(data => {
-            { return data }
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-
-    var garmentLength = await data.length;
-
-    //Process response
     //Determine Length of Response
-    for (let i = 0; i < garmentLength; i++) {
-        //Check if  this garment already exists
-        var thisDesignLabel = "design_" + thisDesignNumber;
-        var thisGarmentNumber = await data[i].garmentNumber;
-        var thisGarmentLabel = "#garment_" + thisGarmentNumber;
+    for (let i = 0; i < designLength; i++) {
+        //Check if  this design already exists
+        var thisDesignLabel = "design_" + designResults[i].designNumber;
 
         var thisDesign = document.getElementById(thisDesignLabel);
+
+        //If the design doesn't exist then clone design 1 to create this design
+        if (thisDesign == null) {
+            var clone = document.getElementById("design_1").cloneNode(true);
+            clone.id = thisDesignLabel;
+
+            //Append to Design
+            document.getElementById("orderReview").appendChild(clone);
+        }
+
+        //Add event listener for edit button
+        thisDesign.querySelector('#editDesignButton').addEventListener('click', async function () {
+            editDesign(thisDesign);
+        });
+
+        var newDesign = new stichesClass.Design(false, designResults[i], thisDesign);
+
+        //Update design with these values
+        thisDesign.querySelector('#designOf').innerHTML = "Design " + designResults[i].designNumber;
+        // thisDesign.querySelector('#description').value = designResults[i].designDescription;
+        // thisDesign.querySelector('#designNotes').value = designResults[i].designNotes;
+        // //Design Image here
+        // thisDesign.querySelector('#designType').value = designResults[i].designType;
+        console.log(designResults[i].designNumberGarments);
+        // thisDesign.querySelector('#designNumberGarments').value = designResults[i].designNumberGarments;
+        // thisDesign.querySelector('#designTotalItems').value = 0;
+        // thisDesign.querySelector('#designTotalCost').value = 0;
+
+        //If this isn't a garment hide the number of garments
+        if (designResults[i].designType == "Garment") {
+            //thisDesign.querySelector('showGarments').style.display = "block";
+        }
+        else {
+            thisDesign.querySelector('showGarments').style.display = "none";
+        }
+    }
+
+
+    // Now retrieve all garments for each design
+    //This is done second to prevent duplicating unneeded garments from design 1 while its acting as a template
+    if (updateGarments) {
+        for (let i = 0; i < designLength; i++) {
+            //Select design
+            var thisDesignForGarment = document.getElementById("design_" + designResults[i].designNumber);
+
+            //Update all garments for this design
+            updateGarmentCards(thisDesignForGarment);
+        }
+    }
+}
+
+// Retrieve all matching garments from the database
+async function updateGarmentCards(thisDesign) {
+    var newGarment = new stichesClass.Garment(true, null, thisDesign);
+    console.log(newGarment);
+    let garmentResults = await stitchesFetchGet.fetchAllGarment(newGarment)
+
+    console.log("garmentResults");
+    console.log(garmentResults);
+
+    var garmentLength = await garmentResults.length;
+
+    //Process response
+    for (let i = 0; i < garmentLength; i++) {
+        //Check if  this garment already exists
+        // var thisDesignLabel = "design_" + thisDesignNumber;
+        var thisGarmentNumber = await garmentResults[i].garmentNumber;
+        var thisGarmentLabel = "#garment_" + thisGarmentNumber;
+
+        // var thisDesign = document.getElementById(thisDesignLabel);
         var thisGarment = thisDesign.querySelector(thisGarmentLabel);
         //If the garment doesn't exist then clone design 1 to create this design
         if (thisGarment == null || thisGarment == undefined) {
-            cloneGarment(thisDesign, data[i].garmentNumber);
+            stitchesReadSave.cloneGarmentCard(thisDesign, garmentResults[i].garmentNumber);
             thisGarment = thisDesign.querySelector(thisGarmentLabel);
         }
 
@@ -169,26 +137,26 @@ async function fetchAllGarments(garment, thisDesignNumber) {
             editGarment(thisDesign, thisGarment);
         });
 
-        //Update garment with these values
-        thisGarment.querySelector('#garmentGender').innerHTML = data[i].garmentGender;
-        thisGarment.querySelector('#garmentSize').value = data[i].garmentSize;
-        thisGarment.querySelector('#garmentStyleNumber').value = data[i].garmentStyleNumber;
-        thisGarment.querySelector('#garmentAmount').value = data[i].garmentAmount;
-        thisGarment.querySelector('#garmentCostPer').value = data[i].garmentCostPerItem;
-        thisGarment.querySelector('#garmentTotalCost').value = data[i].garmentTotalCost;
+        var newGarment = new stichesClass.Garment(false, garmentResults[i], thisGarment);
+
+        // //Update garment with these values
+        // thisGarment.querySelector('#garmentGender').innerHTML = garmentResults[i].garmentGender;
+        // thisGarment.querySelector('#garmentSize').value = garmentResults[i].garmentSize;
+        // thisGarment.querySelector('#garmentStyleNumber').value = garmentResults[i].garmentStyleNumber;
+        // thisGarment.querySelector('#garmentAmount').value = garmentResults[i].garmentAmount;
+        // thisGarment.querySelector('#garmentCostPer').value = garmentResults[i].garmentCostPerItem;
+        // thisGarment.querySelector('#garmentTotalCost').value = garmentResults[i].garmentTotalCost;
 
         //Add items to Items in Design
-        thisDesign.querySelector('#designTotalItems').value = parseFloat(thisDesign.querySelector('#designTotalItems').value) + parseFloat(data[i].garmentAmount);
+        thisDesign.querySelector('#designTotalItems').value = parseFloat(thisDesign.querySelector('#designTotalItems').value) + parseFloat(garmentResults[i].garmentAmount);
 
         //Add value to Design cost
-        thisDesign.querySelector('#designTotalCost').value = parseFloat(thisDesign.querySelector('#designTotalCost').value) + parseFloat(data[i].garmentTotalCost);
+        thisDesign.querySelector('#designTotalCost').value = parseFloat(thisDesign.querySelector('#designTotalCost').value) + parseFloat(garmentResults[i].garmentTotalCost);
     }
 
     //Update order cost
     document.getElementById("totalItems").value = parseFloat(document.getElementById("totalItems").value) + parseFloat(thisDesign.querySelector('#designTotalItems').value);
-    console.log(document.getElementById("totalCost").value);
     document.getElementById("totalCost").value = parseFloat(document.getElementById("totalCost").value) + parseFloat(thisDesign.querySelector('#designTotalCost').value);
-    console.log(document.getElementById("totalCost").value);
 
     //Determine shipping estimate
     //Placeholder for now
@@ -211,145 +179,17 @@ async function fetchAllGarments(garment, thisDesignNumber) {
     document.getElementById("totalPrice").value = parseFloat(document.getElementById("totalCost").value) + parseFloat(document.getElementById("totalTaxes").value)
 }
 
-async function editOrder() {
+// Create event listeners to handle user inputs
+{
+    document.addEventListener("DOMContentLoaded", async function () {
+        initialSetup();
+    });
 
-    //Store info
-    sessionStorage.editOrder = true;
-    sessionStorage.editType = "order";
-    sessionStorage.orderID = orderID;
-    sessionStorage.customerID = customerID;
+    editCustomerButton.addEventListener('click', async function () {
+        editCustomer();
+    })
 
-    //Redirect to design
-    window.location.href = '/order';
+    editOrderButton.addEventListener('click', async function () {
+        editOrder();
+    })
 }
-
-async function editCustomer() {
-
-    //Store info
-    sessionStorage.editOrder = true;
-    sessionStorage.editType = "customer";
-    sessionStorage.orderID = orderID;
-    sessionStorage.customerID = customerID;
-    //Redirect to design
-    window.location.href = '/order';
-}
-
-async function editDesign(thisDesign) {
-
-    //Store info
-    sessionStorage.editOrder = true;
-    sessionStorage.editType = "design";
-    sessionStorage.orderID = orderID;
-    var designOfString = thisDesign.id;
-    sessionStorage.designID = orderID.toString() + '_' + designOfString.toString().substring(8, designOfString.length);
-
-    //Redirect to design
-    window.location.href = '/design';
-}
-
-async function editGarment(thisDesign, thisGarment) {
-
-    //Store info
-    sessionStorage.editOrder = true;
-    sessionStorage.editType = "garment";
-    sessionStorage.orderID = orderID;
-    var designOfString = thisDesign.id;
-    var garmentOfString = thisGarment.id;
-    console.log(thisGarment.id);
-    sessionStorage.designID = orderID.toString() + '_' + designOfString.toString().substring(8, designOfString.length);
-    sessionStorage.garmentID = sessionStorage.getItem('designID').toString() + '_' + garmentOfString.toString().substring(8, garmentOfString.length);
-
-    //Redirect to design
-    window.location.href = '/design';
-}
-
-async function fetchAllDesigns(design) {
-    const data = await fetch('/designAllRetrieve', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify(design)
-    }).then(data => data.json())
-        .then(data => {
-            { return data }
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-
-    var designLength = await data.length;
-
-    //Determine Length of Response
-    for (let i = 0; i < designLength; i++) {
-        //Check if  this design already exists
-        var thisDesignLabel = "design_" + data[i].designNumber;
-
-        var thisDesign = document.getElementById(thisDesignLabel);
-
-        //If the design doesn't exist then clone design 1 to create this design
-        if (thisDesign == null) {
-            var clone = document.getElementById("design_1").cloneNode(true);
-            clone.id = thisDesignLabel;
-
-            //Append to Design
-            document.getElementById("orderReview").appendChild(clone);
-        }
-
-        //Add event listener for edit button
-        thisDesign.querySelector('#editDesignButton').addEventListener('click', async function () {
-            editDesign(thisDesign);
-        });
-
-        //Update design with these values
-        thisDesign.querySelector('#designOf').innerHTML = "Design " + data[i].designNumber;
-        thisDesign.querySelector('#description').value = data[i].designDescription;
-        thisDesign.querySelector('#designNotes').value = data[i].designNotes;
-        //Design Image here
-        thisDesign.querySelector('#designType').value = data[i].designType;
-        thisDesign.querySelector('#designNumberGarments').value = data[i].designNumberGarments;
-        thisDesign.querySelector('#designTotalItems').value = 0;
-        thisDesign.querySelector('#designTotalCost').value = 0;
-
-        //If this isn't a garment hide the number of garments
-        if (data[i].designType == "Garment") {
-            console.log("Show garment");
-            //thisDesign.querySelector('showGarments').style.display = "block";
-        }
-        else {
-            console.log("Hide Garment");
-            thisDesign.querySelector('showGarments').style.display = "none";
-        }
-    }
-
-
-    // Now retrieve all garments for each design
-    //This is done second to prevent duplicating unneeded garments from design 1 while its acting as a template
-    for (let i = 0; i < designLength; i++) {
-        //Select design
-        var thisDesignLabel = "design_" + data[i].designNumber;
-
-        var thisDesign = document.getElementById(thisDesignLabel);
-
-        //Retreive all garments for this design
-        await getAllGarments(data[i].designNumber, data[i].designID, data[i].orderID);
-    }
-}
-
-
-document.addEventListener("DOMContentLoaded", async function () {
-    initialSetup();
-});
-
-let editCustomerButton = document.getElementById("editCustomerButton");
-let editOrderButton = document.getElementById("editOrderButton");
-
-editCustomerButton.addEventListener('click', async function () {
-    editCustomer();
-})
-
-editOrderButton.addEventListener('click', async function () {
-    editOrder();
-})

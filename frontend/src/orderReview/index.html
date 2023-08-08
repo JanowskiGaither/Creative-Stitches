@@ -66,6 +66,26 @@
     <div class="d-flex flex-column justify-content-center align-items-center mt-5" id="orderReview">
       <h1 class="display-4">Review Order</h1>
 
+      <!-- These outputs are used to maintain status, but not shown to the user -->
+      <div class="container" style="display: none" id="hiddenVariables">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="orderID"></label>
+          <output class="form-control border border-dark" type="text" name="orderID" id="orderID">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="customerID"></label>
+          <output class="form-control border border-dark" type="text" name="customerID" id="customerID">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="firstName"></label>
+          <output class="form-control border border-dark" type="text" name="firstName" id="firstName">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="lastName"></label>
+          <output class="form-control border border-dark" type="text" name="lastName" id="lastName">
+        </div>
+      </div>
+
       <!-- Start of Customer Info -->
       <div class="container col-xxl-10" id="customerInfo">
         <hr class="border border-primary border-3 opacity-75">
@@ -128,10 +148,38 @@
             </div>
           </div>
 
+          <!-- These outputs are used to maintain status, but not shown to the user -->
+          <div class="container" style="display: none" id="hiddenVariables">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+              <label class="form-label" for="orderID"></label>
+              <output class="form-control border border-dark" type="text" name="orderID" id="orderID">
+            </div>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+              <label class="form-label" for="designID"></label>
+              <output class="form-control border border-dark" type="text" name="designID" id="designID">
+            </div>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+              <label class="form-label" for="designNumber"></label>
+              <output class="form-control border border-dark" type="text" name="designNumber"
+                id="designNumber">1</output>
+            </div>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+              <label class="form-label" for="designNumberGarments"></label>
+              <output class="form-control border border-dark" type="text" name="designNumberGarments"
+                id="designNumberGarments">1</output>
+            </div>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+              <label class="form-label" for="numberOfDesigns"></label>
+              <output class="form-control border border-dark" type="text" name="numberOfDesigns"
+                id="numberOfDesigns">1</output>
+            </div>
+          </div>
+
           <!-- Design Description -->
           <div class="d-flex flex-column justify-content-center align-items-center">
-            <label class="form-label" for="description">Description </label>
-            <output class="form border border-dark" type="text" name="description" id="description" style="padding:5px">
+            <label class="form-label" for="designDescription">Description </label>
+            <output class="form border border-dark" type="text" name="designDescription" id="designDescription"
+              style="padding:5px">
           </div>
 
           <!-- Design Notes -->
@@ -179,6 +227,32 @@
                   </div>
                 </div>
 
+                <!-- These outputs are used to maintain status, but not shown to the user -->
+                <div class="container" style="display: none" id="hiddenVariables">
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="orderID"></label>
+                    <output class="form-control border border-dark" type="text" name="orderID" id="orderID">
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="designID"></label>
+                    <output class="form-control border border-dark" type="text" name="designID" id="designID">
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="garmentID"></label>
+                    <output class="form-control border border-dark" type="text" name="garmentID" id="garmentID">
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="garmentNumberGarments"></label>
+                    <output class="form-control border border-dark" type="text" name="garmentNumberGarments"
+                      id="garmentNumberGarments">1</output>
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="garmentNumber"></label>
+                    <output class="form-control border border-dark" type="text" name="garmentNumber"
+                      id="garmentNumber">1</output>
+                  </div>
+                </div>
+
                 <!-- Show these two side by side -->
                 <div class="d-flex flex-column justify-content-center align-items-center">
                   <div class="form-group form-inline">
@@ -217,9 +291,9 @@
                     </row>
                     <row>
                       <!-- Cost Per Item -->
-                      <label class="form-label" for="garmentCostPer">Cost Per: </label>
-                      <output class="form-inline border border-dark" type="text" name="garmentCostPer"
-                        id="garmentCostPer" style="padding:5px">
+                      <label class="form-label" for="garmentCostPerItem">Cost Per: </label>
+                      <output class="form-inline border border-dark" type="text" name="garmentCostPerItem"
+                        id="garmentCostPerItem" style="padding:5px">
                     </row>
                   </div>
                 </div>
@@ -294,7 +368,7 @@
           <div class="flex-row d-flex justify-content-between">
             <label class="form-label" for="totalItems">Total Items: </label>
             <output class="form-inline border border-dark" type="text" name="totalItems" id="totalItems"
-              style="padding:5px">
+              style="padding:5px">0</output>
           </div>
         </div>
 
@@ -303,7 +377,7 @@
           <div class="flex-row d-flex justify-content-between">
             <label class="form-label" for="shippingCost">Shipping Cost: </label>
             <output class="form-inline border border-dark" type="text" name="shippingCost" id="shippingCost"
-              style="padding:5px" min="0" step="0.01">
+              style="padding:5px" min="0" step="0.01">0</output>
           </div>
         </div>
 
@@ -312,7 +386,7 @@
           <div class="flex-row d-flex justify-content-between">
             <label class="form-label" for="totalCost">Total Cost: </label>
             <output class="form-inline border border-dark" type="text" name="totalCost" id="totalCost"
-              style="padding:5px">
+              style="padding:5px">0</output>
           </div>
         </div>
 
@@ -332,7 +406,7 @@
                 <!-- Taxes on Order -->
                 <label class="form-label" for="totalTaxes">Tax: </label>
                 <output class="form-inline border border-dark" type="text" name="totalTaxes" id="totalTaxes"
-                  style="padding:5px">
+                  style="padding:5px">0</output>
               </div>
             </div>
           </div>
@@ -343,7 +417,7 @@
           <div class="flex-row d-flex justify-content-between">
             <label class="form-label" for="totalPrice">Total Price: </label>
             <output class="form-inline border border-dark" type="text" name="totalPrice" id="totalPrice"
-              style="padding:5px">
+              style="padding:5px">0</output>
           </div>
         </div>
       </div>
