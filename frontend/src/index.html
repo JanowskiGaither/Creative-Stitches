@@ -5,156 +5,260 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Creative Stitches</title>
-  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./main.js"></script>
 </head>
 
 <body>
-  <nav class="navbar bg-light fixed-top py-3">
-    <div class="container-fluid">
-      <a class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar" aria-label="Toggle navigation" role="button">
+  <nav class="navbar sticky-top navbar-expand-md bg-light mb-4">
+    <div class="container-xxl">
+      <a class="navbar-brand" href="#"><img src="assets/logoipsum-297.svg" alt="brand logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </a>
-      <a class="navbar-brand justify-content-center" href="#"><img src="assets/logoipsum-297.svg"></a>
-      <ul class="nav nav-tabs nav-fill">
-        <li class="nav-item">
-          <a class="nav-link active" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/order">Order</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Sales</a>
-        </li>
-      </ul>
-      <div class="offcanvas offcanvas-start" tabindex="0" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Orders</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Designs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Calendars</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Database</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Inventory</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Financials</a>
-            </li>
-          </ul>
-          <form class="d-flex mt-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Orders
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/order">New Order</a></li>
+              <li><a class="dropdown-item" href="/">View Orders</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Financials</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Inventory</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
 
-  <div class="container-fluid" id="currentOrders">
-    <div class="d-flex justify-content-evenly">
-      <div class="col-xxl-10 col-9 mt-3">
-        <div class="display-6 text-center">Current Orders</div>
-        <div class="row d-flex justify-content-evenly">
-          <div class="col-md-3 col-10 m-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Evans County Hunting Club</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Organization</h6>
-                <hr>
-                <ul class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A list item
-                    <span class="badge bg-primary rounded-pill">14</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A second list item
-                    <span class="badge bg-primary rounded-pill">2</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A third list item
-                    <span class="badge bg-primary rounded-pill">1</span>
-                  </li>
-                </ul>
-                <hr>
-                <img
-                  src="https://images-platform.99static.com//AHx9pSSz3qU9lO0i6jWGpapjncY=/36x43:962x969/fit-in/590x590/99designs-contests-attachments/124/124322/attachment_124322331"
-                  class="card-img-bottom" alt="..." style="max-height: 240px;">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-10 m-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Evans County Hunting Club</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Organization</h6>
-                <hr>
-                <ul class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A list item
-                    <span class="badge bg-primary rounded-pill">14</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A second list item
-                    <span class="badge bg-primary rounded-pill">2</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A third list item
-                    <span class="badge bg-primary rounded-pill">1</span>
-                  </li>
-                </ul>
-                <hr>
-                <img
-                  src="https://previews.123rf.com/images/ednal/ednal1905/ednal190500041/123983885-hunting-logo-hunt-badge-or-emblem-for-hunting-club-or-sport-deer-hunting-stamp.jpg"
-                  class="card-img-bottom" alt="..." style="max-height: 240px;">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-10 m-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Evans County Hunting Club</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Organization</h6>
-                <hr>
-                <ul class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A list item
-                    <span class="badge bg-primary rounded-pill">14</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A second list item
-                    <span class="badge bg-primary rounded-pill">2</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    A third list item
-                    <span class="badge bg-primary rounded-pill">1</span>
-                  </li>
-                </ul>
-                <hr>
-                <img
-                  src="https://previews.123rf.com/images/ednal/ednal1905/ednal190500041/123983885-hunting-logo-hunt-badge-or-emblem-for-hunting-club-or-sport-deer-hunting-stamp.jpg"
-                  class="card-img-bottom" alt="..." style="max-height: 240px;">
-              </div>
+  <div class="container">
+
+    <h2 class="display-6 text-center mt-4 mb-4">Current Orders</h2>
+
+    <div class="row m-0 justify-content-start scrollView">
+      <div class="col-xxl-3 col-lg-4 col-md-6">
+        <div class="card order-card  mb-4">
+          <div class="card-body">
+            <h5 class="card-title">CHS Band</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Fall Sweatshirts 2023</h6>
+            <hr>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Due Date</div>
+                </div>
+                10/6/2023
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Total Items</div>
+                </div>
+                <span class="fw-semibold ">14</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Status</div>
+                </div>
+                <span class="badge bg-success rounded-pill">Ready</span>
+              </li>
+            </ul>
+            <hr>
+            <div class="d-flex justify-content-center">
+              <img src="assets/DynamicImageHandler.png" class="card-img-bottom" alt="sweatshirt asset">
             </div>
           </div>
         </div>
       </div>
+
+      <div class="col-xxl-3 col-lg-4 col-md-6">
+        <div class="card order-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Hagan Hunting Club</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Ballcap with Leather</h6>
+            <hr>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Due Date</div>
+                </div>
+                7/24/2023
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Total Items</div>
+                </div>
+                <span class="fw-semibold ">30</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Status</div>
+                </div>
+                <span class="badge bg-danger rounded-pill">Overdue</span>
+              </li>
+            </ul>
+            <hr>
+            <div class="d-flex justify-content-center">
+              <img src="assets/Vintage-Watch-Hunting-Club-Green_002_06489617-9b7a-485c-a229-4800d4f0e0bb.jpg"
+                class="card-img-bottom" alt="sweatshirt asset">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-3 col-lg-4 col-md-6">
+        <div class="card order-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Kaylee's Wedding</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Monogramed Napkins</h6>
+            <hr>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Due Date</div>
+                </div>
+                2/14/2024
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Total Items</div>
+                </div>
+                <span class="fw-semibold">50</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Status</div>
+                </div>
+                <span class="badge bg-info rounded-pill">In Progress</span>
+              </li>
+            </ul>
+            <hr>
+            <div class="d-flex justify-content-center">
+              <img src="assets/monogram-linen-napkins-linoroom.jpg" class="card-img-bottom" alt="sweatshirt asset">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-3 col-lg-4 col-md-6">
+        <div class="card order-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">CHS Band</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Fall Sweatshirts 2023</h6>
+            <hr>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Due Date</div>
+                </div>
+                10/6/2023
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Total Items</div>
+                </div>
+                <span class="fw-semibold ">14</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Status</div>
+                </div>
+                <span class="badge bg-success rounded-pill">Ready</span>
+              </li>
+            </ul>
+            <hr>
+            <div class="d-flex justify-content-center">
+              <img src="assets/DynamicImageHandler.png" class="card-img-bottom" alt="sweatshirt asset">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-3 col-lg-4 col-md-6">
+        <div class="card order-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Hagan Hunting Club</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Ballcap with Leather Patch Ballcap with Leather Patch
+              Ballcap with Leather Patch testing the lengh of the subtitle</h6>
+            <hr>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Due Date</div>
+                </div>
+                7/24/2023
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Total Items</div>
+                </div>
+                <span class="fw-semibold ">30</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Status</div>
+                </div>
+                <span class="badge bg-danger rounded-pill">Overdue</span>
+              </li>
+            </ul>
+            <hr>
+            <div class="d-flex justify-content-center">
+              <img src="assets/Vintage-Watch-Hunting-Club-Green_002_06489617-9b7a-485c-a229-4800d4f0e0bb.jpg"
+                class="card-img-bottom" alt="sweatshirt asset">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-3 col-lg-4 col-md-6">
+        <div class="card order-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">CHS Band</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Fall Sweatshirts 2023</h6>
+            <hr>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Due Date</div>
+                </div>
+                10/6/2023
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Total Items</div>
+                </div>
+                <span class="fw-semibold ">14</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Status</div>
+                </div>
+                <span class="badge bg-success rounded-pill">Ready</span>
+              </li>
+            </ul>
+            <hr>
+            <div class="d-flex justify-content-center">
+              <img src="assets/DynamicImageHandler.png" class="card-img-bottom" alt="sweatshirt asset">
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <button class="btn btn-danger" id="importButton">Import Button</button>
 
   </div>
-
 </body>
 
 </html>

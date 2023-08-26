@@ -1,16 +1,52 @@
-// Import all of Bootstrap's CSS
-@import "bootstrap/scss/bootstrap";
+// Custom.scss
+// Option A: Include all of Bootstrap
 
-a.navbar-toggler:hover {
-    border-color: black;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+// Include any default variable overrides here (though functions won't be available)
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Then add additional custom code here
+
+button.navbar-toggler {
+    box-shadow: none !important;
 }
 
-a.navbar-brand {
-    transform: translateX(90px)
+button.navbar-toggler:hover {
+    border: .125rem solid $gray-600;
 }
 
+h6.card-subtitle {
+    box-sizing: content-box;
+    height: 20.4px;
+    overflow: auto;
+    align-items: center;
+}
 
-#currentOrders {
-    margin-top: 6%;
+.card {
+    box-shadow: 0 2px 6px 0 $gray-500;
+}
+
+.card.order-card {
+    flex-basis: 100% !important;
+}
+
+.card-img-bottom {
+    width: 200px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.scrollView {
+    height: 500px;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+@include media-breakpoint-down(md) {
+    .card.order-card {
+        max-width: 342px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
