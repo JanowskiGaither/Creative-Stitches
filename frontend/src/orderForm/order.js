@@ -1,7 +1,7 @@
-import '../scss/styles.scss'
+import '../scss/orderFormStyles.scss';
 
 // Import all of Bootstrap's JS
-import * as bootstrap from 'bootstrap'
+import * as bootstrap from 'bootstrap';
 
 // Create Order Class
 class Order {
@@ -25,7 +25,7 @@ class Order {
             this.taxExemption = document.getElementById("taxExemption").value;
         }
     }
-}
+};
 
 class Customer {
     customerID = 0;
@@ -44,7 +44,7 @@ class Customer {
             this.phone = document.getElementById("phone").value;
         }
     }
-}
+};
 
 function initialSetup() {
 
@@ -80,7 +80,7 @@ function createID() {
 
     //Update stored orderID
     storeOrderID();
-}
+};
 
 
 async function readOrder() {
@@ -96,7 +96,7 @@ async function readOrder() {
             org.setAttribute("placeholder", "it worked")
         })
 
-}
+};
 
 async function saveOrder() {
     //Save current order values from HTML
@@ -113,7 +113,7 @@ async function saveOrder() {
         body: JSON.stringify(currentOrder)
     }).then(response => { return response })
 
-}
+};
 
 async function saveCustomer() {
     //Save current customer values from HTML
@@ -128,12 +128,12 @@ async function saveCustomer() {
         },
         body: JSON.stringify(currentCustomer)
     }).then(response => { return response })
-}
+};
 
 
 function storeOrderID() {
     sessionStorage.orderID = orderID
-}
+};
 
 document.getElementById("firstName").addEventListener('change', function () {
     createID();
@@ -155,11 +155,11 @@ submitbutton.addEventListener('click', async function () {
 
     //Redirct to design
     window.location.href = '/design';
-})
+});
 
 //Prevent enter from submitting form
 orderForm.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         e.preventDefault();
     }
-})
+});
