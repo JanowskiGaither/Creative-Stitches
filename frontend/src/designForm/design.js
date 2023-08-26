@@ -2,9 +2,9 @@ import '../scss/styles.scss'
 
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
-import * as stitchesReadSave from './Library/stitchesReadSave.js'
-import * as stitchesIDs from './Library/stitchesIDs'
-import * as stichesCalculations from './Library/stitchesCalculations'
+import * as stitchesReadSave from '../Library/stitchesReadSave.js'
+import * as stitchesIDs from '../Library/stitchesIDs'
+import * as stichesCalculations from '../Library/stitchesCalculations'
 
 //Define variables
 var editOrder = false;
