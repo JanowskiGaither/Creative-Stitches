@@ -323,8 +323,6 @@ app.post('/garmentRetrieve', async function (req, res) {
 app.post('/customerRetrieve', async function (req, res) {
   const customer = new Customer(req.body);
 
-  console.log(customer);
-
   try {
     const result = await getCustomer(customer);
     res.json(result);

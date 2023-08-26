@@ -74,14 +74,6 @@ async function updateDesignCards(updateGarments) {
 
         //Update design with these values
         thisDesign.querySelector('#designOf').innerHTML = "Design " + designResults[i].designNumber;
-        // thisDesign.querySelector('#description').value = designResults[i].designDescription;
-        // thisDesign.querySelector('#designNotes').value = designResults[i].designNotes;
-        // //Design Image here
-        // thisDesign.querySelector('#designType').value = designResults[i].designType;
-        console.log(designResults[i].designNumberGarments);
-        // thisDesign.querySelector('#designNumberGarments').value = designResults[i].designNumberGarments;
-        // thisDesign.querySelector('#designTotalItems').value = 0;
-        // thisDesign.querySelector('#designTotalCost').value = 0;
 
         //If this isn't a garment hide the number of garments
         if (designResults[i].designType == "Garment") {
@@ -139,16 +131,11 @@ async function updateGarmentCards(thisDesign) {
 
         var newGarment = new stichesClass.Garment(false, garmentResults[i], thisGarment);
 
-        // //Update garment with these values
-        // thisGarment.querySelector('#garmentGender').innerHTML = garmentResults[i].garmentGender;
-        // thisGarment.querySelector('#garmentSize').value = garmentResults[i].garmentSize;
-        // thisGarment.querySelector('#garmentStyleNumber').value = garmentResults[i].garmentStyleNumber;
-        // thisGarment.querySelector('#garmentAmount').value = garmentResults[i].garmentAmount;
-        // thisGarment.querySelector('#garmentCostPer').value = garmentResults[i].garmentCostPerItem;
-        // thisGarment.querySelector('#garmentTotalCost').value = garmentResults[i].garmentTotalCost;
-
         //Add items to Items in Design
+        console.log("designTotalItems");
+        console.log(thisDesign.querySelector('#designTotalItems'));
         thisDesign.querySelector('#designTotalItems').value = parseFloat(thisDesign.querySelector('#designTotalItems').value) + parseFloat(garmentResults[i].garmentAmount);
+        console.log(thisDesign.querySelector('#designTotalItems').value);
 
         //Add value to Design cost
         thisDesign.querySelector('#designTotalCost').value = parseFloat(thisDesign.querySelector('#designTotalCost').value) + parseFloat(garmentResults[i].garmentTotalCost);

@@ -93,12 +93,29 @@ export class Customer {
         }
         else {
             //Get all existing values from the database for this class
-            this.customerID = databaseValues.customerID;
-            this.firstName = databaseValues.firstName;
-            this.lastName = databaseValues.lastName;
-            this.organization = databaseValues.organization;
-            this.phone = databaseValues.phone;
-            this.email = databaseValues.email;
+            if (databaseValues.customerID !== null && databaseValues.customerID !== undefined) {
+                this.customerID = databaseValues.customerID;
+            }
+
+            if (databaseValues.firstName !== null && databaseValues.firstName !== undefined) {
+                this.firstName = databaseValues.firstName;
+            }
+
+            if (databaseValues.lastName !== null && databaseValues.lastName !== undefined) {
+                this.lastName = databaseValues.lastName;
+            }
+
+            if (databaseValues.organization !== null && databaseValues.organization !== undefined) {
+                this.organization = databaseValues.organization;
+            }
+
+            if (databaseValues.phone !== null && databaseValues.phone !== undefined) {
+                this.phone = databaseValues.phone;
+            }
+
+            if (databaseValues.email !== null && databaseValues.email !== undefined) {
+                this.email = databaseValues.email;
+            }
 
             if (element !== null && element !== undefined) {
                 //Update the element with the database values
@@ -332,19 +349,61 @@ export class Order {
         }
         else {
             //Get all existing values from the database for this class
-            this.orderID = databaseValues.orderID;
-            this.customerID = databaseValues.customerID;
-            this.orderDescription = databaseValues.orderDescription;
-            this.orderDate = databaseValues.orderDate;
-            this.orderStatus = databaseValues.orderStatus;
-            this.requestedDeliveryDate = databaseValues.requestedDeliveryDate;
-            this.scheduledDeliveryDate = databaseValues.scheduledDeliveryDate;
-            this.taxExemption = databaseValues.taxExemption;
-            this.totalItems = databaseValues.totalItems;
-            this.totalMaterialCost = databaseValues.totalMaterialCost;
-            this.totalTaxes = databaseValues.totalTaxes;
-            this.totalProfit = databaseValues.totalProfit;
-            this.totalSale = databaseValues.totalSale;
+            if (databaseValues.orderID !== null && databaseValues.orderID !== undefined) {
+                this.orderID = databaseValues.orderID;
+            }
+
+            if (databaseValues.customerID !== null && databaseValues.customerID !== undefined) {
+                this.customerID = databaseValues.customerID;
+            }
+
+            if (databaseValues.orderDescription !== null && databaseValues.orderDescription !== undefined) {
+                this.orderDescription = databaseValues.orderDescription;
+            }
+
+            if (databaseValues.orderDate !== null && databaseValues.orderDate !== undefined) {
+                this.orderDate = databaseValues.orderDate;
+            }
+
+            if (databaseValues.orderStatus !== null && databaseValues.orderStatus !== undefined) {
+                this.orderStatus = databaseValues.orderStatus;
+            }
+
+            if (databaseValues.requestedDeliveryDate !== null && databaseValues.requestedDeliveryDate !== undefined) {
+                this.requestedDeliveryDate = databaseValues.requestedDeliveryDate;
+            }
+
+            if (databaseValues.scheduledDeliveryDate !== null && databaseValues.scheduledDeliveryDate !== undefined) {
+                this.scheduledDeliveryDate = databaseValues.scheduledDeliveryDate;
+            }
+
+            if (databaseValues.taxExemption !== null && databaseValues.taxExemption !== undefined) {
+                this.taxExemption = databaseValues.taxExemption;
+            }
+
+            console.log("totalItems");
+            console.log(this.totalItems);
+            if (databaseValues.totalItems !== null && databaseValues.totalItems !== undefined) {
+                this.totalItems = databaseValues.totalItems;
+            }
+
+            console.log(this.totalItems);
+
+            if (databaseValues.totalMaterialCost !== null && databaseValues.totalMaterialCost !== undefined) {
+                this.totalMaterialCost = databaseValues.totalMaterialCost;
+            }
+
+            if (databaseValues.totalTaxes !== null && databaseValues.totalTaxes !== undefined) {
+                this.totalTaxes = databaseValues.totalTaxes;
+            }
+
+            if (databaseValues.totalProfit !== null && databaseValues.totalProfit !== undefined) {
+                this.totalProfit = databaseValues.totalProfit;
+            }
+
+            if (databaseValues.totalSale !== null && databaseValues.totalSale !== undefined) {
+                this.totalSale = databaseValues.totalSale;
+            }
 
             if (element !== null && element !== undefined) {
                 //Update the element with the database values
@@ -380,9 +439,12 @@ export class Order {
                     elementTaxExemption.value = this.taxExemption;
                 }
 
+                console.log("totalItems");
+                console.log(elementTotalItems.value);
                 if (elementTotalItems !== null && elementTotalItems !== undefined) {
                     elementTotalItems.value = this.totalItems;
                 }
+                console.log(elementTotalItems.value);
 
                 if (elementTotalMaterialCost !== null && elementTotalMaterialCost !== undefined) {
                     elementTotalMaterialCost.value = this.totalMaterialCost;
@@ -586,15 +648,41 @@ export class Design {
         }
         else {
             //Get all existing values from the database for this class
-            this.designID = databaseValues.designID;
-            this.orderID = databaseValues.orderID;
-            this.designType = databaseValues.designType;
-            this.designDescription = databaseValues.designDescription;
-            this.designNotes = databaseValues.designNotes;
-            this.designImages = databaseValues.designImages;
-            this.designNumberGarments = databaseValues.designNumberGarments;
-            this.designNumber = databaseValues.designNumber;
-            this.designTotalCost = databaseValues.designTotalCost;
+            if (databaseValues.designID !== null && databaseValues.designID !== undefined) {
+                this.designID = databaseValues.designID;
+            }
+
+            if (databaseValues.orderID !== null && databaseValues.orderID !== undefined) {
+                this.orderID = databaseValues.orderID;
+            }
+
+            if (databaseValues.designType !== null && databaseValues.designType !== undefined) {
+                this.designType = databaseValues.designType;
+            }
+
+            if (databaseValues.designDescription !== null && databaseValues.designDescription !== undefined) {
+                this.designDescription = databaseValues.designDescription;
+            }
+
+            if (databaseValues.designNotes !== null && databaseValues.designNotes !== undefined) {
+                this.designNotes = databaseValues.designNotes;
+            }
+
+            if (databaseValues.designImages !== null && databaseValues.designImages !== undefined) {
+                this.designImages = databaseValues.designImages;
+            }
+
+            if (databaseValues.designNumberGarments !== null && databaseValues.designNumberGarments !== undefined) {
+                this.designNumberGarments = databaseValues.designNumberGarments;
+            }
+
+            if (databaseValues.designNumber !== null && databaseValues.designNumber !== undefined) {
+                this.designNumber = databaseValues.designNumber;
+            }
+
+            if (databaseValues.designTotalCost !== null && databaseValues.designTotalCost !== undefined) {
+                this.designTotalCost = databaseValues.designTotalCost;
+            }
 
             if (element !== null && element !== undefined) {
                 //Update the element with the database values
@@ -828,17 +916,53 @@ export class Garment {
         }
         else {
             //Get all existing values from the database for this class
-            this.designID = databaseValues.designID;
-            this.orderID = databaseValues.orderID;
-            this.garmentID = databaseValues.garmentID;
-            this.garmentNumberGarments = databaseValues.garmentNumberGarments;
-            this.garmentNumber = databaseValues.garmentNumber;
-            this.garmentGender = databaseValues.garmentGender;
-            this.garmentSize = databaseValues.garmentSize;
-            this.garmentStyleNumber = databaseValues.garmentStyleNumber;
-            this.garmentAmount = databaseValues.garmentAmount;
-            this.garmentCostPerItem = databaseValues.garmentCostPerItem;
-            this.garmentTotalCost = databaseValues.garmentTotalCost;
+            if (databaseValues.designID !== null && databaseValues.designID !== undefined) {
+                this.designID = databaseValues.designID;
+            }
+
+            if (databaseValues.orderID !== null && databaseValues.orderID !== undefined) {
+                this.orderID = databaseValues.orderID;
+            }
+
+            if (databaseValues.garmentID !== null && databaseValues.garmentID !== undefined) {
+                this.garmentID = databaseValues.garmentID;
+            }
+
+            if (databaseValues.garmentNumberGarments !== null && databaseValues.garmentNumberGarments !== undefined) {
+                this.garmentNumberGarments = databaseValues.garmentNumberGarments;
+            }
+
+            if (databaseValues.garmentNumberGarments !== null && databaseValues.garmentNumberGarments !== undefined) {
+                this.garmentNumberGarments = databaseValues.garmentNumberGarments;
+            }
+
+            if (databaseValues.garmentNumber !== null && databaseValues.garmentNumber !== undefined) {
+                this.garmentNumber = databaseValues.garmentNumber;
+            }
+
+            if (databaseValues.garmentGender !== null && databaseValues.garmentGender !== undefined) {
+                this.garmentGender = databaseValues.garmentGender;
+            }
+
+            if (databaseValues.garmentSize !== null && databaseValues.garmentSize !== undefined) {
+                this.garmentSize = databaseValues.garmentSize;
+            }
+
+            if (databaseValues.garmentStyleNumber !== null && databaseValues.garmentStyleNumber !== undefined) {
+                this.garmentStyleNumber = databaseValues.garmentStyleNumber;
+            }
+
+            if (databaseValues.garmentAmount !== null && databaseValues.garmentAmount !== undefined) {
+                this.garmentAmount = databaseValues.garmentAmount;
+            }
+
+            if (databaseValues.garmentCostPerItem !== null && databaseValues.garmentCostPerItem !== undefined) {
+                this.garmentCostPerItem = databaseValues.garmentCostPerItem;
+            }
+
+            if (databaseValues.garmentTotalCost !== null && databaseValues.garmentTotalCost !== undefined) {
+                this.garmentTotalCost = databaseValues.garmentTotalCost;
+            }
 
             if (element !== null && element !== undefined) {
                 //Update the element with the database values
@@ -1052,14 +1176,39 @@ export class Embroidery {
         }
         else {
             //Get all existing values from the database for this class
-            this.designID = databaseValues.designID;
-            this.embroideryID = databaseValues.embroideryID;
-            this.embroideryJobDescription = databaseValues.embroideryJobDescription;
-            this.embroideryAmount = databaseValues.embroideryAmount;
-            this.embroideryThread = databaseValues.embroideryThread;
-            this.embroideryMaterial = databaseValues.embroideryMaterial;
-            this.embroideryCostPerItem = databaseValues.embroideryCostPerItem;
-            this.embroideryTotalCost = databaseValues.embroideryTotalCost;
+
+            if (databaseValues.designID !== null && databaseValues.designID !== undefined) {
+                this.designID = databaseValues.designID;
+            }
+
+            if (databaseValues.embroideryID !== null && databaseValues.embroideryID !== undefined) {
+                this.embroideryID = databaseValues.embroideryID;
+            }
+
+            if (databaseValues.embroideryJobDescription !== null && databaseValues.embroideryJobDescription !== undefined) {
+                this.embroideryJobDescription = databaseValues.embroideryJobDescription;
+            }
+
+            if (databaseValues.embroideryAmount !== null && databaseValues.embroideryAmount !== undefined) {
+                this.embroideryAmount = databaseValues.embroideryAmount;
+            }
+
+            if (databaseValues.embroideryThread !== null && databaseValues.embroideryThread !== undefined) {
+                this.embroideryThread = databaseValues.embroideryThread;
+            }
+
+            if (databaseValues.embroideryMaterial !== null && databaseValues.embroideryMaterial !== undefined) {
+                this.embroideryMaterial = databaseValues.embroideryMaterial;
+            }
+
+            if (databaseValues.embroideryCostPerItem !== null && databaseValues.embroideryCostPerItem !== undefined) {
+                this.embroideryCostPerItem = databaseValues.embroideryCostPerItem;
+            }
+
+            if (databaseValues.embroideryTotalCost !== null && databaseValues.embroideryTotalCost !== undefined) {
+                this.embroideryTotalCost = databaseValues.embroideryTotalCost;
+            }
+
             if (element !== null && element !== undefined) {
                 //Update the element with the database values
                 if (elementDesignID !== null && elementDesignID !== undefined) {
@@ -1225,12 +1374,30 @@ export class Vinylize {
         }
         else {
             //Get all existing values from the database for this class
-            this.designID = databaseValues.designID;
-            this.vinylizeID = databaseValues.vinylizeID;
-            this.vinylizeJobDescription = databaseValues.vinylizeJobDescription;
-            this.vinylizeAmount = databaseValues.vinylizeAmount;
-            this.vinylizeCostPerItem = databaseValues.vinylizeCostPerItem;
-            this.vinylizeTotalCost = databaseValues.vinylizeTotalCost;
+
+            if (databaseValues.designID !== null && databaseValues.designID !== undefined) {
+                this.designID = databaseValues.designID;
+            }
+
+            if (databaseValues.vinylizeID !== null && databaseValues.vinylizeID !== undefined) {
+                this.vinylizeID = databaseValues.vinylizeID;
+            }
+
+            if (databaseValues.vinylizeJobDescription !== null && databaseValues.vinylizeJobDescription !== undefined) {
+                this.vinylizeJobDescription = databaseValues.vinylizeJobDescription;
+            }
+
+            if (databaseValues.vinylizeAmount !== null && databaseValues.vinylizeAmount !== undefined) {
+                this.vinylizeAmount = databaseValues.vinylizeAmount;
+            }
+
+            if (databaseValues.vinylizeCostPerItem !== null && databaseValues.vinylizeCostPerItem !== undefined) {
+                this.vinylizeCostPerItem = databaseValues.vinylizeCostPerItem;
+            }
+
+            if (databaseValues.vinylizeTotalCost !== null && databaseValues.vinylizeTotalCost !== undefined) {
+                this.vinylizeTotalCost = databaseValues.vinylizeTotalCost;
+            }
 
             if (element !== null && element !== undefined) {
                 //Update the element with the database values
@@ -1392,13 +1559,34 @@ export class Other {
         }
         else {
             //Get all existing values from the database for this class
-            this.designID = databaseValues.designID;
-            this.orderID = databaseValues.orderID;
-            this.otherID = databaseValues.otherID;
-            this.otherJobDescription = databaseValues.otherJobDescription;
-            this.otherAmount = databaseValues.otherAmount;
-            this.otherCostPerItem = databaseValues.otherCostPerItem;
-            this.otherTotalCost = databaseValues.otherTotalCost;
+
+            if (databaseValues.designID !== null && databaseValues.designID !== undefined) {
+                this.designID = databaseValues.designID;
+            }
+
+            if (databaseValues.orderID !== null && databaseValues.orderID !== undefined) {
+                this.orderID = databaseValues.orderID;
+            }
+
+            if (databaseValues.otherID !== null && databaseValues.otherID !== undefined) {
+                this.otherID = databaseValues.otherID;
+            }
+
+            if (databaseValues.otherJobDescription !== null && databaseValues.otherJobDescription !== undefined) {
+                this.otherJobDescription = databaseValues.otherJobDescription;
+            }
+
+            if (databaseValues.otherAmount !== null && databaseValues.otherAmount !== undefined) {
+                this.otherAmount = databaseValues.otherAmount;
+            }
+
+            if (databaseValues.otherCostPerItem !== null && databaseValues.otherCostPerItem !== undefined) {
+                this.otherCostPerItem = databaseValues.otherCostPerItem;
+            }
+
+            if (databaseValues.otherTotalCost !== null && databaseValues.otherTotalCost !== undefined) {
+                this.otherTotalCost = databaseValues.otherTotalCost;
+            }
 
             if (element !== null && element !== undefined) {
                 //Update the element with the database values

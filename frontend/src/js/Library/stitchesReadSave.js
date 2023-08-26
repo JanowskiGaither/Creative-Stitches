@@ -27,6 +27,14 @@ export async function getCurrentOrder() {
     return resultOrder;
 }
 
+// Save the current order
+export async function submitOrder() {
+
+    //Save the current design
+    var currentOrder = new stichesClass.Order(true);
+    stitchesFetchGet.saveOrder(currentOrder);
+}
+
 // Handle Customers
 
 export async function editCustomer() {

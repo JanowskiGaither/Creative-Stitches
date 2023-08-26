@@ -199,7 +199,7 @@ export function updateOrderDate() {
             todayMonth = '0' + todayMonth;
         }
 
-        orderDate.value = todayDay + '/' + todayMonth + '/' + todayYear;
+        orderDate.value = todayMonth + '/' + todayDay + '/' + todayYear;
     }
 }
 
