@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creative Stitches</title>
+  <script type="module" src="./js/review.js"></script>
+</head>
+
+<body>
+  <nav class="navbar bg-light fixed-top py-3">
+    <div class="container-fluid">
+      <a class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar" aria-label="Toggle navigation" role="button">
+        <span class="navbar-toggler-icon"></span>
+      </a>
+      <a class="navbar-brand justify-content-center" href="#"><img src="assets/logoipsum-297.svg"></a>
+      <ul class="nav nav-tabs nav-fill">
+        <li class="nav-item">
+          <a class="nav-link active" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/order">Order</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Sales</a>
+        </li>
+      </ul>
+      <div class="offcanvas offcanvas-start" tabindex="0" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Orders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Designs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Calendars</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Database</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Inventory</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Financials</a>
+            </li>
+          </ul>
+          <form class="d-flex mt-3" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="d-flex flex-column justify-content-center align-items-center mt-5" id="orderReview">
+      <h1 class="display-4">Review Order</h1>
+
+      <!-- These outputs are used to maintain status, but not shown to the user -->
+      <div class="container" style="display: none" id="hiddenVariables">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="orderID"></label>
+          <output class="form-control border border-dark" type="text" name="orderID" id="orderID">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="customerID"></label>
+          <output class="form-control border border-dark" type="text" name="customerID" id="customerID">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="firstName"></label>
+          <output class="form-control border border-dark" type="text" name="firstName" id="firstName">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="lastName"></label>
+          <output class="form-control border border-dark" type="text" name="lastName" id="lastName">
+        </div>
+      </div>
+
+      <!-- Start of Customer Info -->
+      <div class="container col-xxl-10" id="customerInfo">
+        <hr class="border border-primary border-3 opacity-75">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="d-flex flex-row justify-content-center align-middle">
+            <h4>Customer Information</h4>
+            <button class="btn btn-primary" id="editCustomerButton" style="color:white" type="button">Edit</button>
+          </div>
+        </div>
+
+        <!-- Customer Name -->
+        <div class="d-flex flex-column m-1 col-xxl-6">
+          <div class="flex-row d-flex justify-content-between">
+            <label class="form-label" for="customerName">Customer Name: </label>
+            <output class="form-inline border border-dark" type="text" name="customerName" id="customerName"
+              style="padding:5px">
+          </div>
+        </div>
+
+        <!-- Organization -->
+        <div class="d-flex flex-column m-1 col-xxl-6">
+          <div class="flex-row d-flex justify-content-between">
+            <label class="form-label" for="organization">Organization: </label>
+            <output class="form-inline border border-dark" type="text" name="organization" id="organization"
+              style="padding:5px">
+          </div>
+        </div>
+
+        <!-- Show these two side by side -->
+        <div class="d-flex flex-column m-1 col-xxl-6">
+          <div class="flex-row d-flex justify-content-between">
+            <row>
+              <!-- Phone -->
+              <label class="form-label" for="phone">Phone: </label>
+              <output class="form-inline border border-dark" type="tel" name="phone" id="phone" style="padding:5px">
+            </row>
+            <row>
+              <!-- Email -->
+              <label class="form-label" for="email">Email: </label>
+              <output class="form-inline border border-dark" type="email" name="email" id="email" style="padding:5px">
+            </row>
+          </div>
+        </div>
+      </div>
+      <!-- End of Customer Info -->
+
+      <!-- Start of Design Info -->
+      <div class="container col-12" id="designInfo">
+        <hr class="border border-primary border-3 opacity-75">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <h4>Design Information</h4>
+        </div>
+
+        <!-- Create the default design -->
+        <div class="d-flex flex-column justify-content-center align-items-center" id="design_1">
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="d-flex flex-row justify-content-center align-middle">
+              <h5 id="designOf">Design 1</h5>
+              <button class="btn btn-primary" id="editDesignButton" style="color:white" type="button">Edit</button>
+            </div>
+          </div>
+
+          <!-- These outputs are used to maintain status, but not shown to the user -->
+          <div class="container" style="display: none" id="hiddenVariables">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+              <label class="form-label" for="orderID"></label>
+              <output class="form-control border border-dark" type="text" name="orderID" id="orderID">
+            </div>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+              <label class="form-label" for="designID"></label>
+              <output class="form-control border border-dark" type="text" name="designID" id="designID">
+            </div>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+              <label class="form-label" for="designNumber"></label>
+              <output class="form-control border border-dark" type="text" name="designNumber"
+                id="designNumber">1</output>
+            </div>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+              <label class="form-label" for="numberOfDesigns"></label>
+              <output class="form-control border border-dark" type="text" name="numberOfDesigns"
+                id="numberOfDesigns">1</output>
+            </div>
+          </div>
+
+          <!-- Design Description -->
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <label class="form-label" for="designDescription">Description </label>
+            <output class="form border border-dark" type="text" name="designDescription" id="designDescription"
+              style="padding:5px">
+          </div>
+
+          <!-- Design Notes -->
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <label class="form-label" for="designNotes">Design Notes </label>
+            <output class="form border border-dark" type="text" name="designNotes" id="designNotes" style="padding:5px">
+          </div>
+
+          <!-- Design Image -->
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <label class="form-label">Design Image</label>
+            <!-- <input class="form-control border border-dark" type="text" name="designImages" id="designImages" 
+                      placeholder="Upload Image">-->
+            <img src="https://i.stack.imgur.com/H0xdb.png" class="img-thumbnail" alt="...">
+          </div>
+
+          <!-- Design Type -->
+          <div class="d-flex flex-column">
+            <div class="flex-row d-flex justify-content-between">
+              <label class="form-label" for="designType">Design Type: </label>
+              <output class="form-inline border border-dark" type="text" name="designType" id="designType"
+                style="padding:5px">
+            </div>
+          </div>
+
+          <!-- Show Garments section if this design is a garment -->
+          <div id="showGarments">
+
+            <div class="d-flex flex-column justify-content-center align-items-center">
+              <div class="form-group form-inline">
+                <label class="form-label" for="designNumberGarments">Number Of Garments: </label>
+                <output class="form-inline border border-dark" type="text" name="designNumberGarments"
+                  id="designNumberGarments" style="padding:5px">
+              </div>
+            </div>
+
+            <!-- Create the default garment card -->
+            <div class="card border-info" id="garment_1">
+              <div class="card-body">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                  <div class="d-flex flex-row justify-content-center align-middle">
+                    <h5 class="card-title" id="garmentTitle">Garment 1</h5>
+                    <button class="btn btn-primary" id="editGarmentButton" style="color:white"
+                      type="button">Edit</button>
+                  </div>
+                </div>
+
+                <!-- These outputs are used to maintain status, but not shown to the user -->
+                <div class="container" style="display: none" id="hiddenVariables">
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="orderID"></label>
+                    <output class="form-control border border-dark" type="text" name="orderID" id="orderID">
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="designID"></label>
+                    <output class="form-control border border-dark" type="text" name="designID" id="designID">
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="garmentID"></label>
+                    <output class="form-control border border-dark" type="text" name="garmentID" id="garmentID">
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="garmentNumberGarments"></label>
+                    <output class="form-control border border-dark" type="text" name="garmentNumberGarments"
+                      id="garmentNumberGarments">1</output>
+                  </div>
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+                    <label class="form-label" for="garmentNumber"></label>
+                    <output class="form-control border border-dark" type="text" name="garmentNumber"
+                      id="garmentNumber">1</output>
+                  </div>
+                </div>
+
+                <!-- Show these two side by side -->
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                  <div class="form-group form-inline">
+                    <row>
+                      <!-- Gender -->
+                      <label class="form-label" for="garmentGender">Gender: </label>
+                      <output class="form-inline border border-dark" type="text" name="garmentGender" id="garmentGender"
+                        style="padding:5px">
+                    </row>
+                    <row>
+                      <!-- Size -->
+                      <label class="form-label" for="garmentSize">Size: </label>
+                      <output class="form-inline border border-dark" type="text" name="garmentSize" id="garmentSize"
+                        style="padding:5px">
+                    </row>
+                  </div>
+                </div>
+
+                <!-- Style Number -->
+                <div class="d-flex flex-column">
+                  <div class="flex-row d-flex justify-content-between">
+                    <label class="form-label" for="garmentStyleNumber">Style Number: </label>
+                    <output class="form-inline border border-dark" type="text" name="garmentStyleNumber"
+                      id="garmentStyleNumber" style="padding:5px">
+                  </div>
+                </div>
+
+                <!-- Show these two side by side -->
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                  <div class="form-group form-inline">
+                    <row>
+                      <!-- Amount -->
+                      <label class="form-label" for="garmentAmount">Amount: </label>
+                      <output class="form-inline border border-dark" type="text" name="garmentAmount" id="garmentAmount"
+                        style="padding:5px">
+                    </row>
+                    <row>
+                      <!-- Cost Per Item -->
+                      <label class="form-label" for="garmentCostPerItem">Cost Per: </label>
+                      <output class="form-inline border border-dark" type="text" name="garmentCostPerItem"
+                        id="garmentCostPerItem" style="padding:5px">
+                    </row>
+                  </div>
+                </div>
+
+                <!-- Overall Garment Cost -->
+                <div class="d-flex flex-column">
+                  <div class="flex-row d-flex justify-content-between">
+                    <label class="form-label" for="garmentTotalCost">Garment Cost: </label>
+                    <output class="form-inline border border-dark" type="text" name="garmentTotalCost"
+                      id="garmentTotalCost" style="padding:5px">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overall Items In Design -->
+          <div class="d-flex flex-column">
+            <div class="flex-row d-flex justify-content-between">
+              <label class="form-label" for="designTotalItems">Items In Design: </label>
+              <output class="form-inline border border-dark" type="text" name="designTotalItems" id="designTotalItems"
+                style="padding:5px">0</output>
+            </div>
+          </div>
+
+          <!-- Overall Design Cost -->
+          <div class="d-flex flex-column">
+            <div class="flex-row d-flex justify-content-between">
+              <label class="form-label" for="designTotalCost">Design Cost: </label>
+              <output class="form-inline border border-dark" type="text" name="designTotalCost" id="designTotalCost"
+                style="padding:5px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of Design Info -->
+
+      <!-- Start of Order Summary -->
+      <div id="orderSummary">
+        <hr class="border border-primary border-3 opacity-75" style="width:100%">
+        <div class="d-flex flex-column align-items-center">
+          <div class="d-flex flex-row justify-content-between align-middle">
+            <h4>Order Summary</h4>
+            <button class="btn btn-primary m-l-1" id="editOrderButton" style="color:white" type="button">Edit</button>
+          </div>
+        </div>
+
+        <!-- Show these two side by side -->
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="form-group form-inline">
+            <div class="d-flex flex-column align-items-center">
+              <div class="flex-row d-flex justify-content-between">
+                <!-- Order Date -->
+                <label class="form-label" for="orderDate">Order Date: </label>
+                <output class="form-inline border border-dark" type="text" name="orderDate" id="orderDate"
+                  style="padding:5px">
+              </div>
+            </div>
+            <div class="d-flex flex-column align-items-center">
+              <div class="flex-row d-flex justify-content-between">
+                <!-- Delivery Date -->
+                <label class="form-label" for="requestedDeliveryDate">Delivery Date: </label>
+                <output class="form-inline border border-dark" type="text" name="requestedDeliveryDate"
+                  id="requestedDeliveryDate" style="padding:5px">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Items in Order -->
+        <div class="d-flex flex-column m-1">
+          <div class="flex-row d-flex justify-content-between">
+            <label class="form-label" for="totalItems">Total Items: </label>
+            <output class="form-inline border border-dark" type="text" name="totalItems" id="totalItems"
+              style="padding:5px">0</output>
+          </div>
+        </div>
+
+        <!-- Shipping Cost of Order -->
+        <div class="d-flex flex-column m-1">
+          <div class="flex-row d-flex justify-content-between">
+            <label class="form-label" for="shippingCost">Shipping Cost: </label>
+            <output class="form-inline border border-dark" type="text" name="shippingCost" id="shippingCost"
+              style="padding:5px" min="0" step="0.01">0</output>
+          </div>
+        </div>
+
+        <!-- Total Cost of Order -->
+        <div class="d-flex flex-column m-1">
+          <div class="flex-row d-flex justify-content-between">
+            <label class="form-label" for="totalCost">Total Cost: </label>
+            <output class="form-inline border border-dark" type="text" name="totalCost" id="totalCost"
+              style="padding:5px">0</output>
+          </div>
+        </div>
+
+        <!-- Show these two side by side -->
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="form-group form-inline">
+            <div class="d-flex flex-column">
+              <div class="flex-row d-flex justify-content-between">
+                <!-- Tax Exemption -->
+                <label class="form-label" for="taxExemption">Tax Exemption: </label>
+                <output class="form-inline border border-dark" type="text" name="taxExemption" id="taxExemption"
+                  style="padding:5px">
+              </div>
+            </div>
+            <div class="d-flex flex-column">
+              <div class="flex-row d-flex justify-content-between">
+                <!-- Taxes on Order -->
+                <label class="form-label" for="totalTaxes">Tax: </label>
+                <output class="form-inline border border-dark" type="text" name="totalTaxes" id="totalTaxes"
+                  style="padding:5px">0</output>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Price of Order Including Taxes -->
+        <div class="d-flex flex-column m-1">
+          <div class="flex-row d-flex justify-content-between">
+            <label class="form-label" for="totalPrice">Total Price: </label>
+            <output class="form-inline border border-dark" type="text" name="totalPrice" id="totalPrice"
+              style="padding:5px">0</output>
+          </div>
+        </div>
+      </div>
+      <!-- End of Order Summary -->
+
+      <!-- SubmitButton -->
+      <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-primary btn-sm float-right" id="submitButton" type="button">Submit Order
+        </button>
+      </div>
+
+    </div>
+    <!-- End of Order Review -->
+
+  </div>
+  <!-- End of container-fluid -->
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+// Calculate Total Costs for various items
+
+// Update Other Total Cost after user input
+export function calculateOtherTotal() {
+    // Assume the fields aren't populated
+    var otherAmountValue = 0;
+    var otherCostPerItemValue = 0;
+
+    //Check if the form has values for each field
+    let otherAmount = document.getElementById("otherAmount");
+    let otherCostPerItem = document.getElementById("otherCostPerItem");
+    let otherTotalCost = document.getElementById("otherTotalCost");
+
+    if (otherAmount !== null) {
+        otherAmountValue = parseInt(otherAmount.value, 10);
+    }
+
+    if (otherCostPerItem !== null) {
+        otherCostPerItemValue = parseInt(otherCostPerItem.value, 10);
+    }
+
+    // Update the value on the form
+    if (otherTotalCost !== null) {
+        otherTotalCost.value = otherAmountValue * otherCostPerItemValue;
+    }
+}
+
+// Update Garment Total Cost after user input
+export function calculateGarmentTotal() {
+    // Assume the fields aren't populated
+    var garmentAmountValue = 0;
+    var garmentCostPerItemValue = 0;
+
+    //Check if the form has values for each field
+    let garmentAmount = document.getElementById("garmentAmount");
+    let garmentCostPerItem = document.getElementById("garmentCostPerItem");
+    let garmentTotalCost = document.getElementById("garmentTotalCost");
+
+    if (garmentAmount !== null) {
+        garmentAmountValue = parseInt(garmentAmount.value, 10);
+    }
+
+    if (garmentCostPerItem !== null) {
+        garmentCostPerItemValue = parseInt(garmentCostPerItem.value, 10);
+    }
+
+    // Update the value on the form
+    if (garmentTotalCost !== null) {
+        garmentTotalCost.value = garmentAmountValue * garmentCostPerItemValue;
+    }
+}
+
+// Update Embroidery Total Cost after user input
+export function calculateEmbroideryTotal() {
+    // Assume the fields aren't populated
+    var embroideryAmountValue = 0;
+    var embroideryCostPerItemValue = 0;
+
+    //Check if the form has values for each field
+    let embroideryAmount = document.getElementById("embroideryAmount");
+    let embroideryCostPerItem = document.getElementById("embroideryCostPerItem");
+    let embroideryTotalCost = document.getElementById("embroideryTotalCost");
+
+    if (embroideryAmount !== null) {
+        embroideryAmountValue = parseInt(embroideryAmount.value, 10);
+    }
+
+    if (embroideryCostPerItem !== null) {
+        embroideryCostPerItemValue = parseInt(embroideryCostPerItem.value, 10);
+    }
+
+    // Update the value on the form
+    if (embroideryTotalCost !== null) {
+        embroideryTotalCost.value = embroideryAmountValue * embroideryCostPerItemValue;
+    }
+}
+
+// Update Vinylize Total Cost after user input
+export function calculateVinylizeTotal() {
+    // Assume the fields aren't populated
+    var vinylizeAmountValue = 0;
+    var vinylizeCostPerItemValue = 0;
+
+    //Check if the form has values for each field
+    let vinylizeAmount = document.getElementById("vinylizeAmount");
+    let vinylizeCostPerItem = document.getElementById("vinylizeCostPerItem");
+    let vinylizeTotalCost = document.getElementById("vinylizeTotalCost");
+
+    if (vinylizeAmount !== null) {
+        vinylizeAmountValue = parseInt(vinylizeAmount.value, 10);
+    }
+
+    if (vinylizeCostPerItem !== null) {
+        vinylizeCostPerItemValue = parseInt(vinylizeCostPerItem.value, 10);
+    }
+
+    // Update the value on the form
+    if (vinylizeTotalCost !== null) {
+        vinylizeTotalCost.value = vinylizeAmountValue * vinylizeCostPerItemValue;
+    }
+}

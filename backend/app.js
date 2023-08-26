@@ -25,12 +25,17 @@ app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 //Save order
-async function saveOrder(order, design, customer) {
+async function saveOrder(order) {
 
-  // Save received Order and Customer information
-  await Order.updateOne({ customerID: order.customerID, orderID: order.orderID }, { taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate }, { upsert: true });
+  // Save received information
+  await Order.updateOne({ customerID: order.customerID, orderID: order.orderID }, { customerID: order.customerID, orderID: order.orderID, taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate }, { upsert: true });
+}
+
+//Save order
+async function saveCustomer(customer) {
+  // Save received  Customer information
   await Customer.updateOne({ customerID: customer.customerID }, {
-    firstName: customer.firstName, lastName: customer.lastName, organization: customer.organization, phone: customer.phone, email: customer.email
+    customerID: customer.customerID, firstName: customer.firstName, lastName: customer.lastName, organization: customer.organization, phone: customer.phone, email: customer.email
   }, { upsert: true });
 }
 
@@ -39,15 +44,27 @@ async function saveGarment(garment) {
   // Save received Garment information
   await Garment.updateOne({ designID: garment.designID, garmentID: garment.garmentID, orderID: garment.orderID }, {
     garmentNumber: garment.garmentNumber, garmentGender: garment.garmentGender, garmentSize: garment.garmentSize,
-    garmentStyleNumber: garment.garmentStyleNumber, garmentAmount: garment.garmentAmount,
+    garmentStyleNumber: garment.garmentStyleNumber, garmentAmount: garment.garmentAmount, garmentNumberGarments: garment.garmentNumberGarments,
     garmentCostPerItem: garment.garmentCostPerItem, garmentTotalCost: garment.garmentTotalCost
   }, { upsert: true });
+
+  //Find our how many remain
+  let queryAll = await Garment.find({ orderID: garment.orderID, designID: garment.designID }).exec();
+  let queryAllLength = await queryAll.length;
+
+  //Update the Number of Garments for all of them
+  for (let i = 1; i <= (queryAllLength + 1); i++) {
+    var filterAll = { orderID: garment.orderID, garmentNumber: i, designID: garment.designID };
+    var updateAll = { garmentNumberGarments: queryAllLength }
+
+    let result = await Garment.findOneAndUpdate(filterAll, updateAll, { new: true }).exec();
+  }
 }
 
 //Get garment
 async function getGarment(garment) {
   // Check if new garment exists
-  var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
+  let query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID });
 
   if (query) {
     return query;
@@ -60,6 +77,8 @@ async function getGarment(garment) {
     garmentResponse.designID = garment.designID;
     garmentResponse.garmentSize = '';
     garmentResponse.garmentStyleNumber = '';
+    garmentResponse.garmentNumber = garment.garmentNumber;
+    garmentResponse.garmentNumberGarments = garment.garmentNumberGarments;
     garmentResponse.garmentAmount = 0;
     garmentResponse.garmentCostPerItem = 0;
     garmentResponse.garmentTotalCost = 0;
@@ -68,33 +87,86 @@ async function getGarment(garment) {
   }
 }
 
+//Get customer
+async function getCustomer(customer) {
+  // Check if customer exists
+  let query = await Customer.findOne({ customerID: customer.customerID }).exec();
+
+  if (query) {
+    return query;
+  }
+  else {
+    //Create a blank response
+    var customerResponse = new Customer();
+    customerResponse.customerID = customer.customerID;
+    customerResponse.firstName = "Nothing Found";
+    customerResponse.lastName = '';
+    customerResponse.organization = '';
+    customerResponse.phone = '';
+    customerResponse.email = 0;
+
+    return customerResponse;
+  }
+}
+
+//Get order
+async function getOrder(order) {
+  // Check if order exists
+  var query = await Order.findOne({ orderID: order.orderID }).exec();
+
+  if (query) {
+    return query;
+  }
+  else {
+    //Create a blank response
+    var orderResponse = new Order();
+    orderResponse.orderID = order.orderID;
+    orderResponse.customerID = "NA";
+    orderResponse.orderDescription = '';
+    orderResponse.orderDate = '';
+    orderResponse.orderStatus = '';
+    orderResponse.requestedDeliveryDate = '';
+    orderResponse.scheduledDeliveryDate = 0;
+    orderResponse.taxExemption = 0;
+    orderResponse.totalItems = 0;
+    orderResponse.totalMaterialCost = 0;
+    orderResponse.totalTaxes = 0;
+    orderResponse.totalProfit = 0;
+    orderResponse.totalSale = 0;
+
+    return orderResponse;
+  }
+}
+
 //Get garment
 async function removeGarment(garment) {
-  //console.log("--------------------start removeGarment");
-
-  var query = await Garment.findOne({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
-
-  // console.log("------------------------remove this");
-  //console.log(query);
 
   // Delete garment
-  query = await Garment.findOneAndDelete({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
+  let query = await Garment.findOneAndDelete({ orderID: garment.orderID, garmentID: garment.garmentID, designID: garment.designID }).exec();
+
+  //Find our how many remain
+  let queryAll = await Garment.find({ orderID: garment.orderID, designID: garment.designID }).exec();
+  let queryAllLength = await queryAll.length;
 
   //If this wasn't the last garment then go through and update the numbers of the rest
-  //console.log(parseInt(garment.garmentNumber, 10));
-  //console.log(parseInt(garment.garmentNumberGarments, 10));
-  for (let i = parseInt(garment.garmentNumber, 10); i <= parseInt(garment.garmentNumberGarments, 10); i++) {
+  for (let i = parseInt(garment.garmentNumber, 10); i <= (queryAllLength + 1); i++) {
+    //console.log("Update others");
     var filter = { orderID: garment.orderID, garmentNumber: i, designID: garment.designID };
     var newGarmentID = garment.designID.toString() + '_' + (i - 1).toString();
-    var update = { garmentNumber: (i - 1), garmentID: newGarmentID }
-    var updateResult = await Garment.findOneAndUpdate(filter, update, { new: true }).exec();
+    var update = { garmentNumber: (i - 1), garmentID: newGarmentID, garmentNumberGarments: garment.garmentNumberGarments }
 
-    //console.log("--------------------updated result")
-    console.log(updateResult)
+    await Garment.findOneAndUpdate(filter, update, { new: true }).exec();
+  }
+
+  //Update the Number of Garments for all of them
+  for (let i = 1; i <= (queryAllLength + 1); i++) {
+    var filterAll = { orderID: garment.orderID, garmentNumber: i, designID: garment.designID };
+    var updateAll = { garmentNumberGarments: queryAllLength }
+
+    await Garment.findOneAndUpdate(filterAll, updateAll, { new: true }).exec();
   }
 
   if (query) {
-    //console.log("--------------------return removeGarment Result")
     return query;
   }
   else {
@@ -117,10 +189,11 @@ async function getDesign(design) {
     designResponse.garmentID = design.garmentID;
     designResponse.designID = design.designID;
     designResponse.designType = 'Garment';
-    designResponse.designDescription = 'NA';
-    designResponse.designNotes = 0;
-    designResponse.designImages = 0;
+    designResponse.designDescription = "";
+    designResponse.designNotes = "";
+    designResponse.designImages = "";
     designResponse.designNumberGarments = 1;
+    designResponse.designNumber = design.designNumber;
     designResponse.designTotalCost = 0;
 
     return designResponse;
@@ -152,6 +225,31 @@ async function getAllGarment(garment) {
   }
 }
 
+//Get garment
+async function getAllDesign(design) {
+  // Check if new garment exists
+  var query = await Design.find({ orderID: design.orderID }).exec();
+
+  if (query) {
+    return query;
+  }
+  else {
+    //Create a blank response
+    var designResponse = new Design();
+    designResponse.orderID = garment.orderID;
+    designResponse.designID = '';
+    designResponse.designType = '';
+    designResponse.designDescription = '';
+    designResponse.designNotes = 0;
+    // designResponse.designImages = 0;
+    designResponse.designNumberGarments = 0;
+    designResponse.designTotalItems = 0;
+    designResponse.designTotalCost = 0;
+
+    return designResponse;
+  }
+}
+
 //Save other
 async function saveOther(other) {
   // Save received Other information
@@ -165,19 +263,26 @@ async function saveOther(other) {
 async function saveDesign(design) {
   // Save Received Design information
   await Design.updateOne({ designID: design.designID, orderID: design.orderID }, {
-    designType: design.designType, designDescription: design.designDescription, designNotes: design.designNotes,
+    designType: design.designType, designDescription: design.designDescription, designNotes: design.designNotes, designNumberGarments: design.designNumberGarments, designNumber: design.designNumber,
     designImages: design.designImages, designNumberGarments: design.designNumberGarments, designTotalCost: design.designTotalCost
   }, { upsert: true });
 }
 
 app.post('/orderSubmit', async function (req, res) {
   var order = new Order(req.body);
-  var design = new Design(req.body);
-  var customer = new Customer(req.body);
 
   try {
-    saveOrder(order, design, customer);
-    res.redirect('/design');
+    await saveOrder(order).then();
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/customerSubmit', async function (req, res) {
+  var customer = new Customer(req.body);
+  try {
+    await saveCustomer(customer);
+    res.json(true);
   } catch (error) {
     console.log(error)
   }
@@ -187,20 +292,18 @@ app.post('/designSubmit', async function (req, res) {
   var design = new Design(req.body);
 
   try {
-    saveDesign(design);
+    await saveDesign(design);
+    res.json(true);
   } catch (error) {
     console.log(error)
   }
-
-  res.redirect('/');
 });
 
 app.post('/garmentSubmit', async function (req, res) {
   var garment = new Garment(req.body);
-
   try {
     saveGarment(garment);
-    res.json('Success');
+    res.json(true);
   } catch (error) {
     console.log(error)
   }
@@ -208,9 +311,31 @@ app.post('/garmentSubmit', async function (req, res) {
 
 app.post('/garmentRetrieve', async function (req, res) {
   const garment = new Garment(req.body);
+  try {
+    let result = await getGarment(garment);
+    res.json(result);
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/customerRetrieve', async function (req, res) {
+  const customer = new Customer(req.body);
 
   try {
-    const result = await getGarment(garment);
+    const result = await getCustomer(customer);
+    res.json(result);
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/orderRetrieve', async function (req, res) {
+  const order = new Order(req.body);
+  try {
+    const result = await getOrder(order);
     res.json(result);
 
   } catch (error) {
@@ -220,13 +345,9 @@ app.post('/garmentRetrieve', async function (req, res) {
 
 app.post('/garmentRemove', async function (req, res) {
   const garment = new Garment(req.body);
-
-  console.log("--------------------Garment Remove Request");
   try {
     const result = await removeGarment(garment);
     res.json(result);
-    console.log("Garment removed");
-
   } catch (error) {
     console.log(error);
   }
@@ -248,16 +369,24 @@ app.post('/designRetrieve', async function (req, res) {
 
 app.post('/garmentAllRetrieve', async function (req, res) {
   const garment = new Garment(req.body);
+  try {
+    var result = await getAllGarment(garment);
+    res.json(result);
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+app.post('/designAllRetrieve', async function (req, res) {
+  const design = new Design(req.body);
 
   try {
-    const result = await getAllGarment(garment);
+    var result = await getAllDesign(design);
     res.json(result);
 
   } catch (error) {
     console.log(error)
   }
-
-
 });
 
 app.post('/otherSubmit', async function (req, res) {

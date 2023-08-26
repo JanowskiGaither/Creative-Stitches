@@ -22,6 +22,12 @@ const designSchema = new mongoose.Schema({
     designNumberGarments: {
         type: String,
     },
+    designNumber: {
+        type: String,
+    },
+    designTotalItems: {
+        type: String,
+    },
     designTotalCost: {
         type: String,
     },

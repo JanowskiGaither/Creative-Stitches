@@ -21,8 +21,7 @@
             Previous Design
           </button>
         </div>
-        <div
-          class="container d-flex flex-column col-xl-5 col-lg-6 col-md-8 col-11 mb-3 justify-content-center align-items-center">
+        <div class="container d-flex flex-column justify-content-center align-items-center">
           <h5 id="currentDesign" class="form-inline float-left padding: 5px 0">Design</h5>
         </div>
         <div class="col-xl-2 col-lg-2 col-md-2 col-2 mb-2 ">
@@ -31,6 +30,46 @@
           </button>
         </div>
       </div>
+
+      <!-- These outputs are used to maintain status, but not showsn to the user -->
+      <div class="container" style="display: none" id="hiddenVariables">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="orderID"></label>
+          <output class="form-control border border-dark" type="text" name="orderID" id="orderID">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="designID"></label>
+          <output class="form-control border border-dark" type="text" name="designID" id="designID">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="garmentID"></label>
+          <output class="form-control border border-dark" type="text" name="garmentID" id="garmentID">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="designNumber"></label>
+          <output class="form-control border border-dark" type="text" name="designNumber" id="designNumber">1</output>
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="garmentNumber"></label>
+          <output class="form-control border border-dark" type="text" name="garmentNumber" id="garmentNumber">1</output>
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="designNumberGarments"></label>
+          <output class="form-control border border-dark" type="text" name="designNumberGarments"
+            id="designNumberGarments">1</output>
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="garmentNumberGarments"></label>
+          <output class="form-control border border-dark" type="text" name="garmentNumberGarments"
+            id="garmentNumberGarments">1</output>
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 " style="display: none">
+          <label class="form-label" for="numberOfDesigns"></label>
+          <output class="form-control border border-dark" type="text" name="numberOfDesigns"
+            id="numberOfDesigns">1</output>
+        </div>
+      </div>
+
       <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3 ">
         <label class="form-label" for="designType">Type</label>
         <select class="form-control border border-dark" id="designType" name="designType">
@@ -121,7 +160,7 @@
                 <label class="form-label col-sm-6" for="embroideryTotalCost">Total Cost: </label>
                 <div class="col-sm-5">
                   <output class="form-inline border border-dark" name="embroideryTotalCost" for="embroideryTotalCost"
-                    id="embroideryTotalCost" required="false">
+                    id="embroideryTotalCost" required="false" style="padding:5px">
                     Test</output>
                 </div>
               </div>
@@ -173,7 +212,7 @@
                 <label class="form-label col-sm-6" for="vinylizeTotalCost">Total Cost: </label>
                 <div class="col-sm-5">
                   <output class="form-inline border border-dark" name="vinylizeTotalCost" for="vinylizeTotalCost"
-                    id="vinylizeTotalCost" required="false">
+                    id="vinylizeTotalCost" required="false" style="padding:5px">
                     Test</output>
                 </div>
               </div>
@@ -225,7 +264,7 @@
                 <label class="form-label col-sm-6" for="otherTotalCost">Total Cost: </label>
                 <div class="col-sm-5">
                   <output class="form-inline border border-dark" name="otherTotalCost" for="otherTotalCost"
-                    id="otherTotalCost" required="false">
+                    id="otherTotalCost" required="false" style="padding:5px">
                     Test</output>
                 </div>
               </div>
@@ -245,32 +284,34 @@
             <th style="border: 1px solid black; text-align: center;">Amount</th>
             <th style="border: 1px solid black; text-align: center;">Cost</th>
             <th></th>
+            <th></th>
           </tr>
           <tr>
             <td><button class="btn btn-sm btn-primary" id="editButton" style="color:white" type="button"
                 data-bs-toggle="modal" data-bs-target="#garmentModal">Edit</button>
             </td>
-            <td style="text-align: center;">1</th>
-            <td style="text-align: center;">Male</th>
-            <td style="text-align: center;">XS</th>
-            <td style="text-align: center;">5</th>
-            <td style="text-align: center;">999.99</th>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
             <td><button class="btn btn-sm btn-primary" id="deleteButton" style="color:white"
                 type="button">Delete</button></td>
           </tr>
         </table>
+
+        <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
+          <div class="d-flex justify-content-center align-items-center"></div>
+          <div class="col-md-3 col-6 pe-2">
+            <button class="btn btn-primary btn-sm" id="addGarment" style="color:white" type="button"
+              data-bs-toggle="modal" data-bs-target="#garmentModal">
+              Add Garment
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Submit and Reset Buttons -->
-      <div class="col-xl-5 col-lg-6 col-md-8 col-11 mb-3">
-        <div class="d-flex justify-content-center align-items-center"></div>
-        <div class="col-md-3 col-6 pe-2">
-          <button class="btn btn-primary btn-sm" id="addGarment" style="color:white" type="button"
-            data-bs-toggle="modal" data-bs-target="#garmentModal">
-            Add Garment
-          </button>
-        </div>
-      </div>
       <div class="d-flex justify-content-center align-items-center">
         <div class="row">
           <div class="col-md-3 col-6 pe-2">
@@ -283,7 +324,8 @@
             <button class="form-control btn btn-outline-secondary" id="resetButton" type="reset">Reset</button>
           </div>
           <div class="col-md-3 col-6 ps-2">
-            <input class="form-control btn btn-primary" id="submitButton" type="submit" value="Submit">
+            <button class="btn btn-primary btn-sm float-right" id="reviewButton" type="button">Review Order
+            </button>
           </div>
           <div class="col-md-3 col-6 ps-2">
             <button class="btn btn-primary btn-sm float-right" id="nextDesignBottom" style="color:white" type="button">
@@ -385,7 +427,7 @@
                     <label class="form-label col-sm-6" for="garmentTotalCost">Garment Cost: </label>
                     <div class="col-sm-6">
                       <output class="form-inline border border-dark" name="garmentTotalCost" for="garmentTotalCost"
-                        id="garmentTotalCost" required="false">Test</output>
+                        id="garmentTotalCost" required="false" style="padding:5px">Test</output>
                     </div>
                   </div>
                 </div>
