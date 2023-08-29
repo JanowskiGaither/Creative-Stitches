@@ -40,8 +40,14 @@ h6.card-subtitle {
 .scrollView {
     height: 500px;
     width: 100%;
-    overflow-x: scroll;
+    overflow: hidden;
 }
+
+.scrollView:hover {
+    overflow: auto;
+}
+
+
 
 @include media-breakpoint-down(md) {
     .card.order-card {
