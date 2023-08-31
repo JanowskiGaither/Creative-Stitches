@@ -15,19 +15,9 @@ button.navbar-toggler:hover {
 }
 
 .max-container-size {
-    max-width: 762px;
+    max-width: 992px;
 }
 
-#submitButton {
-    max-width: 110px;
-}
-
-#resetForm {
-    max-width: 75px;
-}
-
-@include media-breakpoint-up(md) {
-    .max-container-size {
-        margin-top: 5rem;
-    }
+.design-selector {
+    max-width: 60px;
 }

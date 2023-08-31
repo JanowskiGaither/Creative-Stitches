@@ -1,4 +1,4 @@
-import '../scss/styles.scss'
+import '../scss/designFormStyles.scss'
 
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'

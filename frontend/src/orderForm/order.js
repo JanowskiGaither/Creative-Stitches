@@ -1,4 +1,3 @@
-import '../scss/styles.scss';
 import '../scss/orderFormStyles.scss';
 
 // Import all of Bootstrap's JS
