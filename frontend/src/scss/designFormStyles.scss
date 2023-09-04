@@ -17,3 +17,11 @@ button.navbar-toggler:hover {
 .max-container-size {
     max-width: 992px;
 }
+
+h6+button {
+    width: 75px;
+}
+
+#imageButton {
+    width: 125px;
+}

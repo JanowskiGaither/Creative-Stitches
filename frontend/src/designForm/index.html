@@ -49,61 +49,66 @@
     <hr class="border border-primary border-3 opacity-75">
 
     <div class="row justify-content-center mb-3">
-      <div class="col-1 align-self-center p-0">
-        <div class="d-flex justify-content-start">
-          <button class="btn design-selector p-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-              class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="col-9 p-0">
-        <div class="card order-card mx-auto mb-4">
+      <div class="col">
+        <div class="card order-card mb-4">
           <div class="card-body">
-            <h5 class="card-title">CHS Band</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Fall Sweatshirts 2023</h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <button class="btn design-selector">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                  class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                </svg>
+              </button>
+
+              <h4 class="card-title text-center">Design 1 of 1</h4>
+
+              <button class="btn design-selector">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                  class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                </svg>
+              </button>
+
+            </div>
+
             <hr>
+
             <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Due Date</div>
-                </div>
-                10/6/2023
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <h6 class="ms-2">Choose From Templates: </h6>
+                <button class="btn btn-primary">Select</button>
               </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Total Items</div>
-                </div>
-                <span class="fw-semibold ">14</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Status</div>
-                </div>
-                <span class="badge bg-success rounded-pill">Ready</span>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <h6 class="ms-2">Edit Order Information: </h6>
+                <button class="btn btn-outline-primary">Edit</button>
               </li>
             </ul>
             <hr>
-            <div class="d-flex justify-content-center">
-              <img src="../assets/DynamicImageHandler.png" class="card-img-bottom" alt="sweatshirt asset">
+            <h4 class="text-center">New Design</h4>
+            <label class="form-label" for="designType">Type</label>
+            <select class="form-control mb-3" id="designType" name="designType">
+              <option value="Garment" selected>Garment</option>
+              <option value="Embroidery">Embroidery</option>
+              <option value="Vinylize">Vinylize</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <label class="form-label" for="designDescription">Description</label>
+            <input class="form-control mb-3" type="text" name="designDescription" id="designDescription"
+              placeholder="Optional: Varsity Shirts">
+
+            <label class="form-label" for="designNotes">Design Notes</label>
+            <textarea class="form-control mb-3" rows="5" cols="60" name="designNotes" id="designNotes"
+              placeholder="Optional: Additional details or customer requests for this design">
+            </textarea>
+
+            <div class="d-flex align-items-center">
+              <h6 class="ms-2 fw-normal">Choose an Image for this Design:</h6>
+              <button class="btn btn-primary ms-2" id="imageButton">Select Image</button>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="col-1 align-self-center p-0">
-        <div class="d-flex justify-content-end">
-          <button class="btn design-selector p-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-              class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
-            </svg>
-          </button>
         </div>
       </div>
 
