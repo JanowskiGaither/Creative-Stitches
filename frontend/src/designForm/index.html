@@ -45,48 +45,53 @@
   </nav>
 
   <div class="container max-container-size">
-    <h1 class="display-6 text-center">Design Form</h1>
-    <hr class="border border-primary border-3 opacity-75">
-
     <div class="row justify-content-center mb-3">
+      <div class="col">
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn design-selector">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+              class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+            </svg>
+          </button>
+
+          <h1 class="display-6 text-center">Design 1 of 1</h1>
+
+          <button class="btn design-selector">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+              class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+            </svg>
+          </button>
+
+        </div>
+        <hr class="border border-primary border-3 opacity-75">
+      </div>
+    </div>
+
+
+
+    <div class="row justify-content-center mb-1 mb-sm-3">
       <div class="col">
         <div class="card order-card mb-4">
           <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-              <button class="btn design-selector">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                  class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
-                </svg>
-              </button>
-
-              <h4 class="card-title text-center">Design 1 of 1</h4>
-
-              <button class="btn design-selector">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                  class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
-                </svg>
-              </button>
-
-            </div>
-
-            <hr>
-
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                <h6 class="ms-2">Choose From Templates: </h6>
-                <button class="btn btn-primary">Select</button>
+                <h6 class="mb-0">Choose From Templates:</h6>
+                <button class="btn btn-primary me-sm-4">Select</button>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                <h6 class="ms-2">Edit Order Information: </h6>
-                <button class="btn btn-outline-primary">Edit</button>
+                <h6 class="mb-0">Edit Order Information:</h6>
+                <button class="btn btn-outline-primary me-sm-4">Edit</button>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">Delete Design:</h6>
+                <button class="btn btn-danger me-sm-4">Delete</button>
               </li>
             </ul>
             <hr>
-            <h4 class="text-center">New Design</h4>
             <label class="form-label" for="designType">Type</label>
             <select class="form-control mb-3" id="designType" name="designType">
               <option value="Garment" selected>Garment</option>
@@ -100,14 +105,42 @@
               placeholder="Optional: Varsity Shirts">
 
             <label class="form-label" for="designNotes">Design Notes</label>
-            <textarea class="form-control mb-3" rows="5" cols="60" name="designNotes" id="designNotes"
-              placeholder="Optional: Additional details or customer requests for this design">
-            </textarea>
+            <textarea class="form-control mb-3" rows="5" cols="60" name="designNotes" id="designNotes2"
+              placeholder="Optional: Additional details or customer requests for this design"></textarea>
+
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">Design Image:</h6>
+                <button class="btn btn-primary me-sm-4">Image</button>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row justify-content-center mb-3" id="showVinylize">
+      <div class="col">
+        <h4 class="text-center">Vinylize Details</h4>
+        <div class="card order-card mb-4">
+          <div class="card-body">
+            <label class="form-label" for="vinylizeAmount">Number of Items</label>
+            <input class="form-control mb-3" type="number" value="1" min="1" name="vinylizeAmount" id="vinylizeAmount">
+
+            <label class="form-label" for="vinylizeCostPerItem">Cost per Item</label>
+            <input class="form-control mb-3" type="number" min="0.00" step="0.01" placeholder="Example: 12.00"
+              name="vinylizeCostPerItem" id="vinylizeCostPerItem">
+
 
             <div class="d-flex align-items-center">
-              <h6 class="ms-2 fw-normal">Choose an Image for this Design:</h6>
-              <button class="btn btn-primary ms-2" id="imageButton">Select Image</button>
+              <h6 class="mb-0">Total Cost: $</h6>
+              <h6 class="mb-0" id="vinylizeTotalCost">12.00</h6>
             </div>
+
+
+
           </div>
         </div>
       </div>
