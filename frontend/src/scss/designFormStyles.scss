@@ -30,6 +30,10 @@ select {
     max-width: 700px;
 }
 
+#showGarment table th:not(:first-of-type) {
+    width: 19%;
+}
+
 // #showVinylize {
 //     display: none;
 // }
