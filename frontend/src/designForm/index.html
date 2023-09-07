@@ -73,7 +73,7 @@
 
 
 
-    <div class="row justify-content-center mb-1 mb-sm-3">
+    <div class="row justify-content-center mb-4 mb-sm-5">
       <div class="col">
         <div class="card order-card mb-4">
           <div class="card-body">
@@ -122,50 +122,77 @@
     </div>
 
     <!-- Garment Design -->
-    <div class="row justify-content-center mb-3" id="showGarment">
+    <div class="row justify-content-center mb-5" id="showGarmentDesktop">
       <div class="col">
         <h4 class="text-center">Garment Details</h4>
         <div class="table-responsive">
-          <table class="table">
+          <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Garment</th>
-                <th scope="col">Gender</th>
+                <th scope="col">
+                  <div class="form-check d-flex justify-content-center">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckall">
+                  </div>
+                </th>
+                <th scope="col">Style</th>
+                <th scope="col">Color</th>
                 <th scope="col">Size</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Cost</th>
+                <th scope="col">
+                  <div class="d-flex justify-content-center">
+                    Quantity
+                  </div>
+                </th>
 
               </tr>
             </thead>
             <tbody class="table-group-divider">
               <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+                <th scope="row">
+                  <div class="form-check d-flex justify-content-center">
+                    <input class="form-check-input" type="checkbox" value="">
+                  </div>
+                </th>
+                <td>64000</td>
+                <td>Black</td>
+                <td>Small</td>
+                <td>
+                  <div class="d-flex justify-content-center">
+                    10
+                  </div>
+                </td>
 
               </tr>
               <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-                <td>@fat</td>
+                <th scope="row">
+                  <div class="form-check d-flex justify-content-center">
+                    <input class="form-check-input" type="checkbox" value="">
+                  </div>
+                </th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
               </tr>
               <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
+                <th scope="row">
+                  <div class="form-check d-flex justify-content-center">
+                    <input class="form-check-input" type="checkbox" value="">
+                  </div>
+                </th>
                 <td></td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
+                <td></td>
+                <td></td>
+                <td></td>
+
               </tr>
             </tbody>
           </table>
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-outline-danger me-2 garmentDetailButton">Delete</button>
+            <button class="btn btn-outline-primary me-2 garmentDetailButton">Edit</button>
+            <button class="btn btn-primary garmentDetailButton me-3">Add</button>
+          </div>
         </div>
       </div>
     </div>
@@ -183,13 +210,10 @@
             <input class="form-control mb-3" type="number" min="0.00" step="0.01" placeholder="Example: 12.00"
               name="vinylizeCostPerItem" id="vinylizeCostPerItem">
 
-
             <div class="d-flex align-items-center">
               <h6 class="mb-0">Total Cost: $</h6>
               <h6 class="mb-0" id="vinylizeTotalCost">12.00</h6>
             </div>
-
-
 
           </div>
         </div>
