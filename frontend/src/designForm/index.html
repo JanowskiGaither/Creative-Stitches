@@ -75,7 +75,7 @@
 
     <div class="row justify-content-center mb-4 mb-sm-5">
       <div class="col">
-        <div class="card order-card mb-4">
+        <div class="card">
           <div class="card-body">
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -88,7 +88,7 @@
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <h6 class="mb-0">Delete Design:</h6>
-                <button class="btn btn-danger me-sm-4">Delete</button>
+                <button class="btn btn-outline-danger me-sm-4">Delete</button>
               </li>
             </ul>
             <hr>
@@ -122,86 +122,115 @@
     </div>
 
     <!-- Garment Design -->
-    <div class="row justify-content-center mb-5" id="showGarmentDesktop">
+    <div class="row justify-content-center mb-4 mb-sm-5">
       <div class="col">
         <h4 class="text-center">Garment Details</h4>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">
-                  <div class="form-check d-flex justify-content-center">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckall">
-                  </div>
-                </th>
-                <th scope="col">Style</th>
-                <th scope="col">Color</th>
-                <th scope="col">Size</th>
-                <th scope="col">
-                  <div class="d-flex justify-content-center">
-                    Quantity
-                  </div>
-                </th>
+        <div class="card" id="showGarmentDesktop">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover" id="garmentTable">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <div class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckall">
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <div class="d-flex justify-content-center">
+                        Style
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <div class="d-flex justify-content-center">
+                        Color
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <div class="d-flex justify-content-center">
+                        Size
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <div class="d-flex justify-content-center">
+                        Quantity
+                      </div>
+                    </th>
 
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              <tr>
-                <th scope="row">
-                  <div class="form-check d-flex justify-content-center">
-                    <input class="form-check-input" type="checkbox" value="">
-                  </div>
-                </th>
-                <td>64000</td>
-                <td>Black</td>
-                <td>Small</td>
-                <td>
-                  <div class="d-flex justify-content-center">
-                    10
-                  </div>
-                </td>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <tr>
+                    <th scope="row">
+                      <div class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" value="">
+                      </div>
+                    </th>
+                    <td>
+                      <div class="d-flex justify-content-center">
+                        64000
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-center">
+                        Black
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-center">
+                        Small
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-center">
+                        10
+                      </div>
+                    </td>
 
-              </tr>
-              <tr>
-                <th scope="row">
-                  <div class="form-check d-flex justify-content-center">
-                    <input class="form-check-input" type="checkbox" value="">
-                  </div>
-                </th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <div class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" value="">
+                      </div>
+                    </th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
-              </tr>
-              <tr>
-                <th scope="row">
-                  <div class="form-check d-flex justify-content-center">
-                    <input class="form-check-input" type="checkbox" value="">
-                  </div>
-                </th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <div class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" value="">
+                      </div>
+                    </th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
-              </tr>
-            </tbody>
-          </table>
-          <div class="d-flex justify-content-end mt-4">
-            <button class="btn btn-outline-danger me-2 garmentDetailButton">Delete</button>
-            <button class="btn btn-outline-primary me-2 garmentDetailButton">Edit</button>
-            <button class="btn btn-primary garmentDetailButton me-3">Add</button>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-end mt-4">
+                <button class="btn btn-outline-danger me-2 detailButton" id="garmentDelete">Delete</button>
+                <button class="btn btn-outline-primary me-2 detailButton" id="garmentEdit">Edit</button>
+                <button class="btn btn-primary detailButton me-3" id="garmentAdd">Add</button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
 
     <!-- Vinyl Design -->
-    <div class="row justify-content-center mb-3" id="showVinylize">
+    <div class="row justify-content-center mb-4 mb-sm-5" id="showVinylize">
       <div class="col">
         <h4 class="text-center">Vinylize Details</h4>
-        <div class="card order-card mb-4">
+        <div class="card">
           <div class="card-body">
             <label class="form-label" for="vinylizeAmount">Number of Items</label>
             <input class="form-control mb-3" type="number" value="1" min="1" name="vinylizeAmount" id="vinylizeAmount">
@@ -219,6 +248,99 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- Embroidery Details -->
+    <div class="row justify-content-center mb-4 mb-sm-5" id="showEmbroidery">
+      <div class="col">
+        <h4 class="text-center">Embroidery Details</h4>
+        <div class="card">
+          <div class="card-body">
+            <label class="form-label" for="embroideryJobDescription">Number of Items</label>
+            <input class="form-control mb-3" type="number" value="1" min="1" step="1" name="embroideryJobDescription"
+              id="embroideryJobDescription">
+
+            <div class="table-responsive">
+              <table class="table table-hover" id="embroideryTable">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <div class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckall">
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <div class="d-flex justify-content-start ps-3">
+                        Thread ID
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <div class="d-flex justify-content-start ps-3">
+                        Color
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <div class="d-flex justify-content-start ps-3">
+                        Density
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <tr>
+                    <th scope="row">
+                      <div class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" value="">
+                      </div>
+                    </th>
+                    <td>
+                      <div class="d-flex justify-content-start ps-3">
+                        Janome 450
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-start ps-3">
+                        Red
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-start ps-3">
+                        400
+                      </div>
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <div class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" value="">
+                      </div>
+                    </th>
+                    <td></td>
+                    <td></td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <div class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" value="">
+                      </div>
+                    </th>
+                    <td></td>
+                    <td></td>
+
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-end mt-4">
+                <button class="btn btn-outline-danger me-2 detailButton" id="embroideryDelete">Delete</button>
+                <button class="btn btn-outline-primary me-2 detailButton" id="embroideryEdit">Edit</button>
+                <button class="btn btn-primary detailButton me-3" id="embroideryAdd">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>

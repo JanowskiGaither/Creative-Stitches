@@ -5,7 +5,7 @@
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-// Then add additional custom code here
+// elements
 button.navbar-toggler {
     box-shadow: none !important;
 }
@@ -14,41 +14,46 @@ button.navbar-toggler:hover {
     border: .125rem solid $gray-600;
 }
 
-.max-container-size {
-    max-width: 992px;
-}
 
 h6+button {
     width: 75px;
 }
 
 input {
-    max-width: 700px;
+    max-width: 44rem;
 }
 
 select {
-    max-width: 700px;
+    max-width: 44rem;
 }
 
-table th:not(:first-of-type) {
-    width: 22%;
+table th:first-of-type {
+    width: 3rem;
 }
 
 table th:first-of-type {
     border-right: 2px solid $dark;
 }
 
+//classes
+
+.max-container-size {
+    max-width: 992px;
+}
+
 .garmentDetailButton {
     width: 5rem;
 }
 
-// #showVinylize {
-//     display: none;
-// }
 
-// .scrollView {
-//     height: 100%;
-//     width: 100%;
-//     overflow-y: auto;
-//     overflow-x: hidden;
-// }
+// IDs
+#embroideryTable {
+    max-width: 44rem;
+}
+
+@include media-breakpoint-up(sm) {
+    table th:first-of-type {
+        width: 4rem;
+    }
+
+}
