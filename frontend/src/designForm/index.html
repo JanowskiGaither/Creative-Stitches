@@ -260,6 +260,8 @@
             <input class="form-control mb-3" type="number" value="1" min="1" step="1" name="embroideryJobDescription"
               id="embroideryJobDescription">
 
+            <label class="form-label">Thread Details & Machine Settings</label>
+
             <div class="table-responsive">
               <table class="table table-hover" id="embroideryTable">
                 <thead>
@@ -316,9 +318,18 @@
                         <input class="form-check-input" type="checkbox" value="">
                       </div>
                     </th>
-                    <td></td>
-                    <td></td>
-
+                    <td>
+                      <div class="d-flex justify-content-start ps-3">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-start ps-3">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-start ps-3">
+                      </div>
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row">
@@ -326,9 +337,18 @@
                         <input class="form-check-input" type="checkbox" value="">
                       </div>
                     </th>
-                    <td></td>
-                    <td></td>
-
+                    <td>
+                      <div class="d-flex justify-content-start ps-3">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-start ps-3">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-start ps-3">
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -336,6 +356,15 @@
                 <button class="btn btn-outline-danger me-2 detailButton" id="embroideryDelete">Delete</button>
                 <button class="btn btn-outline-primary me-2 detailButton" id="embroideryEdit">Edit</button>
                 <button class="btn btn-primary detailButton me-3" id="embroideryAdd">Add</button>
+              </div>
+
+              <label class="form-label" for="embroideryCostPerItem">Cost per Item</label>
+              <input class="form-control mb-3" type="number" min="0.00" step="0.01" placeholder="Example: 12.00"
+                name="embroideryCostPerItem" id="embroideryCostPerItem">
+
+              <div class="d-flex align-items-center">
+                <h6 class="mb-0">Total Cost: $</h6>
+                <h6 class="mb-0" id="embroideryTotalCost">12.00</h6>
               </div>
             </div>
           </div>
