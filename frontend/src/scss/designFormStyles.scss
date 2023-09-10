@@ -51,6 +51,19 @@ table th:first-of-type {
     max-width: 44rem;
 }
 
+#showVinylize {
+    display: none;
+}
+
+#showEmbroidery {
+    display: none;
+    overflow: hidden;
+}
+
+#showOther {
+    display: none;
+}
+
 @include media-breakpoint-up(sm) {
     table th:first-of-type {
         width: 4rem;

@@ -16,7 +16,7 @@ const garment_schema = new mongoose.Schema({
     garmentNumber: {
         type: String,
     },
-    garmentGender: {
+    garmentAgeGender: {
         type: String,
     },
     garmentSize: {
@@ -25,7 +25,10 @@ const garment_schema = new mongoose.Schema({
     garmentStyleNumber: {
         type: String,
     },
-    garmentAmount: {
+    garmentColor: {
+        type: String,
+    },
+    garmentQuantity: {
         type: String,
     },
     garmentCostPerItem: {
