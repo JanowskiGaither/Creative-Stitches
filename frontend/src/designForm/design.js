@@ -7,6 +7,7 @@ import * as stitchesIDs from '../Library/stitchesIDs'
 import * as stichesCalculations from '../Library/stitchesCalculations'
 
 let selectItemType = document.getElementById("designType");
+let saveGarmentModal = document.getElementById("saveGarmentModal");
 
 // Set the initial page values 
 async function initialSetup() {
@@ -18,34 +19,42 @@ function itemTypeSelection() {
     var typeSelected = selectItemType.options[selectItemType.selectedIndex].text;
 
     // Show Garment related divs, hide the rest
-    if (typeSelected == "Garment") {
-        document.getElementById('showGarment').style.display = "block";
-        document.getElementById('showOther').style.display = "none";
-        document.getElementById('showEmbroidery').style.display = "none";
-        document.getElementById('showVinylize').style.display = "none";
+    hideShowDivs(typeSelected);
+}
+
+// hide and show the detail cards based on the selected item type
+function hideShowDivs(typeSelected) {
+    document.getElementById('showGarment').style.display = "none";
+    document.getElementById('showOther').style.display = "none";
+    document.getElementById('showEmbroidery').style.display = "none";
+    document.getElementById('showVinylize').style.display = "none";
+
+    switch (typeSelected) {
+        case "Garment":
+            document.getElementById('showGarment').style.display = "block";
+            break;
+        case "Embroidery":
+            document.getElementById('showEmbroidery').style.display = "block";
+            break;
+        case "Vinylize":
+            document.getElementById('showVinylize').style.display = "block";
+            break;
+        case "Other":
+            document.getElementById('showOther').style.display = "block";
+            break;
+
+        default:
+            alert("Something went wrong!");
 
     }
-    // Show Embroidery related divs, hide the rest
-    else if (typeSelected == "Embroidery") {
-        document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showOther').style.display = "none";
-        document.getElementById('showEmbroidery').style.display = "block";
-        document.getElementById('showVinylize').style.display = "none";
-    }
-    // Show Vinylize related divs, hide the rest
-    else if (typeSelected == "Vinylize") {
-        document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showOther').style.display = "none";
-        document.getElementById('showEmbroidery').style.display = "none";
-        document.getElementById('showVinylize').style.display = "block";
-    }
-    // Show Embroidery related divs, hide rest
-    else if (typeSelected == "Other") {
-        document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showOther').style.display = "block";
-        document.getElementById('showEmbroidery').style.display = "none";
-        document.getElementById('showVinylize').style.display = "none";
-    }
+}
+
+// write all the field values in the modal to the session storage
+function saveModalValues() {
+    //test the function by writing the value in the style number field to the console
+    var styleNumber = document.getElementById("garmentStyleNumber").value;
+    console.log(styleNumber);
+    //currently working!
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -56,4 +65,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 selectItemType.addEventListener("change", function () {
     // Show the correct item type based on current selection
     itemTypeSelection();
+});
+
+saveGarmentModal.addEventListener("click", function () {
+    saveModalValues();
 });

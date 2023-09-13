@@ -162,37 +162,25 @@
                 <tbody class="table-group-divider">
                   <tr>
                     <th scope="row">
-                      <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" value="">
-                      </div>
+                      <div class="form-check d-flex justify-content-center"></div>
                     </th>
                     <td>
-                      <div class="d-flex justify-content-center">
-                        64000
-                      </div>
+                      <div class="d-flex justify-content-center"></div>
                     </td>
                     <td>
-                      <div class="d-flex justify-content-center">
-                        Black
-                      </div>
+                      <div class="d-flex justify-content-center"></div>
                     </td>
                     <td>
-                      <div class="d-flex justify-content-center">
-                        Small
-                      </div>
+                      <div class="d-flex justify-content-center"></div>
                     </td>
                     <td>
-                      <div class="d-flex justify-content-center">
-                        10
-                      </div>
+                      <div class="d-flex justify-content-center"></div>
                     </td>
 
                   </tr>
                   <tr>
                     <th scope="row">
-                      <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" value="">
-                      </div>
+                      <div class="form-check d-flex justify-content-center"></div>
                     </th>
                     <td></td>
                     <td></td>
@@ -202,9 +190,7 @@
                   </tr>
                   <tr>
                     <th scope="row">
-                      <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" value="">
-                      </div>
+                      <div class="form-check d-flex justify-content-center"></div>
                     </th>
                     <td></td>
                     <td></td>
@@ -283,9 +269,12 @@
             <input class="form-control mb-3" type="number" value="1" min="1" step="1" name="embroideryJobDescription"
               id="embroideryJobDescription">
 
+            <label class="form-label" for="embroideryCostPerItem">Cost per Item</label>
+            <input class="form-control mb-3" type="number" min="0.00" step="0.01" placeholder="Example: 12.00"
+              name="embroideryCostPerItem" id="embroideryCostPerItem">
+
+            <hr>
             <label class="form-label">Thread Details & Machine Settings</label>
-
-
             <table class="table table-hover" id="embroideryTable">
               <thead>
                 <tr>
@@ -314,80 +303,60 @@
               <tbody class="table-group-divider">
                 <tr>
                   <th scope="row">
-                    <div class="form-check d-flex justify-content-center">
-                      <input class="form-check-input" type="checkbox" value="">
-                    </div>
+                    <div class="form-check d-flex justify-content-center"></div>
                   </th>
                   <td>
-                    <div class="d-flex justify-content-start ps-3">
-                      Janome 450
-                    </div>
+                    <div class="d-flex justify-content-start ps-3"></div>
                   </td>
                   <td>
-                    <div class="d-flex justify-content-start ps-3">
-                      Red
-                    </div>
+                    <div class="d-flex justify-content-start ps-3"></div>
                   </td>
                   <td>
-                    <div class="d-flex justify-content-start ps-3">
-                      400
-                    </div>
+                    <div class="d-flex justify-content-start ps-3"></div>
                   </td>
 
                 </tr>
                 <tr>
                   <th scope="row">
-                    <div class="form-check d-flex justify-content-center">
-                      <input class="form-check-input" type="checkbox" value="">
-                    </div>
+                    <div class="form-check d-flex justify-content-center"></div>
                   </th>
                   <td>
-                    <div class="d-flex justify-content-start ps-3">
-                    </div>
+                    <div class="d-flex justify-content-start ps-3"></div>
                   </td>
                   <td>
-                    <div class="d-flex justify-content-start ps-3">
-                    </div>
+                    <div class="d-flex justify-content-start ps-3"></div>
                   </td>
                   <td>
-                    <div class="d-flex justify-content-start ps-3">
-                    </div>
+                    <div class="d-flex justify-content-start ps-3"></div>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">
-                    <div class="form-check d-flex justify-content-center">
-                      <input class="form-check-input" type="checkbox" value="">
-                    </div>
+                    <div class="form-check d-flex justify-content-center"></div>
                   </th>
                   <td>
-                    <div class="d-flex justify-content-start ps-3">
-                    </div>
+                    <div class="d-flex justify-content-start ps-3"></div>
                   </td>
                   <td>
-                    <div class="d-flex justify-content-start ps-3">
-                    </div>
+                    <div class="d-flex justify-content-start ps-3"></div>
                   </td>
                   <td>
-                    <div class="d-flex justify-content-start ps-3">
-                    </div>
+                    <div class="d-flex justify-content-start ps-3"></div>
                   </td>
                 </tr>
               </tbody>
             </table>
+
             <div class="d-flex justify-content-end mt-4">
               <button class="btn btn-outline-danger me-2 detailButton" id="embroideryDelete">Delete</button>
               <button class="btn btn-outline-primary me-2 detailButton" id="embroideryEdit">Edit</button>
               <button class="btn btn-primary detailButton me-3" id="embroideryAdd">Add</button>
             </div>
 
-            <label class="form-label" for="embroideryCostPerItem">Cost per Item</label>
-            <input class="form-control mb-3" type="number" min="0.00" step="0.01" placeholder="Example: 12.00"
-              name="embroideryCostPerItem" id="embroideryCostPerItem">
-
+            <hr>
             <div class="d-flex align-items-center">
-              <h6 class="mb-0">Total Cost: $</h6>
-              <h6 class="mb-0" id="embroideryTotalCost">0.00</h6>
+              <h5 class="mb-0">Total Cost: $</h5>
+              <h5 class="mb-0" id="embroideryTotalCost">0.00</h5>
             </div>
 
           </div>
@@ -408,7 +377,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row justify-content-center mb-4 mb-sm-5">
+          <div class="row justify-content-center">
             <div class="col">
 
               <label class="form-label" for="garmentStyleNumber">Style Number</label>
@@ -429,8 +398,7 @@
               </select>
 
               <label class="form-label">Size</label>
-              <select onfocus='this.size=3;' onblur='this.size=1;' onchange='this.size=1; this.blur();'
-                class="form-control mb-3" id="garmentSize" name="garmentSize">
+              <select class="form-control mb-3" id="garmentSize" name="garmentSize">
                 <option disabled selected value> -- select an option -- </option>
                 <option value="XS">XS</option>
                 <option value="S">S</option>
@@ -451,18 +419,41 @@
               <input class="form-control mb-3" type="number" min="0.00" step="0.01" placeholder="Example: 12.00"
                 name="garmentCostPerItem" id="garmentCostPerItem">
 
-              <div class="d-flex align-items-center">
-                <h6 class="mb-0">Total Cost: $</h6>
-                <h6 class="mb-0" id="garmentTotalCost">0.00</h6>
-              </div>
+              <hr>
 
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <div class="d-flex align-items-center">
+              <h5 class="mb-0">Total Cost: $</h5>
+              <h5 class="mb-0" id="garmentTotalCost">0.00</h5>
             </div>
           </div>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button class="btn design-selector">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+              class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+            </svg>
+          </button>
+
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-secondary me-1" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary ms-1" id="saveGarmentModal">Save changes</button>
+          </div>
+
+          <button class="btn design-selector">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+              class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+            </svg>
+          </button>
+
         </div>
       </div>
     </div>
