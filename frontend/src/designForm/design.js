@@ -8,6 +8,7 @@ import * as stichesCalculations from '../Library/stitchesCalculations'
 
 let selectItemType = document.getElementById("designType");
 let saveGarmentModal = document.getElementById("saveGarmentModal");
+let testButtons = document.getElementById("testButtons");
 
 // Set the initial page values 
 async function initialSetup() {
@@ -53,8 +54,8 @@ function hideShowDivs(typeSelected) {
 function saveModalValues() {
     //test the function by writing the value in the style number field to the console
     var styleNumber = document.getElementById("garmentStyleNumber").value;
-    console.log(styleNumber);
-    //currently working!
+    sessionStorage.setItem("style_number", styleNumber)
+
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -70,3 +71,10 @@ selectItemType.addEventListener("change", function () {
 saveGarmentModal.addEventListener("click", function () {
     saveModalValues();
 });
+
+for (let i = 0; i < 3; i++) {
+    let j = i + 1;
+    testButtons.children[i].addEventListener("click", function () {
+        console.log("you clicked test " + j.toString());
+    })
+}

@@ -1651,3 +1651,10 @@ export class Other {
         }
     }
 }
+
+// Garment Modal Class for Saving and Reading from session storage
+export class garmentModal {
+    constructor() {
+        let modal = document.getElementById("garmentModal")
+    }
+}
