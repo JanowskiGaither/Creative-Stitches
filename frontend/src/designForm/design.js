@@ -9,6 +9,8 @@ import * as stichesCalculations from '../Library/stitchesCalculations'
 let selectItemType = document.getElementById("designType");
 let saveGarmentModal = document.getElementById("saveGarmentModal");
 let testButtons = document.getElementById("testButtons");
+let exitAlert = document.getElementsByClassName('alert-exit');
+let garmentModal = document.getElementById('garmentModal')
 
 // Set the initial page values 
 async function initialSetup() {
@@ -97,6 +99,8 @@ saveGarmentModal.addEventListener("click", function () {
   saveModalValues();
 });
 
+
+// initialize test buttons
 for (let i = 0; i < 3; i++) {
   let j = i + 1;
   testButtons.children[i].addEventListener("click", function () {
@@ -106,7 +110,7 @@ for (let i = 0; i < 3; i++) {
           readModalValues();
           break;
         case 1:
-          console.log("you clicked test " + j.toString() + " !");
+          checkRequiredFields(garmentModal);
           break;
         case 2:
           console.log("you clicked test " + j.toString() + " !");
@@ -119,4 +123,28 @@ for (let i = 0; i < 3; i++) {
     }
 
   })
+}
+
+// Check input values in the modal
+function checkRequiredFields(element) {
+  var inputs = element.getElementsByTagName('input');
+  var dropDowns = element.getElementsByTagName('select');
+  try {
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].hasAttribute('required')) {
+        var labelName = inputs[i].previousElementSibling.innerText;
+        console.log(labelName + " is required!")
+      }
+    }
+
+    for (var i = 0; i < dropDowns.length; i++) {
+      if (dropDowns[i].hasAttribute('required')) {
+        console.log("Selection in Dropdown is required!")
+      }
+    }
+  } catch (error) {
+    console.log(error.toString())
+  }
+
+
 }

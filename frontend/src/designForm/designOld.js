@@ -28,69 +28,69 @@ let numberOfDesigns = document.getElementById('numberOfDesigns');
 // Set the initial page values 
 async function initialSetup() {
 
-    // //Check if we're returning to edit something
-    // if (sessionStorage.getItem('editOrder') !== null && sessionStorage.getItem('editOrder') !== undefined) {
-    //     editOrder = sessionStorage.getItem('editOrder');
+    //Check if we're returning to edit something
+    if (sessionStorage.getItem('editOrder') !== null && sessionStorage.getItem('editOrder') !== undefined) {
+        editOrder = sessionStorage.getItem('editOrder');
 
-    //     //Check what's being edited
-    //     if (sessionStorage.getItem('editType') !== null && sessionStorage.getItem('editType') !== undefined) {
-    //         editType = sessionStorage.getItem('editType');
-    //     }
-    // }
-    // else {
-    //     //For now just substitude value, later update popup error maybe
-    //     editOrder = 'NA'
-    // }
+        //Check what's being edited
+        if (sessionStorage.getItem('editType') !== null && sessionStorage.getItem('editType') !== undefined) {
+            editType = sessionStorage.getItem('editType');
+        }
+    }
+    else {
+        //For now just substitude value, later update popup error maybe
+        editOrder = 'NA'
+    }
 
-    // //Try and retrieve all stored IDs
-    // stitchesIDs.retrieveIDs();
+    //Try and retrieve all stored IDs
+    stitchesIDs.retrieveIDs();
 
-    // //If we're editing an order load the target and set the focus
-    // if (editOrder == true) {
-    //     //Load Design
+    //If we're editing an order load the target and set the focus
+    if (editOrder == true) {
+        //Load Design
 
-    //     if (editType == "garment") {
-    //         //Update the garment table
+        if (editType == "garment") {
+            //Update the garment table
 
 
-    //         //Load Garment and set focus
+            //Load Garment and set focus
 
-    //     }
-    //     else if (editType == "embroidery") {
-    //         //Load Embroidery and set focus
-    //     }
-    //     else if (editType == "vinylize") {
-    //         //Load Vinylize and set focus
-    //     }
-    //     else if (editType == "other") {
-    //         //Load Other and set focus
-    //     }
-    // }
-    // else {
-    //     //Create the designID and GarmentID
-    //     designID.value = stitchesIDs.createDesignID();
-    //     garmentID.value = stitchesIDs.createGarmentID();
+        }
+        else if (editType == "embroidery") {
+            //Load Embroidery and set focus
+        }
+        else if (editType == "vinylize") {
+            //Load Vinylize and set focus
+        }
+        else if (editType == "other") {
+            //Load Other and set focus
+        }
+    }
+    else {
+        //Create the designID and GarmentID
+        designID.value = stitchesIDs.createDesignID();
+        garmentID.value = stitchesIDs.createGarmentID();
 
-    //     //Populate the first design if possible
-    //     await stitchesReadSave.getCurrentDesign();
-    //     stitchesReadSave.updateGarmentTable();
-    // }
+        //Populate the first design if possible
+        await stitchesReadSave.getCurrentDesign();
+        stitchesReadSave.updateGarmentTable();
+    }
 
-    // // Hide unselected initially
-    // itemTypeSelection();
+    // Hide unselected initially
+    itemTypeSelection();
 
-    // //Update current design and garment
-    // stitchesIDs.determineCurrentDesign();
-    // stitchesIDs.determineCurrentGarment();
+    //Update current design and garment
+    stitchesIDs.determineCurrentDesign();
+    stitchesIDs.determineCurrentGarment();
 
-    // //Update design forward/backward buttons
-    // checkNextPreviousDesignShown();
+    //Update design forward/backward buttons
+    checkNextPreviousDesignShown();
 
-    // // Calculate total costs at start
-    // stichesCalculations.calculateGarmentTotal();
-    // stichesCalculations.calculateOtherTotal();
-    // stichesCalculations.calculateVinylizeTotal();
-    // stichesCalculations.calculateEmbroideryTotal();
+    // Calculate total costs at start
+    stichesCalculations.calculateGarmentTotal();
+    stichesCalculations.calculateOtherTotal();
+    stichesCalculations.calculateVinylizeTotal();
+    stichesCalculations.calculateEmbroideryTotal();
 }
 
 // Show or hide previous and next design buttons based on current design number vs total design numbers
@@ -124,40 +124,7 @@ function checkNextPreviousDesignShown() {
     }
 }
 
-// Show or hard fields based on Design Type
-function itemTypeSelection() {
-    var typeSelected = selectItemType.options[selectItemType.selectedIndex].text;
 
-    // Show Garment related divs, hide the rest
-    if (typeSelected == "Garment") {
-        document.getElementById('showGarment').style.display = "block";
-        document.getElementById('showOther').style.display = "none";
-        document.getElementById('showEmbroidery').style.display = "none";
-        document.getElementById('showVinylize').style.display = "none";
-
-    }
-    // Show Embroidery related divs, hide the rest
-    else if (typeSelected == "Embroidery") {
-        document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showOther').style.display = "none";
-        document.getElementById('showEmbroidery').style.display = "block";
-        document.getElementById('showVinylize').style.display = "none";
-    }
-    // Show Vinylize related divs, hide the rest
-    else if (typeSelected == "Vinylize") {
-        document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showOther').style.display = "none";
-        document.getElementById('showEmbroidery').style.display = "none";
-        document.getElementById('showVinylize').style.display = "block";
-    }
-    // Show Embroidery related divs, hide rest
-    else if (typeSelected == "Other") {
-        document.getElementById('showGarment').style.display = "none";
-        document.getElementById('showOther').style.display = "block";
-        document.getElementById('showEmbroidery').style.display = "none";
-        document.getElementById('showVinylize').style.display = "none";
-    }
-}
 
 // Create event listeners to handle user inputs
 {

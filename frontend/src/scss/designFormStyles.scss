@@ -36,7 +36,6 @@ table th:first-of-type {
 }
 
 //classes
-
 .max-container-size {
     max-width: 992px;
 }
@@ -47,6 +46,10 @@ table th:first-of-type {
 
 .modal-footer {
     justify-content: space-evenly;
+}
+
+.alert {
+    max-width: 44rem;
 }
 
 
@@ -65,6 +68,10 @@ table th:first-of-type {
 }
 
 #showOther {
+    display: none;
+}
+
+#alertPlaceholder {
     display: none;
 }
 
