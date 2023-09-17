@@ -380,7 +380,8 @@
           <div class="row justify-content-center">
             <div class="col">
               <div id="alertPlaceholder">
-                <div class="alert alert-primary d-flex align-items-center" role="alert">
+                <div class="alert alert-primary d-flex align-items-center" id="alertTemplate"
+                  style="display: none !important;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                     class="bi bi-info-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -466,8 +467,8 @@
           </button>
 
           <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-secondary me-1" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary ms-1" id="saveGarmentModal">Save changes</button>
+            <button type="button" class="btn btn-outline-secondary me-1" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary ms-1" id="saveGarmentModal">Save</button>
           </div>
 
           <button class="btn design-selector">

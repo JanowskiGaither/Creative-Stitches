@@ -9,12 +9,11 @@ import * as stichesCalculations from '../Library/stitchesCalculations'
 let selectItemType = document.getElementById("designType");
 let saveGarmentModal = document.getElementById("saveGarmentModal");
 let testButtons = document.getElementById("testButtons");
-let exitAlert = document.getElementsByClassName('alert-exit');
 let garmentModal = document.getElementById('garmentModal')
 
 // Set the initial page values 
 async function initialSetup() {
-
+  //add intial setup code here
 }
 
 // Show or hard fields based on Design Type
@@ -60,28 +59,21 @@ function saveModalValues() {
 
 }
 
-//bootstrap alert example
-function bootstapAlert(alertMessage, type) {
-  const alertPlaceholder = document.getElementById('alertPlaceholder')
-  const wrapper = document.createElement('div')
-  wrapper.innerHTML = [
-    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-    `   <div>${alertMessage}</div>`,
-    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-    '</div>'
-  ].join('');
-
-  alertPlaceholder.append(wrapper)
-}
-
 function readModalValues() {
   try {
     var styleNumber = sessionStorage.getItem("style_number", styleNumber);
     if (styleNumber === "" || styleNumber === null) throw "Please Enter a Style Number";
     let alertMessage = "The current value of styleNumber is " + styleNumber.toString()
-    bootstapAlert(alertMessage, 'success')
   } catch (error) {
-    bootstapAlert(error.toString(), 'danger');
+  }
+}
+
+function clearModalValues() {
+  try {
+    sessionStorage.clear()
+    console.log("Session Storage cleared!")
+  } catch (error) {
+    console.log("Session Storage unable to clear!")
   }
 }
 
@@ -107,13 +99,16 @@ for (let i = 0; i < 3; i++) {
     try {
       switch (i) {
         case 0:
-          readModalValues();
+          var testId = "styleNumber";
+          var message = "Style Number Required!"
+          var type = "alert-danger";
+          addAlert(testId, message, type);
           break;
         case 1:
           checkRequiredFields(garmentModal);
           break;
         case 2:
-          console.log("you clicked test " + j.toString() + " !");
+          clearModalValues();
           break;
         default:
           console.log("something went wrong");
@@ -134,6 +129,7 @@ function checkRequiredFields(element) {
       if (inputs[i].hasAttribute('required')) {
         var labelName = inputs[i].previousElementSibling.innerText;
         console.log(labelName + " is required!")
+
       }
     }
 
@@ -145,6 +141,19 @@ function checkRequiredFields(element) {
   } catch (error) {
     console.log(error.toString())
   }
+}
 
+function addAlert(id, message, type) {
+  //Grab the template
+  let template = document.getElementById('alertTemplate');
+  var clone = template.cloneNode();
+
+  //Update the template
+  clone.id = id + "Alert";
+  clone.classList.remove("alert-primary");
+  clone.classList.add(type);
+  clone.getElementsByClassName('ms-2').value = message;
+  template.parentNode.prepend(clone);
+  document.getElementById('alertPlaceholder').style.display = "block !important";
 
 }
