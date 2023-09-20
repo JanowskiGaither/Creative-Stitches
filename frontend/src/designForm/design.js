@@ -10,6 +10,7 @@ let selectItemType = document.getElementById("designType");
 let saveGarmentModal = document.getElementById("saveGarmentModal");
 let testButtons = document.getElementById("testButtons");
 let garmentModal = document.getElementById('garmentModal')
+let garmentAlert = document.getElementById('garmentAlert')
 
 // Set the initial page values 
 async function initialSetup() {
@@ -21,11 +22,11 @@ function itemTypeSelection() {
   var typeSelected = selectItemType.options[selectItemType.selectedIndex].text;
 
   // Show Garment related divs, hide the rest
-  hideShowDivs(typeSelected);
+  hideShowDetails(typeSelected);
 }
 
 // hide and show the detail cards based on the selected item type
-function hideShowDivs(typeSelected) {
+function hideShowDetails(typeSelected) {
   document.getElementById('showGarment').style.display = "none";
   document.getElementById('showOther').style.display = "none";
   document.getElementById('showEmbroidery').style.display = "none";
@@ -94,15 +95,13 @@ saveGarmentModal.addEventListener("click", function () {
 
 // initialize test buttons
 for (let i = 0; i < 3; i++) {
-  let j = i + 1;
   testButtons.children[i].addEventListener("click", function () {
     try {
       switch (i) {
         case 0:
-          var testId = "styleNumber";
-          var message = "Style Number Required!"
-          var type = "alert-danger";
-          addAlert(testId, message, type);
+          var testMessage = 'This a is a test Message';
+          var testType = 'danger';
+          addAlert(garmentAlert, testMessage, testType);
           break;
         case 1:
           checkRequiredFields(garmentModal);
@@ -143,17 +142,14 @@ function checkRequiredFields(element) {
   }
 }
 
-function addAlert(id, message, type) {
-  //Grab the template
-  let template = document.getElementById('alertTemplate');
-  var clone = template.cloneNode();
+function addAlert(targetElement, message, type) {
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    `   <div>${message}</div>`,
+    `  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`,
+    `</div>`
+  ].join('')
 
-  //Update the template
-  clone.id = id + "Alert";
-  clone.classList.remove("alert-primary");
-  clone.classList.add(type);
-  clone.getElementsByClassName('ms-2').value = message;
-  template.parentNode.prepend(clone);
-  document.getElementById('alertPlaceholder').style.display = "block !important";
-
+  targetElement.append(wrapper)
 }
