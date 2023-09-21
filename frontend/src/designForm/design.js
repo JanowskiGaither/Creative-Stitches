@@ -99,9 +99,12 @@ for (let i = 0; i < 3; i++) {
     try {
       switch (i) {
         case 0:
-          var testMessage = 'This a is a test Message';
-          var testType = 'danger';
-          addAlert(garmentAlert, testMessage, testType);
+          let required = checkRequiredFields(garmentModal);
+          for (let req of required) {
+            var message = " is required!"
+            message = req + message;
+            addAlert(garmentAlert, message, 'danger')
+          }
           break;
         case 1:
           checkRequiredFields(garmentModal);
@@ -121,22 +124,24 @@ for (let i = 0; i < 3; i++) {
 
 // Check input values in the modal
 function checkRequiredFields(element) {
-  var inputs = element.getElementsByTagName('input');
-  var dropDowns = element.getElementsByTagName('select');
+  let inputs = element.getElementsByTagName('input');
+  let dropDowns = element.getElementsByTagName('select');
+  var required = []
   try {
     for (var i = 0; i < inputs.length; i++) {
       if (inputs[i].hasAttribute('required')) {
-        var labelName = inputs[i].previousElementSibling.innerText;
-        console.log(labelName + " is required!")
-
+        var inputName = inputs[i].previousElementSibling.innerText;
+        required.push(inputName.toString())
       }
     }
 
     for (var i = 0; i < dropDowns.length; i++) {
       if (dropDowns[i].hasAttribute('required')) {
-        console.log("Selection in Dropdown is required!")
+        var selectName = dropDowns[i].previousElementSibling.innerText;
+        required.push(selectName.toString())
       }
     }
+    return required;
   } catch (error) {
     console.log(error.toString())
   }
@@ -153,3 +158,8 @@ function addAlert(targetElement, message, type) {
 
   targetElement.append(wrapper)
 }
+
+// determine the current value in each of the input fields
+// if it is empty or null, Then it will trigger the alert
+// later versions will determine if the current input is valid
+function getInputValues() { }
