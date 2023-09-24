@@ -99,15 +99,11 @@ for (let i = 0; i < 3; i++) {
     try {
       switch (i) {
         case 0:
-          let required = checkRequiredFields(garmentModal);
-          for (let req of required) {
-            var message = " is required!"
-            message = req + message;
-            addAlert(garmentAlert, message, 'danger')
-          }
+          let required = findRequiredFields(garmentModal);
+          checkRequiredFields(required);
           break;
         case 1:
-          checkRequiredFields(garmentModal);
+          findRequiredFields(garmentModal)
           break;
         case 2:
           clearModalValues();
@@ -123,22 +119,20 @@ for (let i = 0; i < 3; i++) {
 }
 
 // Check input values in the modal
-function checkRequiredFields(element) {
-  let inputs = element.getElementsByTagName('input');
+function findRequiredFields(element) {
+  let inputFields = element.getElementsByTagName('input');
   let dropDowns = element.getElementsByTagName('select');
   var required = []
   try {
-    for (var i = 0; i < inputs.length; i++) {
-      if (inputs[i].hasAttribute('required')) {
-        var inputName = inputs[i].previousElementSibling.innerText;
-        required.push(inputName.toString())
+    for (let input of inputFields) {
+      if (input.hasAttribute('required')) {
+        required.push(input);
       }
     }
 
-    for (var i = 0; i < dropDowns.length; i++) {
-      if (dropDowns[i].hasAttribute('required')) {
-        var selectName = dropDowns[i].previousElementSibling.innerText;
-        required.push(selectName.toString())
+    for (let select of dropDowns) {
+      if (select.hasAttribute('required')) {
+        required.push(select);
       }
     }
     return required;
@@ -162,4 +156,16 @@ function addAlert(targetElement, message, type) {
 // determine the current value in each of the input fields
 // if it is empty or null, Then it will trigger the alert
 // later versions will determine if the current input is valid
-function getInputValues() { }
+function checkRequiredFields(requiredFields) {
+  for (let field of requiredFields) {
+    try {
+      if (field.value === '') {
+        var inputName = field.previousElementSibling.innerText;
+        var errorMessage = inputName + " is required"
+        addAlert(garmentAlert, errorMessage, 'danger');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
