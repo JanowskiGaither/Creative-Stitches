@@ -93,17 +93,26 @@ saveGarmentModal.addEventListener("click", function () {
 });
 
 
+// add event listeners to all the modal input/selection fields
+let requiredModalFields = findRequiredFields(garmentModal);
+for (let field of requiredModalFields) {
+  field.addEventListener("change", function () {
+    checkInputValue(field, garmentAlert);
+  })
+}
+
+
+
 // initialize test buttons
 for (let i = 0; i < 3; i++) {
   testButtons.children[i].addEventListener("click", function () {
     try {
       switch (i) {
         case 0:
-          let required = findRequiredFields(garmentModal);
-          checkRequiredFields(required);
+          console.log(requiredModalFields.length);
           break;
         case 1:
-          findRequiredFields(garmentModal)
+          checkRequiredFields(garmentModal);
           break;
         case 2:
           clearModalValues();
@@ -120,19 +129,19 @@ for (let i = 0; i < 3; i++) {
 
 // Check input values in the modal
 function findRequiredFields(element) {
-  let inputFields = element.getElementsByTagName('input');
+  let inputs = element.getElementsByTagName('input');
   let dropDowns = element.getElementsByTagName('select');
   var required = []
   try {
-    for (let input of inputFields) {
+    for (let input of inputs) {
       if (input.hasAttribute('required')) {
         required.push(input);
       }
     }
 
-    for (let select of dropDowns) {
-      if (select.hasAttribute('required')) {
-        required.push(select);
+    for (let dropDown of dropDowns) {
+      if (dropDown.hasAttribute('required')) {
+        required.push(dropDown);
       }
     }
     return required;
@@ -141,31 +150,39 @@ function findRequiredFields(element) {
   }
 }
 
-function addAlert(targetElement, message, type) {
-  const wrapper = document.createElement('div')
+function addAlert(alertPlaceholder, message, type, id) {
+  const wrapper = document.createElement('div');
+  wrapper.setAttribute('id', id)
   wrapper.innerHTML = [
     `<div class="alert alert-${type} alert-dismissible" role="alert">`,
     `   <div>${message}</div>`,
     `  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`,
     `</div>`
   ].join('')
-
-  targetElement.append(wrapper)
+  alertPlaceholder.append(wrapper);
 }
 
 // determine the current value in each of the input fields
 // if it is empty or null, Then it will trigger the alert
 // later versions will determine if the current input is valid
-function checkRequiredFields(requiredFields) {
-  for (let field of requiredFields) {
-    try {
-      if (field.value === '') {
-        var inputName = field.previousElementSibling.innerText;
-        var errorMessage = inputName + " is required"
-        addAlert(garmentAlert, errorMessage, 'danger');
+function checkInputValue(element, alertPlaceholder) {
+  var inputName = element.previousElementSibling.innerText;
+  var alertID = inputName.split(" ").join("-");
+  alertID = alertID.toLowerCase();
+  var message = inputName + ' is a required field';
+  try {
+    if (element.value == '' || element.value === null) {
+      addAlert(alertPlaceholder, message, 'danger', alertID);
+    } else {
+      let alertToRemove = document.getElementById(alertID);
+      if (alertToRemove != null) {
+        alertToRemove.remove();
       }
-    } catch (error) {
-      console.log(error);
     }
+  } catch (error) {
+    console.log(error.toString());
   }
 }
+
+
+
