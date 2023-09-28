@@ -6,15 +6,59 @@ import * as stitchesReadSave from '../Library/stitchesReadSave.js'
 import * as stitchesIDs from '../Library/stitchesIDs'
 import * as stichesCalculations from '../Library/stitchesCalculations'
 
+// Grab Constant Elements
 let selectItemType = document.getElementById("designType");
 let saveGarmentModal = document.getElementById("saveGarmentModal");
 let testButtons = document.getElementById("testButtons");
 let garmentModal = document.getElementById('garmentModal')
 let garmentAlert = document.getElementById('garmentAlert')
+let requiredModalFields = findRequiredFields(garmentModal);
 
+
+// add event listeners
+{
+  document.addEventListener("DOMContentLoaded", async function () {
+    // Wait for the page to fully load, then run initial setup for the page
+    initialSetup();
+  });
+
+  selectItemType.addEventListener("change", function () {
+    // Show the correct item type based on current selection
+    itemTypeSelection();
+  });
+
+  saveGarmentModal.addEventListener("click", function () {
+    saveModalValues();
+  });
+}
+// ----------Functions----------------------------------------------------------------
 // Set the initial page values 
 async function initialSetup() {
   //add intial setup code here
+  addInputListeners(requiredModalFields, garmentAlert);
+  // initialize test buttons
+  for (let i = 0; i < 3; i++) {
+    testButtons.children[i].addEventListener("click", function () {
+      try {
+        switch (i) {
+          case 0:
+            console.log(requiredModalFields.length);
+            break;
+          case 1:
+            console.log(requiredModalFields.length);
+            break;
+          case 2:
+            clearModalValues();
+            break;
+          default:
+            console.log("something went wrong");
+        }
+      } catch (error) {
+        alert("Something went wrong in the test: " + error);
+      }
+
+    })
+  }
 }
 
 // Show or hard fields based on Design Type
@@ -55,9 +99,11 @@ function hideShowDetails(typeSelected) {
 // write all the field values in the modal to the session storage
 function saveModalValues() {
   //test the function by writing the value in the style number field to the console
-  var styleNumber = document.getElementById("garmentStyleNumber").value;
-  sessionStorage.setItem("style_number", styleNumber);
-
+  // var styleNumber = document.getElementById("garmentStyleNumber").value;
+  // sessionStorage.setItem("style_number", styleNumber);
+  for (let field of requiredModalFields) {
+    checkInputValue(field, garmentAlert);
+  }
 }
 
 function readModalValues() {
@@ -76,55 +122,6 @@ function clearModalValues() {
   } catch (error) {
     console.log("Session Storage unable to clear!")
   }
-}
-
-document.addEventListener("DOMContentLoaded", async function () {
-  // Wait for the page to fully load, then run initial setup for the page
-  initialSetup();
-});
-
-selectItemType.addEventListener("change", function () {
-  // Show the correct item type based on current selection
-  itemTypeSelection();
-});
-
-saveGarmentModal.addEventListener("click", function () {
-  saveModalValues();
-});
-
-
-// add event listeners to all the modal input/selection fields
-let requiredModalFields = findRequiredFields(garmentModal);
-for (let field of requiredModalFields) {
-  field.addEventListener("change", function () {
-    checkInputValue(field, garmentAlert);
-  })
-}
-
-
-
-// initialize test buttons
-for (let i = 0; i < 3; i++) {
-  testButtons.children[i].addEventListener("click", function () {
-    try {
-      switch (i) {
-        case 0:
-          console.log(requiredModalFields.length);
-          break;
-        case 1:
-          checkRequiredFields(garmentModal);
-          break;
-        case 2:
-          clearModalValues();
-          break;
-        default:
-          console.log("something went wrong");
-      }
-    } catch (error) {
-      alert("Something went wrong in the test: " + error);
-    }
-
-  })
 }
 
 // Check input values in the modal
@@ -155,8 +152,7 @@ function addAlert(alertPlaceholder, message, type, id) {
   wrapper.setAttribute('id', id)
   wrapper.innerHTML = [
     `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-    `   <div>${message}</div>`,
-    `  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`,
+    `  <div>${message}</div>`,
     `</div>`
   ].join('')
   alertPlaceholder.append(wrapper);
@@ -184,5 +180,10 @@ function checkInputValue(element, alertPlaceholder) {
   }
 }
 
-
-
+function addInputListeners(requiredFields, alertPlaceholder) {
+  for (let field of requiredFields) {
+    field.addEventListener("input", function () {
+      checkInputValue(field, alertPlaceholder);
+    })
+  }
+}
