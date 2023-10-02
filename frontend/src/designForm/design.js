@@ -13,6 +13,7 @@ let testButtons = document.getElementById("testButtons");
 let garmentModal = document.getElementById('garmentModal')
 let garmentAlert = document.getElementById('garmentAlert')
 let requiredModalFields = findRequiredFields(garmentModal);
+let modalExitButtons = document.getElementsByClassName('modal-close');
 
 
 // add event listeners
@@ -30,6 +31,8 @@ let requiredModalFields = findRequiredFields(garmentModal);
   saveGarmentModal.addEventListener("click", function () {
     saveModalValues();
   });
+
+
 }
 // ----------Functions----------------------------------------------------------------
 // Set the initial page values 
@@ -57,6 +60,13 @@ async function initialSetup() {
         alert("Something went wrong in the test: " + error);
       }
 
+    })
+  }
+
+  //add event listener to each of the modal close buttons
+  for (let exit of modalExitButtons) {
+    exit.addEventListener("click", function () {
+      clearModal(garmentModal);
     })
   }
 }
@@ -185,5 +195,24 @@ function addInputListeners(requiredFields, alertPlaceholder) {
     field.addEventListener("input", function () {
       checkInputValue(field, alertPlaceholder);
     })
+  }
+}
+
+function clearModal(modal) {
+  clearModalInputs(modal);
+  clearModalSelects(modal);
+}
+
+function clearModalInputs(modal) {
+  let inputs = modal.getElementsByTagName('input');
+  for (let input of inputs) {
+    input.value = null;
+  }
+}
+
+function clearModalSelects(modal) {
+  let dropDowns = modal.getElementsByTagName('select');
+  for (let select of dropDowns) {
+    select.selectedIndex = 0;
   }
 }
