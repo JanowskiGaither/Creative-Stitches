@@ -14,6 +14,7 @@ let garmentModal = document.getElementById('garmentModal')
 let garmentAlert = document.getElementById('garmentAlert')
 let requiredModalFields = findRequiredFields(garmentModal);
 let modalExitButtons = document.getElementsByClassName('modal-close');
+let costPerItem = document.getElementById('garmentCostPerItem');
 
 
 // add event listeners
@@ -32,6 +33,9 @@ let modalExitButtons = document.getElementsByClassName('modal-close');
     saveModalValues();
   });
 
+  costPerItem.addEventListener("input", function () {
+    formatCostInputField(costPerItem);
+  })
 
 }
 // ----------Functions----------------------------------------------------------------
@@ -113,6 +117,17 @@ function saveModalValues() {
   // sessionStorage.setItem("style_number", styleNumber);
   for (let field of requiredModalFields) {
     checkInputValue(field, garmentAlert);
+  }
+}
+
+function formatCostInputField(element) {
+  let cost = element.value
+  var dollarSign = cost.indexOf('$')
+  console.log(dollarSign);
+  if (dollarSign < 0) {
+    cost = "$" + cost;
+    console.log(typeof dollarSign);
+    element.value = cost;
   }
 }
 
