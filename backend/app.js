@@ -12,7 +12,7 @@ const app = express();
 const port = 3000;
 
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb://mongo:27017/test', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://siteAdmin:password@mongo:27017/')
   .then(() => {
     console.log("Mongo Connection Open");
   })
@@ -28,15 +28,15 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 async function saveOrder(order) {
 
   // Save received information
-  await Order.updateOne({ customerID: order.customerID, orderID: order.orderID }, { customerID: order.customerID, orderID: order.orderID, taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate }, { upsert: true });
+  //await Order.updateOne({ customerID: order.customerID, orderID: order.orderID }, { customerID: order.customerID, orderID: order.orderID, taxExemption: order.taxExemption, requestedDeliveryDate: order.requestedDeliveryDate }, { upsert: true });
 }
 
 //Save order
 async function saveCustomer(customer) {
   // Save received  Customer information
-  await Customer.updateOne({ customerID: customer.customerID }, {
-    customerID: customer.customerID, firstName: customer.firstName, lastName: customer.lastName, organization: customer.organization, phone: customer.phone, email: customer.email
-  }, { upsert: true });
+  // await Customer.updateOne({ customerID: customer.customerID }, {
+  //   customerID: customer.customerID, firstName: customer.firstName, lastName: customer.lastName, organization: customer.organization, phone: customer.phone, email: customer.email
+  // }, { upsert: true });
 }
 
 //Save garment

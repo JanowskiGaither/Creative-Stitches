@@ -18,6 +18,7 @@ services:
     volumes:
       - orderdata:/data/db
       - configdb:/data/configdb
+    command: [ --auth ]
     restart: always
 
 volumes:
